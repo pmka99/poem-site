@@ -31,51 +31,52 @@ const data = `
 
 function Hemistich({ children }: { children: React.ReactNode }) {
 
-  const hemistich = children?.toLocaleString() || "";
+    const hemistich = children?.toLocaleString() || "";
 
-  const parts = hemistich.split(" ").filter(part => part.trim().length > 0);
+    const parts = hemistich.split(" ").filter(part => part.trim().length > 0);
 
-  return (
-    <div className="w-full">
-      <p aria-hidden="true" className="lg:text-3xl text-2xl w-full flex justify-between text-justify">
-        {parts.map((part, index) => (
-          <span key={index} className="inline-block">
-            {part}
-          </span>
-        ))}
-      </p>
-      <p className="sr-only">
-        {hemistich}
-      </p>
-    </div>
-  )
+    return (
+        <div className="w-full">
+            <p aria-hidden="true" className="lg:text-3xl text-2xl w-full flex justify-between text-justify">
+                {parts.map((part, index) => (
+                    <span key={index} className="inline-block">
+                        {part}
+                    </span>
+                ))}
+            </p>
+            <p className="sr-only">
+                {hemistich}
+            </p>
+        </div>
+    )
 }
 
 
 export default function Home() {
 
-  const hemistiches = data.split("//").map(line => line.trim()).filter(line => line.length > 0);
+    const hemistiches = data.split("//").map(line => line.trim()).filter(line => line.length > 0);
 
-  return (
-    <div className="flex w-full p-4 justify-center">
-      <div className="
+    return (
+        <div className="flex w-full p-4 justify-center">
+            <div className="
       lg:py-10
+      text-gray-950 
       grid lg:grid-cols-2 
       gap-y-12 lg:gap-x-36 lg:gap-y-16
       lg:w-10/12 select-none">
-        {
-          hemistiches.map((hemistich, index) => (
-            <div
-              key={index}
-              className={`${index % 2 === 1 ? "mb-4 lg:mb-0" : ""}`}
-            >
-              <Hemistich key={index}>
-                {hemistich}
-              </Hemistich>
+                {
+                    hemistiches.map((hemistich, index) => (
+                        <div
+                            key={index}
+                            className={`${index % 2 === 1 ? "mb-4 lg:mb-0" : ""}`}
+                        >
+                            <Hemistich key={index}>
+                                {hemistich}
+                            </Hemistich>
+                        </div>
+                    ))
+                }
             </div>
-          ))
-        }
-      </div>
-    </div>
-  );
+        </div>
+    );
 }

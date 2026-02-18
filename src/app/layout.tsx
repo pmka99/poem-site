@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Noto_Nastaliq_Urdu } from "next/font/google";
 import "./globals.css";
+import Layout from "@/layout";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const notoNastaliqUrdu = Noto_Nastaliq_Urdu({
+  variable: "--font-nastaliq",
+  subsets: ["arabic"],
 });
 
 export const metadata: Metadata = {
@@ -23,11 +19,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" dir="rtl">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${notoNastaliqUrdu.variable} antialiased`}
       >
-        {children}
+        <Layout>
+          {children}
+        </Layout>
       </body>
     </html>
   );

@@ -1,26 +1,152 @@
 @import "tailwindcss";
 
+/* ==================================================
+   Base Theme — Light (Default)
+   ================================================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base Colors */
+  --background: #f6e9d8;            /* Vintage paper */
+  --foreground: #4a3a2a;            /* Warm brown */
+
+  /* Primary */
+  --primary: #c89b6d;
+  --primary-foreground: #3a2a1c;
+
+  /* Secondary */
+  --secondary: #d97a6c;
+  --secondary-foreground: #ffffff;
+
+  /* Accent */
+  --accent: #7fae9e;
+  --accent-foreground: #1f3a34;
+
+  /* Muted */
+  --muted: #ead9c4;
+  --muted-foreground: #7a6a58;
+
+  /* Border */
+  --border: #d8c3a5;
+
+  /* Background Image (Light) */
+  --bg-image: url("/images/theme-light.webp");
 }
 
+/* ==================================================
+   Dark Theme — Manual Toggle (data-theme)
+   ================================================== */
+:root[data-theme="dark"] {
+  /* Base Colors */
+  --background: #020617;            /* Deep navy */
+  --foreground: #e5e7eb;
+
+  /* Primary */
+  --primary: #1e3a8a;
+  --primary-foreground: #e0e7ff;
+
+  /* Secondary */
+  --secondary: #2563eb;
+  --secondary-foreground: #ffffff;
+
+  /* Accent */
+  --accent: #38bdf8;
+  --accent-foreground: #020617;
+
+  /* Muted */
+  --muted: #0f172a;
+  --muted-foreground: #94a3b8;
+
+  /* Border */
+  --border: #1e293b;
+
+  /* Background Gradient (Dark) */
+  --bg-image: linear-gradient(
+    135deg,
+    #020617 0%,
+    #040b1f 35%,
+    #020617 70%,
+    #010314 100%
+  );
+}
+
+/* ==================================================
+   Tailwind Theme Tokens
+   ================================================== */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-border: var(--border);
+
+  --font-sans: var(--font-nastaliq), Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ==================================================
+   Global Reset / Base
+   ================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+  background-image: var(--bg-image);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  @apply font-sans antialiased;
+}
+
+/* ==================================================
+   Selection
+   ================================================== */
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* ==================================================
+   Smooth Theme Transition
+   ================================================== */
+html {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* ==================================================
+   Utility Fixes
+   ================================================== */
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Disable tap highlight on mobile */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
