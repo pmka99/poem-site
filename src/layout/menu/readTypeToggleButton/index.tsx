@@ -5,10 +5,14 @@ import React from "react";
 
 export default function ReadTypeToggleButton() {
 
-    const defaultReadType = localStorage.getItem("read-type") || "infinit-scroll"; // مقدار پیش‌فرض
+    const [readType, setReadType] = React.useState("infinit-scroll");
 
-    const [readType, setReadType] = React.useState(defaultReadType);
-    
+    React.useEffect(() => {
+        const stored = localStorage.getItem("read-type") || "infinit-scroll";
+        if (stored) {
+            setReadType(stored);
+        }
+    }, []);
 
     const toggleReadType = () => {
 

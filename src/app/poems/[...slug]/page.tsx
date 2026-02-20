@@ -1,11 +1,19 @@
 import PoemTemplate1 from '@/templates/poem1';
-import { NextPage } from 'next'
 
-interface Props {}
+interface PageProps {
+  params: Promise<{
+    slug: string[];
+  }>;
+  searchParams: Promise<{
+    [key: string]: string | string[] | undefined;
+  }>;
+}
 
-const Page: NextPage<Props> = ({}) => {
+export default async function Page({ params, searchParams }: PageProps) {
+  const { slug } = await params;
+
   const data = `
-اَلا یا اَیُّهَا السّاقی اَدِرْ کَأسَاً و ناوِلْها
+اَلا یا اَیُّهَا السّـــاقی اَدِرْ کَأسَاً و ناوِلْها
 //
 که عشق آسان نمود اوّل ولی افتاد مشکل‌ها
 //
@@ -31,9 +39,8 @@ const Page: NextPage<Props> = ({}) => {
 //
 حضوری گر همی خواهی از او غایب مشو حافظ
 //
-مَتیٰ ما تَلْقَ مَنْ تَهْویٰ دَعِ الدُّنْیا وَ اَهْمِلْها`;
+مَتیٰ ما تَلْقَ مَنْ تَهْویٰ دَعِ الدُّنْیا وَ اَهْمِلْها
+`;
 
   return <PoemTemplate1 data={data} />;
 }
-
-export default Page
