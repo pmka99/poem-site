@@ -34,7 +34,7 @@ function Hemistich({ children }: { children: React.ReactNode }) {
   const hemistich = children?.toLocaleString() || "";
 
   const parts = hemistich.split(" ").filter(part => part.trim().length > 0);
-
+  
   return (
     <div className="w-full">
       <p aria-hidden="true" className="lg:text-3xl text-2xl w-full flex justify-between text-justify">
@@ -55,7 +55,8 @@ function Hemistich({ children }: { children: React.ReactNode }) {
 export default function Home() {
 
   const hemistiches = data.split("//").map(line => line.trim()).filter(line => line.length > 0);
-
+  console.log(hemistiches);
+  
   return (
     <div className="flex w-full p-4 justify-center">
       <div className="
