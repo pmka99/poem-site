@@ -19,7 +19,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@validators/*": ["./src/server/validators/*"],
+      "@models/*": ["./src/server/models/*"],
+      "@server/utils/*": ["./src/server/utils/*"],
     }
   },
   "include": [

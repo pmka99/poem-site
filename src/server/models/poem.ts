@@ -3,7 +3,7 @@ import mongoosePaginate from "mongoose-paginate-v2";
 
 export interface IPoem extends Document {
     title: string;
-    about?: string;
+    description?: string;
     show: boolean;
     author: mongoose.Types.ObjectId;
     story: mongoose.Types.ObjectId[];
@@ -15,7 +15,7 @@ export interface IPoem extends Document {
 const poemSchema = new mongoose.Schema<IPoem>(
     {
         title: { type: String, required: true },
-        about: { type: String },
+        description: { type: String },
         show: { type: Boolean, default: true },
         author: {
             type: mongoose.Schema.Types.ObjectId,

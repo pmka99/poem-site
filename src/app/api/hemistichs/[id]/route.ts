@@ -1,30 +1,43 @@
 
-import { connectDB } from "@/utils/db";
-import PoemModel, { IPoem } from "@/models/poem";
+import { connectDB } from "@/server/utils/db";
 import { NextResponse } from 'next/server';
-import HemistichModel from "@/models/hemistich";
+import HemistichModel from "@/server/models/hemistich";
+import { validateBody, validateId } from "@/server/validator";
+import { updateHemistichSchema } from "@/schemas/hemistich.schema";
 
+type RouteContext = { params: { id: string } }
 
-export async function GET(ctx: { params: { id: string } }) {
-    await connectDB();
+const collectionName = "مصرع";
+
+/** get a hemistich by id */
+export async function GET(ctx: RouteContext) {
     const { id } = ctx.params;
-    const poem: IPoem | null = await PoemModel.findById(id);
+    validateId(id, collectionName);
+    await connectDB();
 
-    if (!poem) {
-        return NextResponse.json({ error: "Poem not found" }, { status: 404 });
+    const hemistich = await HemistichModel.findById(id).lean();
+
+    if (!hemistich) {
+        return NextResponse.json({ error: "Hemistich not found" }, { status: 404 });
     }
 
-    return NextResponse.json(poem);
+    return NextResponse.json(hemistich);
 }
 
-export async function PUT(request: Request, ctx: { params: { id: string } }) {
-    await connectDB();
+/** update a hemistich by id */
+export async function PUT(request: Request, ctx: RouteContext) {
     const { id } = ctx.params;
-    const { text, order } = await request.json();
+    const hemistich = await request.json();
+
+    // validation
+    validateId(id, collectionName);
+    validateBody(updateHemistichSchema, hemistich);
+
+    await connectDB();
 
     const updatedHemistich = await HemistichModel.findByIdAndUpdate(
         id,
-        { text, order },
+        hemistich,
         { new: true }
     );
 
@@ -35,13 +48,19 @@ export async function PUT(request: Request, ctx: { params: { id: string } }) {
     return NextResponse.json(updatedHemistich);
 }
 
-export async function DELETE(ctx: { params: { id: string } }) {
+/** delete a hemistich by id */
+export async function DELETE(ctx: RouteContext) {
+    const { id } = ctx.params;
+    
+    // validation
+    validateId(id, collectionName);
+
     await connectDB();
-    const { id } = ctx.params;  
+    
     const deletedHemistich = await HemistichModel.findByIdAndDelete(id);
 
     if (!deletedHemistich) {
         return NextResponse.json({ error: "Hemistich not found" }, { status: 404 });
-    }   
+    }
     return NextResponse.json({ message: "Hemistich deleted successfully" });
 }
