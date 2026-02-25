@@ -2,14 +2,18 @@
 import { connectDB } from "@/server/utils/db";
 import { NextResponse } from 'next/server';
 import HemistichModel from "@/server/models/hemistich";
-import { validateBody, validateId } from "@/server/validator";
+import { validateBody, validateId } from "@/server/validators";
 import { updateHemistichSchema } from "@/schemas/hemistich.schema";
+import { createIdParamsSchema } from "@/server/validators/createIdParamsSchema";
 
+const zz = createIdParamsSchema("id")
 type RouteContext = { params: { id: string } }
 
 const collectionName = "مصرع";
 
 /** get a hemistich by id */
+
+
 export async function GET(ctx: RouteContext) {
     const { id } = ctx.params;
     validateId(id, collectionName);
@@ -51,12 +55,12 @@ export async function PUT(request: Request, ctx: RouteContext) {
 /** delete a hemistich by id */
 export async function DELETE(ctx: RouteContext) {
     const { id } = ctx.params;
-    
+
     // validation
     validateId(id, collectionName);
 
     await connectDB();
-    
+
     const deletedHemistich = await HemistichModel.findByIdAndDelete(id);
 
     if (!deletedHemistich) {

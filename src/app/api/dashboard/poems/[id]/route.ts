@@ -1,7 +1,7 @@
 import { connectDB } from "@/server/utils/db";
 import PoemModel, { IPoem } from "@/server/models/poem";
 import { NextRequest, NextResponse } from 'next/server';
-import { validateBody, validateId } from "@/server/validator";
+import { validateBody, validateId } from "@/server/validators";
 import { updatePoemSchema } from "@/schemas/poem.schema";
 
 const collectionName = "شعر";

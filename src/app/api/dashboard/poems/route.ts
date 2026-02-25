@@ -1,7 +1,7 @@
 import { connectDB } from "@/server/utils/db";
 import PoemModel, { IPoem } from "@/server/models/poem";
 import { NextResponse } from 'next/server';
-import { validateBody } from "@/server/validator";
+import { validateBody } from "@/server/validators";
 import { createPoemSchema } from "@/schemas/poem.schema";
 
 /** get all poems with pagination */
