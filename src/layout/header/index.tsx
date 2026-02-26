@@ -6,7 +6,6 @@ export default function Header() {
 
   return (
     <>
-      <Menu />
       <header className="w-full h-20 lg:h-40 justify-between flex items-center p-1">
         <Image
           src={"/images/bird.webp"}

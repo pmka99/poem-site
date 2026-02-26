@@ -1,46 +1,62 @@
-import { connectDB } from "@/server/utils/db";
-import PoemModel, { IPoem } from "@/server/models/poem";
-import { NextResponse } from 'next/server';
-import { validateBody } from "@/server/validators";
-import { createPoemSchema } from "@/schemas/poem.schema";
+import { connectDB } from "../../../../../server/utils/db";
+import PoemModel, { IPoem } from "../../../../../server/models/poem";
+import { NextResponse } from "next/server";
+import { protectedRoute } from "../../../../../server/guard/protectedRoute";
+import { createPoemSchema } from "../../../../../server/schemas/poem.schema";
+import { createIdParamsSchema } from "../../../../../server/validators";
 
-/** get all poems with pagination */
-export async function GET(request: Request) {
-    await connectDB();
+// ✅ Schema for query params (GET)
+const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "author", "poemType", "text"])
 
-    const url = new URL(request.url);
-    const page = parseInt(url.searchParams.get("page") || "1");
-    const limit = parseInt(url.searchParams.get("limit") || "10");
-    const author = url.searchParams.get("author");
-    const poemType = url.searchParams.get("poemType");
-    const text = url.searchParams.get("text");
+// GET /poems
+export const GET = protectedRoute(
+    {
+        require: [{ action: "read", resource: "poem" }],
+        querySchema: queryParamsSchema,
+    },
+    async (_req, _ctx, { query }) => {
+        await connectDB();
 
-    // search for hemistichs that match the text and get their poem IDs
-    const resultOfHemistich = await PoemModel.find({ story: { $regex: text || "", $options: "i" } }).select("_id");
-    const hemistichIds = resultOfHemistich.map((poem) => poem._id);
+        const page = parseInt(query.page ?? "1");
+        const limit = parseInt(query.limit ?? "10");
+        const author = query.author;
+        const poemType = query.poemType;
+        const text = query.text;
 
-    const filter: any = {};
-    if (author) filter.author = author;
-    if (poemType) filter.poemType = poemType;
-    if (text) filter._id = { $in: hemistichIds };
+        // search for hemistichs that match the text and get their poem IDs
+        const resultOfHemistich = await PoemModel.find({
+            story: { $regex: text ?? "", $options: "i" },
+        }).select("_id");
 
-    const result = await PoemModel.paginate(filter, { limit, page, populate: ["author", "poemType"], lean: true });
-    const poems: IPoem[] = result.docs;
+        const hemistichIds = resultOfHemistich.map((poem) => poem._id);
 
-    return NextResponse.json(poems);
-}
+        const filter: any = {};
+        if (author) filter.author = author;
+        if (poemType) filter.poemType = poemType;
+        if (text) filter._id = { $in: hemistichIds };
 
-/** add a new poem */
-export async function POST(request: Request) {
-    await connectDB();
-    const poem: IPoem = await request.json();
+        const result = await PoemModel.paginate(filter, {
+            limit,
+            page,
+            populate: ["author", "poemType"],
+            lean: true,
+        });
 
-    // validation    
-    validateBody(createPoemSchema, poem);
+        return NextResponse.json(result.docs);
+    }
+);
 
-    const newPoem: IPoem = await PoemModel.create(
-        poem
-    );
+// POST /poems
+export const POST = protectedRoute(
+    {
+        require: [{ action: "create", resource: "poem" }],
+        bodySchema: createPoemSchema,
+    },
+    async (_req, _ctx, { body }) => {
+        await connectDB();
 
-    return NextResponse.json(newPoem);
-}
+        const newPoem: IPoem = await PoemModel.create(body);
+
+        return NextResponse.json(newPoem);
+    }
+);

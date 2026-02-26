@@ -20,10 +20,10 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@server/validators/*": ["./src/server/validators/*"],
-      "@server/models/*": ["./src/server/models/*"],
-      "@server/utils/*": ["./src/server/utils/*"],
-      "@server/guard/*":["./src/server/guard/*"]
+      "@server/validators/*": ["./server/validators/*"],
+      "@server/models/*": ["./server/models/*"],
+      "@server/utils/*": ["./server/utils/*"],
+      "@server/guard/*":["./server/guard/*"]
     }
   },
   "include": [

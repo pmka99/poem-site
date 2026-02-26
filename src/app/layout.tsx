@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Nastaliq_Urdu } from "next/font/google";
 import "./globals.css";
-import Layout from "@/layout";
 
 const notoNastaliqUrdu = Noto_Nastaliq_Urdu({
   variable: "--font-nastaliq",
@@ -23,9 +22,7 @@ export default function RootLayout({
       <body
         className={`${notoNastaliqUrdu.variable} antialiased`}
       >
-        <Layout>
           {children}
-        </Layout>
       </body>
     </html>
   );
