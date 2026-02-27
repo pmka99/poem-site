@@ -58,7 +58,7 @@ export default function Home() {
   console.log(hemistiches);
   
   return (
-    <div className="flex w-full p-4 justify-center">
+    <div className="flex w-full p-4 justify-center font-sans ">
       <div className="
       lg:py-10
       grid lg:grid-cols-2 

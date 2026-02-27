@@ -1,6 +1,6 @@
 import Footer from "./footer";
 import Header from "./header";
-import Menu from "./menu";
+import Menu from "./sidebar";
 
 
 export default function LayoutComponent({ children }: { children: React.ReactNode }) {

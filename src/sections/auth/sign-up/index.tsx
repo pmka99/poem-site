@@ -2,9 +2,12 @@
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { Form } from "@/components/form/formProvider";
+import { Field } from "@/components/form";
+import { Button } from "@mui/material";
 
 const schema = z.object({
+    username: z.string().min(1, "نام کاربری الزامی است"),
     phoneNumber: z.string().min(1, "تلفن همراه الزامی است").regex(/^09\d{9}$/, "فرمت شماره تلفن همراه صحیح نیست"),
     password: z.string().min(6, "رمز عبور باید حداقل 6 کاراکتر باشد"),
     confirmPassword: z.string().min(6, "تکرار رمز عبور باید حداقل 6 کاراکتر باشد"),
@@ -15,21 +18,39 @@ const schema = z.object({
 
 export type RegisterFormData = z.infer<typeof schema>;
 
-export default async function SignUpView() {
+export default function SignUpView() {
 
-    // const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>({
-    //     values:{
-    //         username: string;
-    //         phoneNumber: string;
-    //         password: string;
-    //         role: Types.ObjectId;
-    //     },
-    //     resolver: zodResolver(schema),
-    // });
+    const methods = useForm<RegisterFormData>({
+        values: {
+            username: "",
+            phoneNumber: "",
+            password: "",
+            confirmPassword: "",
+        },
+        resolver: zodResolver(schema),
+    });
+
+    const { control, handleSubmit, watch, setValue } = methods;
+
+    const onSubmit = (data: RegisterFormData) => {
+        console.log(data);
+    }
 
     return (
-        <>
-        </>
+        <div className="items-center flex h-full w-full bg-background p-4 rounded">
+            <Form onSubmit={handleSubmit(onSubmit)} methods={methods} >
+                <div className="flex flex-col gap-2 p-2 items-center">
+                    <h2>ثبت نام</h2>
+                    <Field.Text name="username" label="نام کاربری" />
+                    <Field.Text name="phoneNumber" label="تلفن همراه" />
+                    <Field.Text name="password" type="password" label="رمز عبور" />
+                    <Field.Text name="confirmPassword" type="password" label="تکرار رمز عبور" />
+                    <Button className="!text-white" type="submit" variant="contained" color="success" fullWidth>
+                        ثبت نام
+                    </Button>
+                </div>
+            </Form>
+        </div>
     )
 }
 

@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { Noto_Nastaliq_Urdu } from "next/font/google";
+import { Noto_Naskh_Arabic } from "next/font/google";
 import "./globals.css";
 
 const notoNastaliqUrdu = Noto_Nastaliq_Urdu({
   variable: "--font-nastaliq",
+  subsets: ["arabic"],
+});
+
+const notoNaskhArabic = Noto_Naskh_Arabic({
+  variable: "--font-naskh",
   subsets: ["arabic"],
 });
 
@@ -20,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" dir="rtl">
       <body
-        className={`${notoNastaliqUrdu.variable} antialiased`}
+        className={`${notoNastaliqUrdu.variable} ${notoNaskhArabic.variable} antialiased`}
       >
           {children}
       </body>

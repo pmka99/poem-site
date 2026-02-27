@@ -20,10 +20,14 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      //server
       "@server/validators/*": ["./server/validators/*"],
       "@server/models/*": ["./server/models/*"],
       "@server/utils/*": ["./server/utils/*"],
-      "@server/guard/*":["./server/guard/*"]
+      "@server/guard/*":["./server/guard/*"],
+      //client
+      "@components/*": ["./src/components/*"],
+      "@components/form/*": ["./src/components/form/*"],
     }
   },
   "include": [

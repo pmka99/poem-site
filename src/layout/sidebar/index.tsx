@@ -7,7 +7,7 @@ import ThemeToggleButton from "./ThemeToggleButton";
 import ReadTypeToggleButton from "./readTypeToggleButton";
 
 
-export default function Menu() {
+export default function SideBar() {
 
     const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
     console.log("isOpenDrawer", isOpenDrawer);
@@ -20,7 +20,7 @@ export default function Menu() {
         <div className="z-50 right-0 top-0 flex gap-2 fixed">
             <Drawer isOpen={isOpenDrawer} onClose={handleClose} >
                 <div className="flex flex-col gap-6 overflow-hidden w-80 h-screen py-2">
-                    <ThemeToggleButton />
+                    {/* <ThemeToggleButton /> */}
                     <ReadTypeToggleButton />
                 </div>
             </Drawer>

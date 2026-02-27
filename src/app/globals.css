@@ -5,7 +5,7 @@
    ================================================== */
 :root {
   /* Base Colors */
-  --background: #f6e9d8;            /* Vintage paper */
+  --background: #faf9f8;            /* Vintage paper */
   --foreground: #4a3a2a;            /* Warm brown */
 
   /* Primary */
@@ -90,6 +90,7 @@
   --color-border: var(--border);
 
   --font-sans: var(--font-nastaliq), Arial, Helvetica, sans-serif;
+  --font-serif: var(--font-naskh), Arial, Helvetica, sans-serif;
 }
 
 /* ==================================================
@@ -115,7 +116,7 @@ body {
   background-position: center;
   background-attachment: fixed;
 
-  @apply font-sans antialiased;
+  /* @apply font-sans antialiased; */
 }
 
 /* ==================================================

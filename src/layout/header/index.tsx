@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Menu from "../menu";
+import Menu from "../sidebar";
 
 export default function Header() {
 
@@ -22,7 +22,7 @@ export default function Header() {
           className="absolute w-auto h-80 top-0 left-0 -scale-x-100"
           loading="eager"
           fetchPriority="high"
-          />
+        />
       </header>
     </>
   )
