@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { CacheProvider } from "@emotion/react";
 import createRtlCache from "./createRtlCache";
-import { getCssVar } from "./getCssVar";
 
 const cacheRtl = createRtlCache();
 
@@ -13,66 +12,35 @@ export default function MuiProvider({
 }: {
     children: React.ReactNode;
 }) {
-    const defaultThemeMode = localStorage.getItem("theme") as ("light" | "dark")
-    const [mode, setMode] = useState<"light" | "dark">(defaultThemeMode ?? "light");
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-
-        const updateMode = () => {
-            setMode(
-                defaultThemeMode === "dark"
-                    ? "dark"
-                    : "light"
-            );
-        };
-
-        updateMode();
-
-        const observer = new MutationObserver(updateMode);
-
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ["data-theme"],
-        });
-
-        return () => observer.disconnect();
-    }, []);
-
-    const theme = useMemo(() => {
-        if (!mounted) return createTheme();
-
-        return createTheme({
+    const theme = useMemo(() =>
+        createTheme({
             direction: "rtl",
 
             palette: {
-                mode,
+                mode: "light",
 
                 primary: {
-                    main: getCssVar("--primary"),
+                    main: "#c89b6d",
                 },
 
                 secondary: {
-                    main: getCssVar("--secondary"),
+                    main: "#1f2937",
                 },
 
                 background: {
-                    default: getCssVar("--background"),
+                    default: "#ffffff",
                 },
 
                 text: {
-                    primary: getCssVar("--foreground"),
+                    primary: "#111827",
                 },
             },
 
             typography: {
                 fontFamily: "var(--font-naskh)",
             },
-        }, { mode });
-    }, [mode, mounted]);
-
-    if (!mounted) return null;
+        }),
+        []);
 
     return (
         <CacheProvider value={cacheRtl}>

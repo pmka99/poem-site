@@ -3,14 +3,13 @@
 import Drawer from "@/components/drawer";
 import React from "react";
 import { IoMenu } from "react-icons/io5";
-import ThemeToggleButton from "./ThemeToggleButton";
+// import ThemeToggleButton from "./ThemeToggleButton";
 import ReadTypeToggleButton from "./readTypeToggleButton";
 
 
 export default function SideBar() {
 
     const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
-    console.log("isOpenDrawer", isOpenDrawer);
 
     const handleClose = () => {
         setIsOpenDrawer(false);
@@ -19,7 +18,7 @@ export default function SideBar() {
     return (
         <div className="z-50 right-0 top-0 flex gap-2 fixed">
             <Drawer isOpen={isOpenDrawer} onClose={handleClose} >
-                <div className="flex flex-col gap-6 overflow-hidden w-80 h-screen py-2">
+                <div className="flex flex-col gap-6 overflow-hidden w-80 h-screen py-14">
                     {/* <ThemeToggleButton /> */}
                     <ReadTypeToggleButton />
                 </div>

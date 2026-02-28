@@ -1,6 +1,6 @@
 import Footer from "./footer";
 import Header from "./header";
-import Menu from "./sidebar";
+import SideBar from "./sidebar";
 
 
 export default function LayoutComponent({ children }: { children: React.ReactNode }) {
@@ -9,7 +9,7 @@ export default function LayoutComponent({ children }: { children: React.ReactNod
 
     return (
         <div className="flex relative w-full flex-col min-h-screen justify-between">
-            <Menu />
+            <SideBar />
             <Header />
             <div className="w-full p-1 z-10 py-60 lg:py-20">
                 {children}
