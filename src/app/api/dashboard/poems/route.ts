@@ -42,7 +42,7 @@ export const GET = protectedRoute(
             lean: true,
         });
 
-        return NextResponse.json(result.docs);
+        return NextResponse.json({ data: result.docs });
     }
 );
 
@@ -57,6 +57,6 @@ export const POST = protectedRoute(
 
         const newPoem: IPoem = await PoemModel.create(body);
 
-        return NextResponse.json(newPoem);
+        return NextResponse.json({ data: newPoem });
     }
 );

@@ -9,7 +9,7 @@ export async function GET() {
 
     const poemTypes = await PoemTypesModel.find().lean();
 
-    return NextResponse.json(poemTypes);
+    return NextResponse.json({ data: poemTypes });
 }
 
 /** add a new poem type */
@@ -18,5 +18,5 @@ export async function POST(request: Request) {
     const poemType = await request.json() as IPoemType;
     const newPoemType = await PoemTypesModel.create(poemType);
 
-    return NextResponse.json(newPoemType);
+    return NextResponse.json({ data: newPoemType });
 }

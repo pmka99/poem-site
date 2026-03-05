@@ -26,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" dir="rtl">
       <body
+        cz-shortcut-listen="true"
         className={`${notoNastaliqUrdu.variable} ${notoNaskhArabic.variable} antialiased`}
       >
           {children}

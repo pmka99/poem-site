@@ -32,7 +32,7 @@ export const GET = protectedRoute(
             { limit, page, populate: ["author", "poemType"], lean: true });
         const hemistichs: IHemistich[] = result.docs;
 
-        return NextResponse.json(hemistichs);
+        return NextResponse.json({ data: hemistichs });
     }
 )
 
@@ -54,7 +54,7 @@ export const POST = protectedRoute(
         const newHemistich: IHemistich = await HemistichModel.create(
             body
         );
-        return NextResponse.json(newHemistich);
+        return NextResponse.json({ data: newHemistich });
     }
 )
 

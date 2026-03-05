@@ -1,13 +1,22 @@
 import { z } from "zod";
+import { objectIdSchema } from "./common/object-id.schema";
 
 export const createUserSchema = z.object({
     username: z.string().min(3, "نام کاربری حداقل ۳ کاراکتر باشد"),
-    phoneNumber: z.string().min(10, "شماره موبایل معتبر نیست"),
+    phoneNumber: z.string().regex(/^(0|\+98)?9\d{9}$/, "شماره موبایل معتبر نیست"),
     password: z.string().min(6, "رمز عبور حداقل ۶ کاراکتر باشد"),
-    role: z.enum(["user", "admin", "author"]).default("user"),
+    role: objectIdSchema,
+    isActive: z.boolean().optional()
 });
 
 export const updateUserSchema = createUserSchema.partial();
 
+export const signInSchema = z.object({
+    identifier: z.string().min(1, "شناسه (نام کاربری یا شماره موبایل) الزامی است"),
+    password: z.string().min(6, "رمز عبور حداقل ۶ کاراکتر باشد")
+});
+
+
 export type CreateUserDTO = z.infer<typeof createUserSchema>;
 export type UpdateUserDTO = z.infer<typeof updateUserSchema>;
+export type SignInDTO = z.infer<typeof signInSchema>;

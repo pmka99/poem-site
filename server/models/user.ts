@@ -20,6 +20,7 @@ const UserSchema = new Schema<IUser>(
             required: true,
             trim: true,
             minlength: 3,
+            unique: true, 
         },
         phoneNumber: {
             type: String,
@@ -48,21 +49,7 @@ const UserSchema = new Schema<IUser>(
 );
 
 // Index
-UserSchema.index({ email: 1 });
 UserSchema.index({ role: 1 });
-
-// // Hash password before save
-// UserSchema.pre("save", async function (next) {
-//     if (!this.isModified("password")) return next();
-
-//     const salt = await bcrypt.genSalt(10);
-//     this.password = await bcrypt.hash(this.password, salt);
-//     next();
-// });
-
-// UserSchema.methods.comparePassword = function (candidate: string) {
-//     return bcrypt.compare(candidate, this.password);
-// };
 
 export const UserModel =
     mongoose.models.User ||

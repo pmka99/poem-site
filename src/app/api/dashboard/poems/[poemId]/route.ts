@@ -37,7 +37,7 @@ export const PUT = protectedRoute(
 
         const updatedPoem: IPoem | null = await PoemModel.findByIdAndUpdate(poemId, body, { new: true });
 
-        return NextResponse.json(updatedPoem);
+        return NextResponse.json({ data: updatedPoem });
     }
 );
 

@@ -23,7 +23,7 @@ export const GET = protectedRoute(
         if (!hemistich) {
             return NextResponse.json({ error: "Hemistich not found" }, { status: 404 });
         }
-        return NextResponse.json(hemistich);
+        return NextResponse.json({ data: hemistich });
     }
 )
 
@@ -47,7 +47,7 @@ export const PUT = protectedRoute(
             return NextResponse.json({ error: "Hemistich not found" }, { status: 404 });
         }
 
-        return NextResponse.json(updatedHemistich);
+        return NextResponse.json({ data: updatedHemistich });
     }
 )
 
