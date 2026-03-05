@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
-import { UserModel } from "../server/models/user";
-import { IRole, RoleModel } from '../server/models/role';
+import { UserModel } from "../src/server/models/user";
+import { IRole, RoleModel } from '../src/server/models/role';
+import { RoleName } from '../src/enum/role';
 
 export const seedUsers = async () => {
     const existingAdmin = await UserModel.findOne({
@@ -18,7 +19,7 @@ export const seedUsers = async () => {
     }
     const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
 
-    const adminRole: IRole | null = await RoleModel.findOne({ name: "admin" });
+    const adminRole: IRole | null = await RoleModel.findOne({ name: RoleName["ADMIN"] });
     if (!adminRole) {
         console.error("❌ Admin role not found. Please seed roles first.");
         return;

@@ -1,10 +1,10 @@
-import { connectDB } from "@server/utils/db";
+import { connectDB } from "@/server/utils/db";
 import { NextResponse } from "next/server";
-import { generateToken, hashPassword } from "@server/utils/authUtils";
-import { IUser, UserModel } from "@server/models/user";
-import { IRole, RoleModel } from "@server/models/role";
-import { RoleName } from "@/enum/role";
-import { CreateUserDTO, createUserSchema } from "@server/schemas/user.schema";
+import { generateToken, hashPassword } from "@/server/utils/authUtils";
+import { IUser, UserModel } from "@/server/models/user";
+import { IRole, RoleModel } from "@/server/models/role";
+import { RoleName } from "../../../../enum/role";
+import { CreateUserDTO, createUserSchema } from "@/server/schemas/user.schema";
 
 export const POST = async (req: Request) => {
 
@@ -41,7 +41,7 @@ export const POST = async (req: Request) => {
         );
 
         const maxAgeHours = Number(process.env.EXPIRESIN_HOURS ?? 24)
-        
+
         response.cookies.set({
             name: "access_token",
             value: token,

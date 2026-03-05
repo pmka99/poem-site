@@ -1,5 +1,5 @@
-import { RoleName } from '@/enum/role';
-import { RoleModel } from '../server/models/role';
+import { RoleName } from '../src/enum/role';
+import { RoleModel } from '../src/server/models/role';
 
 export const seedRoles = async () => {
     const roles = [

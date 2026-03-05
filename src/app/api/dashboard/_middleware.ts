@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getUserIdFromRequest } from "../../../../server/guard/utils/getUserIdFromRequest";
+import { getUserIdFromRequest } from "../../../server/guard/utils/getUserIdFromRequest";
 
 /**
  * Central Auth Middleware for all /dashboard routes
