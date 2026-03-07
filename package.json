@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "seed": "ts-node -P tsconfig.seed.json seed/index.ts",
+    "seed": "ts-node -r tsconfig-paths/register -P tsconfig.seed.json seed/index.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

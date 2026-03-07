@@ -19,7 +19,7 @@ export const seedUsers = async () => {
     }
     const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
 
-    const adminRole: IRole | null = await RoleModel.findOne({ name: RoleName["ADMIN"] });
+    const adminRole: IRole | null = await RoleModel.findOne({ name: RoleName.ADMIN });
     if (!adminRole) {
         console.error("❌ Admin role not found. Please seed roles first.");
         return;

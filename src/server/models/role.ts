@@ -1,16 +1,16 @@
 import mongoose, { Schema, Document } from "mongoose";
-
-export type Action = "create" | "read" | "update" | "delete";
+import { Resource, Action } from "@/enum/permission";
+import { RoleName } from "@/enum/role";
 
 export interface IRolePermission {
-    resource: string;
+    resource: Resource;
     actions: Action[];
 }
 
 export interface IRole extends Document {
-    name: string;
+    name: RoleName;
+    isSystem: boolean;
     permissions: IRolePermission[];
-    isSystem?: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -19,12 +19,12 @@ const RolePermissionSchema = new Schema<IRolePermission>(
     {
         resource: {
             type: String,
+            enum: Object.values(Resource),
             required: true,
-            trim: true,
         },
         actions: {
             type: [String],
-            enum: ["create", "read", "update", "delete"],
+            enum: Object.values(Action),
             required: true,
         },
     },
@@ -35,24 +35,21 @@ const RoleSchema = new Schema<IRole>(
     {
         name: {
             type: String,
+            enum: Object.values(RoleName),
             required: true,
             unique: true,
-            trim: true,
-        },
-        permissions: {
-            type: [RolePermissionSchema],
-            default: [],
         },
         isSystem: {
             type: Boolean,
-            default: false, // برای admin و system role
+            default: false,
+        },
+        permissions: {
+            type: [RolePermissionSchema],
+            required: true,
         },
     },
     { timestamps: true }
 );
-
-// Index برای performance
-RoleSchema.index({ name: 1 });
 
 export const RoleModel =
     mongoose.models.Role ||

@@ -30,7 +30,7 @@ export const PUT = protectedRoute(
         paramsSchema: paramsSchema,
         bodySchema: updatePoemSchema
     },
-    async (request, _ctx, { params, body }) => {
+    async (_req, _ctx, { params, body }) => {
         const { poemId } = params;
 
         await connectDB();

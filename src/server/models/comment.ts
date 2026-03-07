@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 export interface IComment extends mongoose.Document {
-    author: mongoose.Types.ObjectId;
-    poemId: mongoose.Types.ObjectId;
+    user: mongoose.Types.ObjectId;
+    poem: mongoose.Types.ObjectId;
     text: string;
-    replyId?: mongoose.Types.ObjectId;
+    parrent?: mongoose.Types.ObjectId;
     show: boolean;
 
     createdAt: Date;
@@ -12,10 +12,10 @@ export interface IComment extends mongoose.Document {
 }
 
 export const commentSchema = new mongoose.Schema<IComment>({
-    author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    poemId: { type: mongoose.Schema.Types.ObjectId, ref: "Poem", required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    poem: { type: mongoose.Schema.Types.ObjectId, ref: "Poem", required: true },
     text: { type: String, required: true },
-    replyId: { type: mongoose.Schema.Types.ObjectId, ref: "Comment" },
+    parrent: { type: mongoose.Schema.Types.ObjectId, ref: "Comment" },
     show: { type: Boolean, default: false },
 }, { timestamps: true });
 

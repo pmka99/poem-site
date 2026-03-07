@@ -20,6 +20,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@/enum/*":["./src/enum/*"],
       //server
       "@server/validators/*": ["./src/server/validators/*"],
       "@server/models/*": ["./src/server/models/*"],
