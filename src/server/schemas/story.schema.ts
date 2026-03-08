@@ -1,8 +1,9 @@
 import { z } from "zod";
+import { objectIdSchema } from "./common/object-id.schema";
 
 export const createStorySchema = z.object({
-    text: z.string().min(1, "متن الزامی است"),
-    order: z.number().int().min(0, "ترتیب باید عدد مثبت باشد"),
+    text: z.array(z.string().min(1, "متن الزامی است")),
+    poem: objectIdSchema
 });
 
 export const updateStorySchema = createStorySchema.partial();

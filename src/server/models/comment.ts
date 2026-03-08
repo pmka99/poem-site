@@ -5,7 +5,6 @@ export interface IComment extends mongoose.Document {
     poem: mongoose.Types.ObjectId;
     text: string;
     parrent?: mongoose.Types.ObjectId;
-    show: boolean;
 
     createdAt: Date;
     updatedAt: Date;
@@ -16,7 +15,6 @@ export const commentSchema = new mongoose.Schema<IComment>({
     poem: { type: mongoose.Schema.Types.ObjectId, ref: "Poem", required: true },
     text: { type: String, required: true },
     parrent: { type: mongoose.Schema.Types.ObjectId, ref: "Comment" },
-    show: { type: Boolean, default: false },
 }, { timestamps: true });
 
 const CommentModel = mongoose.models.Comment || mongoose.model<IComment>("Comment", commentSchema);

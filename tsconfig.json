@@ -28,6 +28,7 @@
       "@server/guard/*":["./src/server/guard/*"],
       "@server/schemas/*":["./src/server/schemas/*"],
       //client
+      "@api/services/*":["./src/api/services/*"],
       "@components/*": ["./src/components/*"],
       "@components/form/*": ["./src/components/form/*"],
     }

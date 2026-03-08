@@ -10,7 +10,7 @@ const schema = z.object({
     username: z.string().min(1, "نام کاربری الزامی است"),
     phoneNumber: z.string().min(1, "تلفن همراه الزامی است").regex(/^09\d{9}$/, "فرمت شماره تلفن همراه صحیح نیست"),
     password: z.string().min(6, "رمز عبور باید حداقل 6 کاراکتر باشد"),
-    confirmPassword: z.string().min(6, "تکرار رمز عبور باید حداقل 6 کاراکتر باشد"),
+    confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
     message: "رمزهای عبور مطابقت ندارند",
     path: ["confirmPassword"],
@@ -28,6 +28,7 @@ export default function SignUpView() {
             confirmPassword: "",
         },
         resolver: zodResolver(schema),
+        mode: "all"
     });
 
     const { control, handleSubmit, watch, setValue } = methods;
@@ -45,7 +46,7 @@ export default function SignUpView() {
                     <Field.Text name="phoneNumber" label="تلفن همراه" />
                     <Field.Text name="password" type="password" label="رمز عبور" />
                     <Field.Text name="confirmPassword" type="password" label="تکرار رمز عبور" />
-                    <Button className="!text-white" type="submit" variant="contained" color="success" fullWidth>
+                    <Button className="text-white!" type="submit" variant="contained" color="success" fullWidth>
                         ثبت نام
                     </Button>
                 </div>
