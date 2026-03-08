@@ -8,5 +8,3 @@ export const createStorySchema = z.object({
 
 export const updateStorySchema = createStorySchema.partial();
 
-export type CreateStoryDTO = z.infer<typeof createStorySchema>;
-export type UpdateStoryDTO = z.infer<typeof updateStorySchema>;

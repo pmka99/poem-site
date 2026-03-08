@@ -1,9 +1,9 @@
-import { connectDB } from "../../../../../server/utils/db";
-import PoemModel, { IPoem } from "../../../../../server/models/poem";
+import { connectDB } from "@server/utils/db";
+import PoemModel, { IPoem } from "@server/models/poem";
 import { NextResponse } from 'next/server';
-import { createIdParamsSchema } from "../../../../../server/validators";
-import { updatePoemSchema } from "../../../../../server/schemas/poem.schema";
-import { protectedRoute } from "../../../../../server/guard/protectedRoute";
+import { createIdParamsSchema } from "@server/validators";
+import { updatePoemSchema } from "@shared/schemas/poem.schema";
+import { protectedRoute } from "@server/guard/protectedRoute";
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
 

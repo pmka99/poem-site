@@ -1,10 +1,10 @@
 
-import { connectDB } from "../../../../../../../server/utils/db";
+import { connectDB } from "@server/utils/db";
 import { NextResponse } from 'next/server';
-import HemistichModel from "../../../../../../../server/models/hemistich";
-import { updateHemistichSchema } from "../../../../../../../server/schemas/hemistich.schema";
-import { createIdParamsSchema } from "../../../../../../../server/validators/createIdParamsSchema";
-import { protectedRoute } from "../../../../../../../server/guard/protectedRoute";
+import HemistichModel from "@server/models/hemistich";
+import { updateHemistichSchema } from "@shared/schemas/hemistich.schema";
+import { createIdParamsSchema } from "@server/validators/createIdParamsSchema";
+import { protectedRoute } from "@server/guard/protectedRoute";
 
 const paramsSchema = createIdParamsSchema(["hemistichId", "poemId"], [])
 

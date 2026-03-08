@@ -14,5 +14,3 @@ export const createPoemSchema = z.object({
 
 export const updatePoemSchema = createPoemSchema.partial();
 
-export type CreatePoemDTO = z.infer<typeof createPoemSchema>;
-export type UpdatePoemDTO = z.infer<typeof updatePoemSchema>;

@@ -9,5 +9,3 @@ export const createHemistichSchema = z.object({
 
 export const updateHemistichSchema = createHemistichSchema.partial();
 
-export type CreateHemistichDTO = z.infer<typeof createHemistichSchema>;
-export type UpdateHemistichDTO = z.infer<typeof updateHemistichSchema>;

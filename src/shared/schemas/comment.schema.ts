@@ -10,5 +10,3 @@ export const createCommentSchema = z.object({
 
 export const updateCommentSchema = createCommentSchema.partial();
 
-export type CreateCommentDTO = z.infer<typeof createCommentSchema>;
-export type UpdateCommentDTO = z.infer<typeof updateCommentSchema>;

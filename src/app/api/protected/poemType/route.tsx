@@ -1,5 +1,5 @@
-import PoemTypesModel, { IPoemType } from "../../../../server/models/poemTypes";
-import { connectDB } from "../../../../server/utils/db";
+import PoemTypesModel, { IPoemType } from "@server/models/poemTypes";
+import { connectDB } from "@server/utils/db";
 import { NextResponse } from "next/server";
 
 

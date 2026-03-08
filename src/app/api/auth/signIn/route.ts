@@ -2,7 +2,7 @@ import { connectDB } from "@/server/utils/db";
 import { NextResponse } from "next/server";
 import { generateToken, isPhoneNumber, verifyPassword } from "@/server/utils/authUtils";
 import { IUser, UserModel } from "@/server/models/user";
-import { signInSchema } from "@/server/schemas/user.schema";
+import { signInSchema } from "@/shared/schemas/auth.schema";
 
 export const POST = async (req: Request) => {
 

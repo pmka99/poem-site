@@ -4,7 +4,8 @@ import { generateToken, hashPassword } from "@/server/utils/authUtils";
 import { IUser, UserModel } from "@/server/models/user";
 import { IRole, RoleModel } from "@/server/models/role";
 import { RoleName } from "../../../../enum/role";
-import { CreateUserDTO, createUserSchema } from "@/server/schemas/user.schema";
+import { signUpSchema } from "@/shared/schemas/auth.schema";
+import { SignUpDTO } from "@/shared/dto/user.dto";
 
 export const POST = async (req: Request) => {
 
@@ -12,7 +13,7 @@ export const POST = async (req: Request) => {
         const body = await req.json();
 
         // validation
-        const validatedBody = createUserSchema.parse(body)
+        const validatedBody = signUpSchema.parse(body)
 
         await connectDB();
 
@@ -31,7 +32,7 @@ export const POST = async (req: Request) => {
             role: role._id.toString(),
             password: hashedPassword,
             isActive: true
-        } as CreateUserDTO)
+        } as SignUpDTO)
 
         const token = generateToken({ sub: newUser._id.toString() })
 

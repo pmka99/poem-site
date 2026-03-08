@@ -11,12 +11,3 @@ export const createUserSchema = z.object({
 
 export const updateUserSchema = createUserSchema.partial();
 
-export const signInSchema = z.object({
-    identifier: z.string().min(1, "شناسه (نام کاربری یا شماره موبایل) الزامی است"),
-    password: z.string().min(6, "رمز عبور حداقل ۶ کاراکتر باشد")
-});
-
-
-export type CreateUserDTO = z.infer<typeof createUserSchema>;
-export type UpdateUserDTO = z.infer<typeof updateUserSchema>;
-export type SignInDTO = z.infer<typeof signInSchema>;

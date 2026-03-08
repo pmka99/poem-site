@@ -20,17 +20,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/enum/*":["./src/enum/*"],
-      //server
-      "@server/validators/*": ["./src/server/validators/*"],
-      "@server/models/*": ["./src/server/models/*"],
-      "@server/utils/*": ["./src/server/utils/*"],
-      "@server/guard/*":["./src/server/guard/*"],
-      "@server/schemas/*":["./src/server/schemas/*"],
-      //client
-      "@api/services/*":["./src/api/services/*"],
-      "@components/*": ["./src/components/*"],
-      "@components/form/*": ["./src/components/form/*"],
+      "@shared/*":["./src/shared/*"],
+      "@server/*":["./src/server/*"],
+      "@services/*":["./src/api/services/*"],
     }
   },
   "include": [

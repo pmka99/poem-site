@@ -1,8 +1,8 @@
-import { createHemistichSchema } from "../../../../../../server/schemas/hemistich.schema";
-import { protectedRoute } from "../../../../../../server/guard/protectedRoute";
-import HemistichModel, { IHemistich } from "../../../../../../server/models/hemistich";
-import { connectDB } from "../../../../../../server/utils/db";
-import { createIdParamsSchema } from "../../../../../../server/validators";
+import { createHemistichSchema } from "@shared/schemas/hemistich.schema";
+import { protectedRoute } from "@server/guard/protectedRoute";
+import HemistichModel, { IHemistich } from "@server/models/hemistich";
+import { connectDB } from "@server/utils/db";
+import { createIdParamsSchema } from "@server/validators";
 import { NextResponse } from "next/server";
 
 
