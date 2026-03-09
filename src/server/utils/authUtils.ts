@@ -56,5 +56,6 @@ const verifyToken = (token: string) => {
 export {
     hashPassword,
     verifyPassword,
-    generateToken
+    generateToken,
+    verifyToken
 }

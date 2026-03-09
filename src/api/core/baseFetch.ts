@@ -8,7 +8,7 @@ export async function baseFetch<T>(
 ): Promise<T> {
 
     const res = await fetch(`${BASE_URL}${url}`, {
-        credentials: "include", // برای HttpOnly cookie
+        credentials: "include", 
         headers: {
             "Content-Type": "application/json",
             ...(options.headers || {}),

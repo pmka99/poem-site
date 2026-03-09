@@ -4,6 +4,7 @@ import HemistichModel, { IHemistich } from "@server/models/hemistich";
 import { connectDB } from "@server/utils/db";
 import { createIdParamsSchema } from "@server/validators";
 import { NextResponse } from "next/server";
+import { errorResponse, successResponse } from "@/server/utils/response";
 
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
@@ -32,7 +33,7 @@ export const GET = protectedRoute(
             { limit, page, populate: ["author", "poemType"], lean: true });
         const hemistichs: IHemistich[] = result.docs;
 
-        return NextResponse.json({ data: hemistichs });
+        return successResponse({ data: hemistichs });
     }
 )
 
@@ -49,12 +50,12 @@ export const POST = protectedRoute(
         await connectDB();
         const poemExists = await HemistichModel.exists({ poemId });
         if (!poemExists) {
-            return NextResponse.json({ error: "Poem not found" }, { status: 404 });
+            return errorResponse({ message: "شعری یافت نشد", status: 404 });
         }
         const newHemistich: IHemistich = await HemistichModel.create(
             body
         );
-        return NextResponse.json({ data: newHemistich });
+        return successResponse({ data: newHemistich });
     }
 )
 

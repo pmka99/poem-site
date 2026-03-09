@@ -28,13 +28,12 @@ export default function SingInView() {
     const { control, handleSubmit, watch, setValue } = methods;
 
     const onSubmit = async (data: SingInFormData) => {
-        console.log("dddddddddd");
-        
-        await authService.signIn({
+
+        const response = await authService.signIn({
             identifier: data.identifier,
             password: data?.password,
         })
-        
+
     }
 
     return (

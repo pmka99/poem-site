@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { generateToken, isPhoneNumber, verifyPassword } from "@/server/utils/authUtils";
 import { IUser, UserModel } from "@/server/models/user";
 import { signInSchema } from "@/shared/schemas/auth.schema";
+import { errorResponse, successResponse } from "@/server/utils/response";
 
 export const POST = async (req: Request) => {
 
@@ -22,34 +23,36 @@ export const POST = async (req: Request) => {
         }).select("+password");
 
         if (!user) {
-            return NextResponse.json(
-                { error: "نام کاربری/شماره موبایل یا رمز عبور اشتباه است" },
-                { status: 401 }
+            return errorResponse(
+                {
+                    message: "نام کاربری/شماره موبایل یا رمز عبور اشتباه است",
+                    status: 401
+                },
             );
         }
 
         // check password
         const isValidPassword = await verifyPassword(password, user.password);
         if (!isValidPassword) {
-            return NextResponse.json(
-                { error: "نام کاربری/شماره موبایل یا رمز عبور اشتباه است" },
-                { status: 401 }
+            return errorResponse(
+                {
+                    message: "نام کاربری/شماره موبایل یا رمز عبور اشتباه است",
+                    status: 401
+                },
             );
         }
 
         const token = generateToken({ sub: user._id.toString() })
 
-        const response = NextResponse.json(
-            {
-                message: "Login successful",
-                user: {
-                    id: user._id.toString(),
-                    username: user.username,
-                    phoneNumber: user.phoneNumber,
-                },
+        const response = successResponse({
+            message: "ورود  با موفقیت انجام شد",
+            data: {
+                id: user._id.toString(),
+                username: user.username,
+                phoneNumber: user.phoneNumber,
             },
-            { status: 200 }
-        );
+            status: 200
+        })
 
         const maxAgeHours = Number(process.env.EXPIRESIN_HOURS ?? 24)
 
@@ -69,16 +72,18 @@ export const POST = async (req: Request) => {
 
     } catch (err: any) {
         if (err.name === 'ZodError') {
-            return NextResponse.json(
-                { error: "Validation failed", details: err.errors },
-                { status: 400 });
+            return errorResponse({
+                message: "فرمت داده های ورودی اشتباه است",
+                status: 400
+            })
         }
 
         console.error("Error creating user:", err);
-        return NextResponse.json(
-            { error: err?.message ?? "An error occurred" },
-            { status: 500 }
-        );
+
+        return errorResponse({
+            message: "خطایی سمت سرور رخ داده است",
+            status: 500
+        })
     }
 
 }

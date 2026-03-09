@@ -5,9 +5,10 @@ import { IUser, UserModel } from "@/server/models/user";
 import { IRole, RoleModel } from "@/server/models/role";
 import { RoleName } from "@/enum/role";
 import { signUpSchema } from "@/shared/schemas/auth.schema";
-import { SignUpDTO } from "@/shared/dto/auth.dto";
+import { SignUpDTO } from "@/shared/types/auth.type";
+import { errorResponse, successResponse } from "@/server/utils/response";
 
-export const POST = async (req: Request) => {    
+export const POST = async (req: Request) => {
     try {
         const body = await req.json();
 
@@ -22,7 +23,10 @@ export const POST = async (req: Request) => {
         const role: IRole | null = await RoleModel.findOne({ name: RoleName["USER"] })
 
         if (!role) {
-            return NextResponse.json({ error: "Role not found" }, { status: 500 });
+            return errorResponse({
+                message: "نقشی یافت نشد",
+                status: 500
+            })
         }
 
         const newUser: IUser = await UserModel.create({
@@ -35,10 +39,15 @@ export const POST = async (req: Request) => {
 
         const token = generateToken({ sub: newUser._id.toString() })
 
-        const response = NextResponse.json(
-            { message: "User Created Successfully" },
-            { status: 201 }
-        );
+        const response = successResponse({
+            message: "ثبت نام کاربر با موفقیت انجام شد",
+            status: 201,
+            data: {
+                id: newUser._id.toString(),
+                username: newUser.username,
+                phoneNumber: newUser.phoneNumber,
+            }
+        })
 
         const maxAgeHours = Number(process.env.EXPIRESIN_HOURS ?? 24)
 
@@ -56,16 +65,18 @@ export const POST = async (req: Request) => {
 
     } catch (err: any) {
         if (err.name === 'ZodError') {
-            return NextResponse.json(
-                { error: "Validation failed", details: err.errors },
-                { status: 400 });
+            return errorResponse({
+                message: "فرمت داده های ورودی اشتباه است",
+                status: 400
+            })
         }
 
         console.error("Error creating user:", err);
-        return NextResponse.json(
-            { error: err?.message ?? "An error occurred" },
-            { status: 500 }
-        );
+
+        return errorResponse({
+            message: "خطایی سمت سرور رخ داده است",
+            status: 500
+        })
     }
 
 }

@@ -55,7 +55,6 @@ function Hemistich({ children }: { children: React.ReactNode }) {
 export default function Home() {
 
   const hemistiches = data.split("//").map(line => line.trim()).filter(line => line.length > 0);
-  console.log(hemistiches);
   
   return (
     <div className="flex w-full p-4 justify-center font-sans ">
