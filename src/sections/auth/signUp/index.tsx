@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/form/formProvider";
 import { Field } from "@/components/form";
 import { Button } from "@mui/material";
+import { authService } from "@/api/services/auth/auth.service";
 
 const schema = z.object({
     username: z.string().min(1, "نام کاربری الزامی است"),
@@ -33,8 +34,13 @@ export default function SignUpView() {
 
     const { control, handleSubmit, watch, setValue } = methods;
 
-    const onSubmit = (data: RegisterFormData) => {
-        console.log(data);
+    const onSubmit = async (data: RegisterFormData) => {
+        await authService.signUp({
+            username:data.username,
+            password:data?.password,
+            phoneNumber:data.phoneNumber,
+            
+        })
     }
 
     return (

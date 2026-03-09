@@ -1,18 +1,12 @@
-import { apiClient } from "../../core/apiClient";
+import { apiClient } from "@/api/core/apiClient";
+import { SignInDTO, SignUpDTO } from "@/shared/dto/auth.dto";
 
 export const authService = {
 
-    register: (data: {
-        username: string;
-        phoneNumber: string;
-        password: string;
-    }) =>
-        apiClient.post("/auth/register", data),
+    signUp: (data: SignUpDTO) =>
+        apiClient.post("/auth/signUp", data),
 
-    login: (data: {
-        phoneNumber: string;
-        password: string;
-    }) =>
+    signIn: (data: SignInDTO) =>
         apiClient.post("/auth/login", data),
 
     logout: () =>

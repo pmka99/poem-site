@@ -3,12 +3,11 @@ import { NextResponse } from "next/server";
 import { generateToken, hashPassword } from "@/server/utils/authUtils";
 import { IUser, UserModel } from "@/server/models/user";
 import { IRole, RoleModel } from "@/server/models/role";
-import { RoleName } from "../../../../enum/role";
+import { RoleName } from "@/enum/role";
 import { signUpSchema } from "@/shared/schemas/auth.schema";
-import { SignUpDTO } from "@/shared/dto/user.dto";
+import { SignUpDTO } from "@/shared/dto/auth.dto";
 
-export const POST = async (req: Request) => {
-
+export const POST = async (req: Request) => {    
     try {
         const body = await req.json();
 

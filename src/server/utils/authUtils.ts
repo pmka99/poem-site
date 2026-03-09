@@ -7,7 +7,7 @@ export const isPhoneNumber = (value: string): boolean => {
 
 const hashPassword = async (password: string) => {
 
-    const hashedPassword = await hash(password, process.env.SALT_ROUNDS ?? 12)
+    const hashedPassword = await hash(password, Number(process.env.SALT_ROUNDS ?? 12))
     return hashedPassword
 }
 
