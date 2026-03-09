@@ -7,7 +7,7 @@ export const authService = {
         apiClient.post("/auth/signUp", data),
 
     signIn: (data: SignInDTO) =>
-        apiClient.post("/auth/login", data),
+        apiClient.post("/auth/signIn", data),
 
     logout: () =>
         apiClient.post("/auth/logout"),

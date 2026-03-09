@@ -19,7 +19,7 @@ export const POST = async (req: Request) => {
 
         const user: IUser | null = await UserModel.findOne({
             [isPhone ? "phoneNumber" : "username"]: identifier
-        });
+        }).select("+password");
 
         if (!user) {
             return NextResponse.json(

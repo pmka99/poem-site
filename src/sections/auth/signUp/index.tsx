@@ -17,11 +17,11 @@ const schema = z.object({
     path: ["confirmPassword"],
 });
 
-export type RegisterFormData = z.infer<typeof schema>;
+export type SingUpFormData = z.infer<typeof schema>;
 
 export default function SignUpView() {
 
-    const methods = useForm<RegisterFormData>({
+    const methods = useForm<SingUpFormData>({
         values: {
             username: "",
             phoneNumber: "",
@@ -34,7 +34,7 @@ export default function SignUpView() {
 
     const { control, handleSubmit, watch, setValue } = methods;
 
-    const onSubmit = async (data: RegisterFormData) => {
+    const onSubmit = async (data: SingUpFormData) => {
         await authService.signUp({
             username:data.username,
             password:data?.password,
