@@ -48,7 +48,7 @@ const RoleSchema = new Schema<IRole>(
             required: true,
         },
     },
-    { timestamps: true }
+    { timestamps: true, versionKey: false }
 );
 
 export const RoleModel =

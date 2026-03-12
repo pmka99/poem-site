@@ -5,6 +5,7 @@ import React from "react";
 import { IoMenu } from "react-icons/io5";
 // import ThemeToggleButton from "./ThemeToggleButton";
 import ReadTypeToggleButton from "./readTypeToggleButton";
+import UserInfo from "./userInfo";
 
 
 export default function SideBar() {
@@ -21,6 +22,7 @@ export default function SideBar() {
                 <div className="flex flex-col gap-6 overflow-hidden w-80 h-screen py-14">
                     {/* <ThemeToggleButton /> */}
                     <ReadTypeToggleButton />
+                    <UserInfo />
                 </div>
             </Drawer>
             <button
@@ -35,3 +37,5 @@ export default function SideBar() {
         </div>
     );
 }
+// src\app\auth\signUp
+// auth / signup

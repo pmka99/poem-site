@@ -15,7 +15,7 @@ export const commentSchema = new mongoose.Schema<IComment>({
     poem: { type: mongoose.Schema.Types.ObjectId, ref: "Poem", required: true },
     text: { type: String, required: true },
     parrent: { type: mongoose.Schema.Types.ObjectId, ref: "Comment" },
-}, { timestamps: true });
+}, { timestamps: true, versionKey: false });
 
 const CommentModel = mongoose.models.Comment || mongoose.model<IComment>("Comment", commentSchema);
 

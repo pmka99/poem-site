@@ -16,7 +16,7 @@ const hemistichSchema = new mongoose.Schema<IHemistich>({
     text: { type: String, required: true },
     order: { type: Number, required: true },
     show: { type: Boolean, default: false },
-}, { timestamps: true });
+}, { timestamps: true, versionKey: false });
 
 // اضافه کردن paginate
 hemistichSchema.plugin(mongoosePaginate);

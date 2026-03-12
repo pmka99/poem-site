@@ -4,6 +4,8 @@ import { connectDB } from "@/server/utils/db";
 import { verifyToken } from "@/server/utils/authUtils";
 import { UserModel } from "@/server/models/user";
 
+import { errorResponse, successResponse } from "@/server/utils/response";
+
 export const GET = async () => {
     try {
 
@@ -11,52 +13,51 @@ export const GET = async () => {
         const token = cookieStore.get("access_token")?.value;
 
         if (!token) {
-            return NextResponse.json(
-                { error: "Unauthorized" },
-                { status: 401 }
-            );
+            return errorResponse({
+                message: "احراز هویت انجام نشده است",
+                status: 401
+            });
         }
 
         const decoded: any = verifyToken(token);
 
         if (!decoded || !decoded.sub) {
-            return NextResponse.json(
-                { error: "Invalid token" },
-                { status: 401 }
-            );
+            return errorResponse({
+                message: "توکن احراز هویت نامعتبر است",
+                status: 401
+            });
         }
 
         await connectDB();
+        console.log("decoded.sub", decoded.sub);
 
-        const user = await UserModel.findById(decoded.sub).select(
-            "_id username phoneNumber createdAt"
-        );
+        const user =
+            await UserModel
+                .findById(decoded.sub)
+                .select("")
+                .populate({
+                    path: "role",
+                    select: "permissions name -_id"
+                })
+                .lean()
 
         if (!user) {
-            return NextResponse.json(
-                { error: "User not found" },
-                { status: 404 }
-            );
+            return errorResponse({
+                message: "کاربری یافت نشد",
+                status: 404
+            });
         }
 
-        return NextResponse.json(
-            {
-                user: {
-                    id: user._id,
-                    username: user.username,
-                    phoneNumber: user.phoneNumber,
-                    createdAt: user.createdAt,
-                },
-            },
-            { status: 200 }
-        );
+        return successResponse({
+            data: user
+        })
 
     } catch (error) {
         console.error("Get user error:", error);
 
-        return NextResponse.json(
-            { error: "Server error" },
-            { status: 500 }
-        );
+        return errorResponse({
+            message: "خطایی سمت سرور رخ داده است",
+            status: 500
+        });
     }
 };

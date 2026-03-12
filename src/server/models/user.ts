@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
-import bcrypt from "bcrypt";
+import "./role";
 
 export interface IUser extends Document {
     username: string;
@@ -20,7 +20,7 @@ const UserSchema = new Schema<IUser>(
             required: true,
             trim: true,
             minlength: 3,
-            unique: true, 
+            unique: true,
         },
         phoneNumber: {
             type: String,
@@ -45,7 +45,7 @@ const UserSchema = new Schema<IUser>(
             default: true,
         },
     },
-    { timestamps: true }
+    { timestamps: true, versionKey: false }
 );
 
 // Index

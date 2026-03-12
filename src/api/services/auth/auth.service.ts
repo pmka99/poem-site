@@ -10,6 +10,9 @@ export const authService = {
     signIn: (data: SignInDTO) =>
         apiClient.post<ApiResponse<SignInResponse>>("/auth/signIn", data),
 
+    getUserInfo: () =>
+        apiClient.get<ApiResponse<SignInResponse>>("/auth/userInfo"),
+
     logout: () =>
         apiClient.post("/auth/logout"),
 };

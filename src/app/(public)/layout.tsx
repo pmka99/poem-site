@@ -1,6 +1,6 @@
 import LayoutComponent from "@/layout";
 
-export default function Layout({
+export default function PublicLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

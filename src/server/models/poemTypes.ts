@@ -11,7 +11,7 @@ const poemTypesSchema = new mongoose.Schema<IPoemType>({
     name: { type: String, required: true },
     description: { type: String },
 },
-    { timestamps: true }
+    { timestamps: true, versionKey: false }
 );
 
 const PoemTypesModel = mongoose.models.PoemTypes || mongoose.model<IPoemType>("PoemTypes", poemTypesSchema);

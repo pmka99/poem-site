@@ -14,7 +14,7 @@ const storySchema = new mongoose.Schema<IStory>({
         ref: "Poem",
         required: true,
     },
-}, { timestamps: true });
+}, { timestamps: true, versionKey: false });
 
 
 const StoryModel = mongoose.models.Story || mongoose.model<IStory>("Story", storySchema);

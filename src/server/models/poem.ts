@@ -43,7 +43,7 @@ const poemSchema = new mongoose.Schema<IPoem>(
             },
         ],
     },
-    { timestamps: true }
+    { timestamps: true, versionKey: false }
 );
 
 poemSchema.virtual("hemistichs", {

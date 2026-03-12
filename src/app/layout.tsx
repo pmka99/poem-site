@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Nastaliq_Urdu } from "next/font/google";
 import { Noto_Naskh_Arabic } from "next/font/google";
 import "./globals.css";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 const notoNastaliqUrdu = Noto_Nastaliq_Urdu({
   variable: "--font-nastaliq",
@@ -29,7 +30,9 @@ export default function RootLayout({
         cz-shortcut-listen="true"
         className={`${notoNastaliqUrdu.variable} ${notoNaskhArabic.variable} antialiased`}
       >
+        <ReactQueryProvider>
           {children}
+        </ReactQueryProvider>
       </body>
     </html>
   );
