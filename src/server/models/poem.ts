@@ -49,7 +49,7 @@ const poemSchema = new mongoose.Schema<IPoem>(
 poemSchema.virtual("hemistichs", {
     ref: "Hemistich",
     localField: "_id",
-    foreignField: "poemId",
+    foreignField: "poem",
     justOne: false,
 });
 

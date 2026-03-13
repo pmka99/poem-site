@@ -6,9 +6,6 @@ const config: Config = {
     ],
     theme: {
         extend: {
-            fontFamily: {
-                nastaliq: ["var(--font-nastaliq)"],
-            },
             colors: {
                 background: "var(--background)",
                 foreground: "var(--foreground)",

@@ -33,7 +33,7 @@ export default function ReadTypeToggleButton() {
 
     return (
         <button
-            className="bg-background text-foreground border-border p-5 rounded-sm
+            className="bg-primary text-foreground border-border p-5 rounded-sm
       cursor-pointer hover:bg-secondary hover:text-secondary-foreground"
             onClick={toggleReadType}
         >

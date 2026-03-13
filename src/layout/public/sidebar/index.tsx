@@ -8,7 +8,7 @@ import ReadTypeToggleButton from "./readTypeToggleButton";
 import UserInfo from "./userInfo";
 
 
-export default function SideBar() {
+export default function PublicSidebar() {
 
     const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
 
@@ -19,7 +19,7 @@ export default function SideBar() {
     return (
         <div className="z-50 right-0 top-0 flex gap-2 fixed">
             <Drawer isOpen={isOpenDrawer} onClose={handleClose} >
-                <div className="flex flex-col gap-6 overflow-hidden w-80 h-screen py-14">
+                <div className="flex flex-col gap-6 overflow-hidden w-64 h-screen py-14">
                     {/* <ThemeToggleButton /> */}
                     <ReadTypeToggleButton />
                     <UserInfo />
@@ -37,5 +37,3 @@ export default function SideBar() {
         </div>
     );
 }
-// src\app\auth\signUp
-// auth / signup

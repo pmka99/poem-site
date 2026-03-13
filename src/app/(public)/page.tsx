@@ -57,7 +57,7 @@ export default function Home() {
   const hemistiches = data.split("//").map(line => line.trim()).filter(line => line.length > 0);
   
   return (
-    <div className="flex w-full p-4 justify-center font-sans ">
+    <div className="flex w-full p-4 justify-center  ">
       <div className="
       lg:py-10
       grid lg:grid-cols-2 

@@ -6,6 +6,7 @@ import { Form } from "@/components/form/formProvider";
 import { Field } from "@/components/form";
 import { Button } from "@mui/material";
 import { authService } from "@/api/services/auth/auth.service";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
     identifier: z.string().min(1, "نام کاربری الزامی است"),
@@ -15,6 +16,8 @@ const schema = z.object({
 export type SingInFormData = z.infer<typeof schema>;
 
 export default function SingInView() {
+
+    const router = useRouter();
 
     const methods = useForm<SingInFormData>({
         values: {
@@ -34,6 +37,9 @@ export default function SingInView() {
             password: data?.password,
         })
 
+        if (response.success) {
+            router.push("/dashboard")
+        }
     }
 
     return (

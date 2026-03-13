@@ -1,4 +1,5 @@
 import AuthGuard from "@/guard/authGuard";
+import DashboardLayoutComponent from "@/layout/dashboard";
 import MuiProvider from "@/theme/MuiProvider";
 
 export default function DashboardLayout({
@@ -9,7 +10,9 @@ export default function DashboardLayout({
     return (
         <AuthGuard>
             <MuiProvider>
-                {children}
+                <DashboardLayoutComponent>
+                    {children}
+                </DashboardLayoutComponent>
             </MuiProvider>
         </AuthGuard>
     );

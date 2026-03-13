@@ -1,4 +1,4 @@
-import LayoutComponent from "@/layout";
+import PublicLayoutComponent from "@/layout/public";
 
 export default function PublicLayout({
   children,
@@ -6,8 +6,8 @@ export default function PublicLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <LayoutComponent>
+    <PublicLayoutComponent>
       {children}
-    </LayoutComponent>
+    </PublicLayoutComponent>
   );
 }

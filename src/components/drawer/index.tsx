@@ -43,10 +43,10 @@ export default function Drawer({ isOpen, onClose, children }: Props) {
         <div
             ref={drawerRef}
             className={` relative
-        flex bg-primary text-primary-foreground
+        flex text-primary-foreground
         shadow-2xl shadow-primary border-border
-        transition-all duration-500 h-full
-        ${isOpen ? "w-full px-2" : "w-0 p-0 overflow-hidden"}
+        transition-all duration-500 h-full bg-background/90
+        ${isOpen ? "w-full" : "w-0 p-0 overflow-hidden"}
       `}
         >
             <button onClick={onClose} className="absolute rounded-full text-red-500 hover:text-white hover:bg-red-500 cursor-pointer top-2 left-2 p-2">

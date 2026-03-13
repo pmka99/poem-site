@@ -1,3 +1,4 @@
+import { AllRoutes } from "@/routes";
 import { ApiError } from "./apiError";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -8,7 +9,7 @@ export async function baseFetch<T>(
 ): Promise<T> {
 
     const res = await fetch(`${BASE_URL}${url}`, {
-        credentials: "include", 
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
             ...(options.headers || {}),
@@ -26,8 +27,12 @@ export async function baseFetch<T>(
 
     if (!res.ok) {
 
-        if (res.status === 401 && typeof window !== "undefined") {
-            window.location.href = "/login";
+        if (
+            res.status === 401 &&
+            typeof window !== "undefined" &&
+            !window.location.href.includes(AllRoutes.authRoutes.signIn.path)
+        ) {
+            window.location.href = AllRoutes.authRoutes.signIn.path;
         }
 
         throw new ApiError(

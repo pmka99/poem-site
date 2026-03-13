@@ -3,6 +3,7 @@
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from "@/guard/useAuth";
+import { AllRoutes } from "@/routes";
 
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
     const router = useRouter();
@@ -14,7 +15,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         if (!isLoading && !user) {
             const returnTo = encodeURIComponent(pathname);
-            router.replace(`/auth/login?returnTo=${returnTo}`);
+            router.replace(`${AllRoutes.authRoutes.signIn.path}?returnTo=${returnTo}`);
         }
     }, [user, isLoading, pathname, router]);
 

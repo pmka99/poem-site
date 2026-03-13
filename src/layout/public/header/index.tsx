@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Menu from "../sidebar";
 
-export default function Header() {
+export default function PublicHeader() {
 
 
   return (
