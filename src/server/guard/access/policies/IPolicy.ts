@@ -1,8 +1,9 @@
+import { Resource, Action } from "@/enum/permission";
 import { AuthUser } from "../../utils/getUserFromRequest";
-import { Action, ResourceContext } from "../types";
+import { ResourceContext } from "../types";
 
 export interface IPolicy {
-    resource: string;
+    resource: Resource;
 
     canAccess(
         user: AuthUser,

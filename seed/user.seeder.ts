@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import { UserModel } from "../src/server/models/user";
-import { IRole, RoleModel } from '../src/server/models/role';
+import UserModel  from "../src/server/models/user";
+import RoleModel,{ IRole } from '../src/server/models/role';
 import { RoleName } from '../src/enum/role';
 
 export const seedUsers = async () => {

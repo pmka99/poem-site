@@ -5,13 +5,17 @@ import HemistichModel from "@server/models/hemistich";
 import { updateHemistichSchema } from "@shared/schemas/hemistich.schema";
 import { createIdParamsSchema } from "@server/validators/createIdParamsSchema";
 import { protectedRoute } from "@server/guard/protectedRoute";
+import { Action, Resource } from "@/enum/permission";
 
 const paramsSchema = createIdParamsSchema(["hemistichId", "poemId"], [])
 
 /** get a hemistich by id */
 export const GET = protectedRoute(
     {
-        require: [{ action: "read", resource: "hemistich" }],
+        require: [
+            { action: Action.READ, resource: Resource.HEMISTICH },
+            { action: Action.READ, resource: Resource.POEM }
+        ],
         paramsSchema: paramsSchema
     },
     async (_req, _ctx, { params }) => {
@@ -30,7 +34,10 @@ export const GET = protectedRoute(
 /** update a hemistich by id */
 export const PUT = protectedRoute(
     {
-        require: [{ action: "update", resource: "hemistich" }],
+        require: [
+            { action: Action.UPDATE, resource: Resource.HEMISTICH },
+            { action: Action.UPDATE, resource: Resource.POEM }
+        ],
         paramsSchema: paramsSchema,
         bodySchema: updateHemistichSchema
     },
@@ -54,7 +61,10 @@ export const PUT = protectedRoute(
 /** delete a hemistich by id */
 export const DELETE = protectedRoute(
     {
-        require: [{ action: "delete", resource: "hemistich" }],
+        require: [
+            { action: Action.DELETE, resource: Resource.HEMISTICH },
+            { action: Action.UPDATE, resource: Resource.POEM }
+        ],
         paramsSchema: paramsSchema
     },
     async (_req, _ctx, { params }) => {

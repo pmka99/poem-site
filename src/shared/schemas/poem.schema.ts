@@ -8,8 +8,6 @@ export const createPoemSchema = z.object({
     poemType: objectIdSchema,
     show: z.boolean().default(true),
     story: z.array(objectIdSchema).default([]),
-    comments: z.array(objectIdSchema).default([]),
-    hemistichs: z.array(objectIdSchema).optional(),
 });
 
 export const updatePoemSchema = createPoemSchema.partial();

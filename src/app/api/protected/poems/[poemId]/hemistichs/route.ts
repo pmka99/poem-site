@@ -5,6 +5,7 @@ import { connectDB } from "@server/utils/db";
 import { createIdParamsSchema } from "@server/validators";
 import { NextResponse } from "next/server";
 import { errorResponse, successResponse } from "@/server/utils/response";
+import { Action, Resource } from "@/enum/permission";
 
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
@@ -13,7 +14,10 @@ const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "text"])
 /** get all hemistichs of a poem */
 export const GET = protectedRoute(
     {
-        require: [{ action: "read", resource: "hemistich" }],
+        require: [
+            { action: Action.READ, resource: Resource.HEMISTICH },
+            { action: Action.READ, resource: Resource.POEM }
+        ],
         paramsSchema: paramsSchema,
         querySchema: queryParamsSchema
     },
@@ -24,7 +28,7 @@ export const GET = protectedRoute(
         const limit = parseInt(query.limit ?? "10");
         const text = query.text;
 
-        const filter: any = { poemId };
+        const filter: any = { poem: poemId };
         if (text) filter.text = { $regex: text, $options: "i" };
 
         await connectDB();
@@ -41,14 +45,17 @@ export const GET = protectedRoute(
 /* check if poem exists */
 export const POST = protectedRoute(
     {
-        require: [{ action: "create", resource: "hemistich" }],
+        require: [
+            { action: Action.CREATE, resource: Resource.HEMISTICH },
+            { action: Action.UPDATE, resource: Resource.POEM }
+        ],
         paramsSchema: paramsSchema,
         bodySchema: createHemistichSchema
     },
     async (_req, _ctx, { params, body }) => {
         const { poemId } = params;
         await connectDB();
-        const poemExists = await HemistichModel.exists({ poemId });
+        const poemExists = await HemistichModel.exists({ poem: poemId });
         if (!poemExists) {
             return errorResponse({ message: "شعری یافت نشد", status: 404 });
         }
@@ -62,13 +69,16 @@ export const POST = protectedRoute(
 /** delete all hemistichs of a poem */
 export const DELETE = protectedRoute(
     {
-        require: [{ action: "delete", resource: "hemistich" }],
+        require: [
+            { action: Action.DELETE, resource: Resource.HEMISTICH },
+            { action: Action.UPDATE, resource: Resource.POEM }
+        ],
         paramsSchema: paramsSchema,
     },
     async (_req, _ctx, { params }) => {
         const { poemId } = params;
         await connectDB();
-        await HemistichModel.deleteMany({ poemId });
+        await HemistichModel.deleteMany({ poem: poemId });
         return NextResponse.json({ message: "Hemistichs deleted successfully" });
     }
 )

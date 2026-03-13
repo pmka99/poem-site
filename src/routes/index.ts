@@ -6,7 +6,8 @@ const publicRoutes = {
 
 
 const dashboardRoutes = {
-    poems: { path: "/dashboard/poems", name: "شعرها" }
+    poems: { path: "/dashboard/poems", name: "شعرها" },
+    poemTypes: { path: "/dashboard/poemTypes", name :"انواع شعر"}
 }
 
 const authRoutes = {

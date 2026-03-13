@@ -1,7 +1,7 @@
 import { connectDB } from "@/server/utils/db";
 import { NextResponse } from "next/server";
 import { generateToken, isPhoneNumber, verifyPassword } from "@/server/utils/authUtils";
-import { IUser, UserModel } from "@/server/models/user";
+import UserModel, { IUser } from "@/server/models/user";
 import { signInSchema } from "@/shared/schemas/auth.schema";
 import { errorResponse, successResponse } from "@/server/utils/response";
 

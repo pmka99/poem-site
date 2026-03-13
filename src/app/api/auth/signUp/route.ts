@@ -1,8 +1,8 @@
 import { connectDB } from "@/server/utils/db";
 import { NextResponse } from "next/server";
 import { generateToken, hashPassword } from "@/server/utils/authUtils";
-import { IUser, UserModel } from "@/server/models/user";
-import { IRole, RoleModel } from "@/server/models/role";
+import UserModel, { IUser } from "@/server/models/user";
+import RoleModel, { IRole } from "@/server/models/role";
 import { RoleName } from "@/enum/role";
 import { signUpSchema } from "@/shared/schemas/auth.schema";
 import { SignUpDTO } from "@/shared/types/auth.type";

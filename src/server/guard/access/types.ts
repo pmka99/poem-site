@@ -1,8 +1,8 @@
-export type Action = "create" | "read" | "update" | "delete";
+import { Action, Resource } from "@/enum/permission";
 
 export interface PermissionRequirement {
     action: Action;
-    resource: string;
+    resource: Resource;
 }
 
 export type AuthorizationMode = "AND" | "OR";

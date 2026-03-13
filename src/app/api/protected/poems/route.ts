@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { protectedRoute } from "@server/guard/protectedRoute";
 import { createPoemSchema } from "@shared/schemas/poem.schema";
 import { createIdParamsSchema } from "@server/validators";
+import { Action, Resource } from "@/enum/permission";
 
 // ✅ Schema for query params (GET)
 const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "author", "poemType", "text"])
@@ -11,7 +12,9 @@ const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "author", "
 // GET /poems
 export const GET = protectedRoute(
     {
-        require: [{ action: "read", resource: "poem" }],
+        require: [
+            { action: Action.READ, resource: Resource.POEM }
+        ],
         querySchema: queryParamsSchema,
     },
     async (_req, _ctx, { query }) => {
@@ -49,7 +52,9 @@ export const GET = protectedRoute(
 // POST /poems
 export const POST = protectedRoute(
     {
-        require: [{ action: "create", resource: "poem" }],
+        require: [
+            { action: Action.CREATE, resource: Resource.POEM }
+        ],
         bodySchema: createPoemSchema,
     },
     async (_req, _ctx, { body }) => {

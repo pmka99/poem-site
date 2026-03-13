@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { connectDB } from "@/server/utils/db";
 import { verifyToken } from "@/server/utils/authUtils";
-import { UserModel } from "@/server/models/user";
+import  UserModel  from "@/server/models/user";
 
 import { errorResponse, successResponse } from "@/server/utils/response";
 

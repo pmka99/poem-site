@@ -1,22 +1,41 @@
-import PoemTypesModel, { IPoemType } from "@server/models/poemTypes";
+import { Action, Resource } from "@/enum/permission";
+import { protectedRoute } from "@/server/guard/protectedRoute";
+import { successResponse } from "@/server/utils/response";
+import { createPoemTypeSchema } from "@/shared/schemas/poemType.schema";
+import PoemTypesModel from "@/server/models/poemType";
 import { connectDB } from "@server/utils/db";
-import { NextResponse } from "next/server";
 
+// GET all poem types
+export const GET = protectedRoute(
+    {
+        require: [{ action: Action.READ, resource: Resource.POEM_TYPES }],
+    },
+    async (_req, _ctx) => {
+        await connectDB();
 
-/** get all poem types */
-export async function GET() {
-    await connectDB();
+        const poemTypes = await PoemTypesModel.find().lean();
 
-    const poemTypes = await PoemTypesModel.find().lean();
-
-    return NextResponse.json({ data: poemTypes });
-}
+        return successResponse({
+            data: poemTypes,
+        });
+    }
+);
 
 /** add a new poem type */
-export async function POST(request: Request) {
-    await connectDB();
-    const poemType = await request.json() as IPoemType;
-    const newPoemType = await PoemTypesModel.create(poemType);
+export const POST = protectedRoute(
+    {
+        require: [{ action: Action.CREATE, resource: Resource.POEM_TYPES }],
+        bodySchema: createPoemTypeSchema,
+    },
+    async (_req, _ctx, { body }) => {
+        await connectDB();
 
-    return NextResponse.json({ data: newPoemType });
-}
+        const newPoemType = await PoemTypesModel.create(body);
+
+        return successResponse({
+            data: newPoemType,
+            status: 201
+        });
+    }
+);
+

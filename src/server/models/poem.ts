@@ -1,66 +1,83 @@
-import mongoose, { Document, PaginateModel } from "mongoose";
+import mongoose, { Schema, model, models, Types } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
+import { IUser } from "./user";
+import { IStory } from "./story";
+import { IPoemType } from "./poemType";
+import { IHemistich } from "./hemistich";
+import { IComment } from "./comment";
 
-export interface IPoem extends Document {
+export interface IPoem extends mongoose.Document {
     title: string;
-    description?: string;
-    show: boolean;
-    author: mongoose.Types.ObjectId;
-    story: mongoose.Types.ObjectId[];
-    poemType: mongoose.Types.ObjectId;
-    comments: mongoose.Types.ObjectId[];
-    hemistichs?: mongoose.Types.ObjectId[];
 
-    createdAt: Date;
-    updatedAt: Date;
+    author: Types.ObjectId | IUser;
+    story: Types.ObjectId[] | IStory[];
+    poemType: Types.ObjectId | IPoemType;
+
+    createdAt?: Date;
+    updatedAt?: Date;
+
+    hemistichs?: IHemistich[];
+    comments?: IComment[];
 }
 
-const poemSchema = new mongoose.Schema<IPoem>(
+const poemSchema = new Schema<IPoem>(
     {
-        title: { type: String, required: true },
-        description: { type: String },
-        show: { type: Boolean, default: true },
+        title: {
+            type: String,
+            required: true,
+            trim: true
+        },
+
         author: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "User",
             required: true,
+            index: true
         },
-        poemType: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "PoemType",
-            required: true,
-        },
+
         story: [
             {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Story",
-            },
+                type: Schema.Types.ObjectId,
+                ref: "Story"
+            }
         ],
-        comments: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Comment",
-            },
-        ],
+
+        poemType: {
+            type: Schema.Types.ObjectId,
+            ref: "PoemType",
+            required: true,
+            index: true
+        }
     },
-    { timestamps: true, versionKey: false }
+    {
+        timestamps: true,
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
+        versionKey: false
+    }
 );
 
 poemSchema.virtual("hemistichs", {
     ref: "Hemistich",
     localField: "_id",
-    foreignField: "poem",
-    justOne: false,
+    foreignField: "poem"
 });
 
-poemSchema.set("toObject", { virtuals: true });
-poemSchema.set("toJSON", { virtuals: true });
+poemSchema.virtual("comments", {
+    ref: "Comment",
+    localField: "_id",
+    foreignField: "poem"
+});
+
+poemSchema.index({ author: 1 });
+poemSchema.index({ poemType: 1 });
+poemSchema.index({ createdAt: -1 });
 
 poemSchema.plugin(mongoosePaginate);
 
-const PoemModel = mongoose.model<IPoem, PaginateModel<IPoem>>(
+const PoemModel = mongoose.model<IPoem, mongoose.PaginateModel<IPoem>>(
     "Poem",
     poemSchema
 );
 
-export default PoemModel;
+export default PoemModel

@@ -1,15 +1,15 @@
 import { IPolicy } from "./IPolicy";
-import { Action, ResourceContext } from "../types";
-import PoemModel, { IPoem } from "../../../models/poem";
+import { ResourceContext } from "../types";
+import PoemModel, { IPoem } from "@server/models/poem";
 import { AuthUser } from "../../utils/getUserFromRequest";
+import { Action, Resource } from "@/enum/permission";
 
 export class PoemPolicy implements IPolicy {
-    resource = "poem";
+    resource = Resource.POEM;
 
     async canAccess(user: AuthUser, action: Action, context: ResourceContext) {
 
-        // create poem → فقط داشتن permission کافیست
-        if (action === "create") return true;
+        if (action === Action.CREATE) return true;
 
         const poemId = context.params?.poemId || context.params?.id;
         if (!poemId) return false;

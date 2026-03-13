@@ -1,13 +1,16 @@
 import { IPolicy } from "./IPolicy";
-import { Action, ResourceContext } from "../types";
+import { ResourceContext } from "../types";
 import CommentModel, { IComment } from "../../../models/comment";
 import PoemModel, { IPoem } from "../../../models/poem";
 import { AuthUser } from "../../utils/getUserFromRequest";
+import { Resource, Action } from "@/enum/permission";
 
 export class CommentPolicy implements IPolicy {
-    resource = "comment";
+    resource = Resource.COMMENT;
 
     async canAccess(user: AuthUser, action: Action, context: ResourceContext) {
+
+        if (action === Action.CREATE) return true;
 
         const commentId = context.params?.commentId || context.params?.id;
         if (!commentId) return false;
@@ -15,15 +18,6 @@ export class CommentPolicy implements IPolicy {
         const comment: IComment | null = await CommentModel.findById(commentId).lean();
         if (!comment) return false;
 
-        // owner of comment
-        if (comment.author.toString() === user._id.toString()) {
-            return true;
-        }
-
-        // owner of poem
-        const poem: IPoem | null = await PoemModel.findById(comment.poemId).lean();
-        if (!poem) return false;
-
-        return poem.author.toString() === user._id.toString();
+        return comment.user.toString() === user._id.toString();
     }
 }

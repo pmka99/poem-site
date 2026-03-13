@@ -1,8 +1,9 @@
 import mongoose, { Document } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
+import { IPoem } from "./poem";
 
 export interface IHemistich extends Document {
-    poem: mongoose.Types.ObjectId;
+    poem: mongoose.Types.ObjectId | IPoem;
     text: string;
     order: number;
     show: boolean;
