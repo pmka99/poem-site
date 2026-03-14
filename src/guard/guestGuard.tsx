@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useAuth } from "@/guard/useAuth";
+import { useAuth } from "@/hooks";
 
 export default function GuestGuard({ children }: { children: React.ReactNode }) {
     const router = useRouter();

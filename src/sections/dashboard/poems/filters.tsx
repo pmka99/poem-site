@@ -23,7 +23,8 @@ export default function DashboardFiltersPoems({ filters, setFilters }: Props) {
     return (
         <div className="py-2 grid grid-cols-4">
             <MultiSelect
-                label="Frameworks"
+                value={filters.poemType}
+                label="نوع شعر"
                 items={items}
                 onChange={changeMultiSelectHandler}
             />

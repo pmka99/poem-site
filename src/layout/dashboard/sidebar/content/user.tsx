@@ -1,6 +1,6 @@
 "use client"
 
-import { useAuth } from "@/guard";
+import { useAuth } from "@/hooks";
 
 export default function DashboardSidebarUser() {
 
@@ -20,10 +20,10 @@ export default function DashboardSidebarUser() {
                 />
 
                 <div>
-                    <p className="text-sm font-medium text-foreground">
+                    <p className="text-sm font-medium text-background">
                         {data?.data?.username}
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-muted">
                         {data?.data?.phoneNumber}
                     </p>
                 </div>

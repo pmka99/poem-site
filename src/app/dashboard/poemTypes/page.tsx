@@ -1,5 +1,5 @@
 import DashboardContent from "@/layout/dashboard/content";
-import DashboardPeomsView from "@/sections/dashboard/poems";
+import DashboardPeomTypesView from "@/sections/dashboard/poemTypes";
 
 
 export default function DashboardPoemPage() {
@@ -7,8 +7,8 @@ export default function DashboardPoemPage() {
 
 
     return (
-        <DashboardContent title="شعرها">
-            <DashboardPeomsView />
+        <DashboardContent title="انواع شعر">
+            <DashboardPeomTypesView />
         </DashboardContent>
     )
 }

@@ -20,7 +20,7 @@ export default function DashboardSidebar() {
                 <DashboardSidebarContent />
             </div>
 
-            <div className="lg:hidden z-50 right-0 top-0 w-64 flex fixed gap-2 ">
+            <div className="lg:hidden z-50 right-0 top-0 flex fixed gap-2 ">
                 <Drawer isOpen={isOpenDrawer} onClose={handleClose} >
                     <div className="flex overflow-hidden w-64 h-screen py-14">
                         <DashboardSidebarContent />

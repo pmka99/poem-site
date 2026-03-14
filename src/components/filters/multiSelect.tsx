@@ -17,20 +17,31 @@ type Item = {
 type MultiSelectProps = {
     items: Item[];
     label?: string;
+    value?: (number | string)[];
+    defaultValue?: (number | string)[];
     onChange?: (value: (number | string)[]) => void;
 };
 
 export function MultiSelect({
     items,
     label = "Select",
+    value,
+    defaultValue = [],
     onChange,
 }: MultiSelectProps) {
-    const [selected, setSelected] = useState<(number | string)[]>([]);
+
+    const [internalValue, setInternalValue] = useState<(number | string)[]>(defaultValue);
+
+    const selected = value ?? internalValue;
 
     const handleChange = (event: SelectChangeEvent<(number | string)[]>) => {
-        const value = event.target.value as (number | string)[];
-        setSelected(value);
-        onChange?.(value);
+        const val = event.target.value as (number | string)[];
+
+        if (value === undefined) {
+            setInternalValue(val);
+        }
+
+        onChange?.(val);
     };
 
     return (
@@ -38,8 +49,6 @@ export function MultiSelect({
             <InputLabel id="multi-select-label">{label}</InputLabel>
 
             <Select
-                size="small"
-                labelId="multi-select-label"
                 multiple
                 value={selected}
                 label={label}

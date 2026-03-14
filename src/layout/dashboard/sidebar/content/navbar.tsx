@@ -20,7 +20,10 @@ export default function DashboardNavbar() {
                 <Link
                     key={item.href}
                     href={item.href}
-                    className="px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
+                    className="px-3 py-2 rounded-md text-sm 
+                    text-background hover:bg-muted 
+                    hover:text-foreground 
+                    transition"
                 >
                     {item.name}
                 </Link>

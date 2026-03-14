@@ -1,29 +1,29 @@
 "use client"
 
 import { useState } from "react"
-import DashboardFiltersPoems from "./filters"
+import DashboardPoemTypesFilters from "./filters"
+import { LayoutPoemType } from "@/enum/poemType";
+import DashboardPeomTypesTable from "./table";
+import { useModal } from "@/hooks";
+import DashboardPoemTypeAddModal from "./modals/add";
 
 export type TDashboardFiltersPoemTypes = {
     search: string
-    poemType: string[]
+    layout: LayoutPoemType[]
 }
+
 
 export default function DashboardPeomTypesView() {
 
     const [filters, setFilters] = useState<TDashboardFiltersPoemTypes>({
         search: "",
-        poemType: [],
+        layout: [],
     })
 
     return (
         <div className="flex flex-col">
-            {/** filters */}
-            <DashboardFiltersPoems filters={filters} setFilters={setFilters} />
-
-            {/** table */}
-            
-
-            {/** modals */}
+            <DashboardPoemTypesFilters filters={filters} setFilters={setFilters} />
+            <DashboardPeomTypesTable filters={filters}  />
         </div>
     )
 }

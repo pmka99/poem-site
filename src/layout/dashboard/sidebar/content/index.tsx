@@ -10,7 +10,7 @@ export default function DashboardSidebarContent() {
 
 
     return (
-        <aside className="h-full w-full flex flex-col justify-between border-r border-border bg-background/90 backdrop-blur">
+        <aside className="h-full w-full flex flex-col justify-between border-r border-border  backdrop-blur">
 
             <div>
                 <div className="h-16 flex items-center px-6 border-b border-border">
