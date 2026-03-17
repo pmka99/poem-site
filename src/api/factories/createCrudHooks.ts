@@ -1,10 +1,5 @@
-import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-} from "@tanstack/react-query";
-
-import { ApiResponse } from "@/shared/types/response.type";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import type { ApiResponse } from "@/shared/types/response.type";
 
 type CrudService<T, TCreate, TUpdate> = {
     getAll: () => Promise<ApiResponse<T[]>>;
@@ -14,81 +9,67 @@ type CrudService<T, TCreate, TUpdate> = {
     delete: (id: string) => Promise<ApiResponse<null>>;
 };
 
-export function createCrudHooks<
-    T,
-    TCreate,
-    TUpdate
->(
+export function createCrudHooks<T, TCreate, TUpdate>(
     keys: {
         lists: () => readonly unknown[];
-        list: (filters?: any) => readonly unknown[];
         detail: (id: string) => readonly unknown[];
     },
-    service: CrudService<T, TCreate, TUpdate>
+    getService: () => CrudService<T, TCreate, TUpdate>
 ) {
-    const useList = () =>
-        useQuery<ApiResponse<T[]>>({
-            queryKey: keys.lists(),
-            queryFn: service.getAll,
-        });
+    const useList = () => {
+        const service = getService();
 
-    const useDetail = (id: string) =>
-        useQuery<ApiResponse<T>>({
+        return useQuery<ApiResponse<T[]>>({
+            queryKey: keys.lists(),
+            queryFn: () => service.getAll(),
+        });
+    };
+
+    const useDetail = (id: string) => {
+        const service = getService();
+
+        return useQuery<ApiResponse<T>>({
             queryKey: keys.detail(id),
             queryFn: () => service.getById(id),
             enabled: !!id,
         });
+    };
 
     const useCreate = () => {
         const qc = useQueryClient();
+        const service = getService();
 
-        return useMutation<ApiResponse<T>, unknown, TCreate>({
-            mutationFn: service.create,
+        return useMutation({
+            mutationFn: (data: TCreate) => service.create(data),
             onSuccess: () => {
-                qc.invalidateQueries({
-                    queryKey: keys.lists(),
-                });
+                qc.invalidateQueries({ queryKey: keys.lists() });
             },
         });
     };
 
     const useUpdate = () => {
         const qc = useQueryClient();
+        const service = getService();
 
-        return useMutation<
-            ApiResponse<T>,
-            unknown,
-            { id: string; data: TUpdate }
-        >({
-            mutationFn: ({ id, data }) =>
+        return useMutation({
+            mutationFn: ({ id, data }: { id: string; data: TUpdate }) =>
                 service.update(id, data),
 
-            onSuccess: (_, variables) => {
-                qc.invalidateQueries({
-                    queryKey: keys.detail(variables.id),
-                });
-
-                qc.invalidateQueries({
-                    queryKey: keys.lists(),
-                });
+            onSuccess: (_, vars) => {
+                qc.invalidateQueries({ queryKey: keys.detail(vars.id) });
+                qc.invalidateQueries({ queryKey: keys.lists() });
             },
         });
     };
 
     const useDelete = () => {
         const qc = useQueryClient();
+        const service = getService();
 
-        return useMutation<
-            ApiResponse<null>,
-            unknown,
-            string
-        >({
-            mutationFn: service.delete,
-
+        return useMutation({
+            mutationFn: (id: string) => service.delete(id),
             onSuccess: () => {
-                qc.invalidateQueries({
-                    queryKey: keys.lists(),
-                });
+                qc.invalidateQueries({ queryKey: keys.lists() });
             },
         });
     };

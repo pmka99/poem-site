@@ -4,8 +4,6 @@ import { useState } from "react"
 import DashboardPoemTypesFilters from "./filters"
 import { LayoutPoemType } from "@/enum/poemType";
 import DashboardPeomTypesTable from "./table";
-import { useModal } from "@/hooks";
-import DashboardPoemTypeAddModal from "./modals/add";
 
 export type TDashboardFiltersPoemTypes = {
     search: string
@@ -23,7 +21,7 @@ export default function DashboardPeomTypesView() {
     return (
         <div className="flex flex-col">
             <DashboardPoemTypesFilters filters={filters} setFilters={setFilters} />
-            <DashboardPeomTypesTable filters={filters}  />
+            <DashboardPeomTypesTable filters={filters} />
         </div>
     )
 }

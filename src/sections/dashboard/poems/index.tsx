@@ -5,14 +5,14 @@ import DashboardFiltersPoems from "./filters"
 
 export type TDashboardFiltersPoems = {
     search: string
-    poemType: string[]
+    poemType: string
 }
 
 export default function DashboardPeomsView() {
 
     const [filters, setFilters] = useState<TDashboardFiltersPoems>({
         search: "",
-        poemType: [],
+        poemType: "",
     })
 
     return (

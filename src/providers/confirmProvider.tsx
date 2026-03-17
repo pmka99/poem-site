@@ -3,6 +3,15 @@
 import { ConfirmContext, ConfirmFn } from "@/contexts/confirmContext";
 import { useEffect, useRef, useState } from "react";
 
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Button,
+} from "@mui/material";
+
 type ConfirmState = {
     message: string;
 };
@@ -28,7 +37,6 @@ export function ConfirmProvider({ children }: { children: React.ReactNode }) {
         setState(null);
     }
 
-    // cleanup اگر provider unmount شد
     useEffect(() => {
         return () => {
             resolverRef.current?.(false);
@@ -39,14 +47,36 @@ export function ConfirmProvider({ children }: { children: React.ReactNode }) {
         <ConfirmContext.Provider value={confirm}>
             {children}
 
-            {state && (
-                <div className="modal">
-                    <p>{state.message}</p>
+            <Dialog
+                className="*:font-serif!"
+                open={!!state}
+                onClose={() => close(false)}
+                maxWidth="xs"
+                fullWidth
+            >
+                <DialogTitle>تأیید عملیات</DialogTitle>
 
-                    <button onClick={() => close(true)}>Yes</button>
-                    <button onClick={() => close(false)}>No</button>
-                </div>
-            )}
+                <DialogContent>
+                    <DialogContentText>
+                        {state?.message}
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={() => close(false)} color="inherit">
+                        انصراف
+                    </Button>
+
+                    <Button
+                        onClick={() => close(true)}
+                        color="error"
+                        variant="contained"
+                        autoFocus
+                    >
+                        تأیید
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </ConfirmContext.Provider>
     );
 }

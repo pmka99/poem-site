@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@mui/material";
 
@@ -34,14 +34,14 @@ export default function DashboardPoemTypeAddModal() {
         mode: "all",
     });
 
-    const onSubmit = (data: CreatePoemTypeDTO) => {
+    const onSubmit: SubmitHandler<CreatePoemTypeDTO> = (data) => {
         createPoemType(data, {
             onSuccess: () => {
                 closeModal(MODALS.ADD_POEMTYPE);
                 methods.reset();
             },
         });
-    };
+    };    
 
     return (
         <CustomModal

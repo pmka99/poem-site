@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import { TDashboardFiltersPoems } from "."
-import { MultiSelect } from "@/components/filters"
+import { MultiSelect, SingleSelect } from "@/components/filters"
+import { poemTypeHooks } from "@/api/hooks/poemType.hooks"
 
 type Props = {
     filters: TDashboardFiltersPoems,
@@ -9,24 +10,25 @@ type Props = {
 
 export default function DashboardFiltersPoems({ filters, setFilters }: Props) {
 
-    const changeMultiSelectHandler = (values: (string | number)[]) => {
+    const changeSelectHandler = (value: string | number) => {
         setFilters(prev => ({
-            poemType: values.map(item => item.toString()),
+            poemType: value.toString(),
             search: prev.search
         }))
     }
 
-    const items = [
-        { id: 1, label: "1" }
-    ];
+    const { data, isLoading } = poemTypeHooks.useList();
+
+    const items = data?.data?.map(item => ({ id: item._id, label: item.name })
+    ) ?? []
 
     return (
         <div className="py-2 grid grid-cols-4">
-            <MultiSelect
+            <SingleSelect
                 value={filters.poemType}
                 label="نوع شعر"
                 items={items}
-                onChange={changeMultiSelectHandler}
+                onChange={changeSelectHandler}
             />
         </div>
     )

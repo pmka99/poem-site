@@ -1,6 +1,6 @@
 "use client";
 
-import { useModal } from "@/hooks";
+import { useConfirm, useModal } from "@/hooks";
 import { MODALS } from "@/types/modals";
 
 import { poemTypeHooks } from "@/api/hooks/poemType.hooks";
@@ -16,20 +16,21 @@ import {
 
 import { GridColDef } from "@mui/x-data-grid";
 
-import DashboardPoemTypeAddModal from "./modals/add";
-
 import { TDashboardFiltersPoemTypes } from ".";
 import { LayoutPoemType } from "@/enum/poemType";
-import ShowModals from "./modals";
+import ShowModals from "./actions";
 
 type Props = { filters: TDashboardFiltersPoemTypes };
 
 export default function DashboardPoemTypesTable({ filters }: Props) {
     const { openModal } = useModal();
+    const confirm = useConfirm();
 
     const grid = useDataGrid({ mode: "client" });
 
     const { data, isLoading } = poemTypeHooks.useList();
+
+    const deleteMutation = poemTypeHooks.useDelete();
 
     const rows = data?.data ?? [];
 
@@ -53,9 +54,15 @@ export default function DashboardPoemTypesTable({ filters }: Props) {
 
         createActionsColumn<PoemTypeResponse>({
             onEdit: (row) => { openModal(MODALS.EDIT_POEMTYPE, { poemTypeId:row._id}) },
-            onDelete: (row) => { },
+            onDelete: async (row) => {
+                const ok = await confirm("آیا از حذف این نوع شعر مطمئن هستید؟");
+
+                if (!ok) return;
+
+                deleteMutation.mutate(row._id);
+            },
         }),
-    ];
+    ];    
 
     return (
         <>

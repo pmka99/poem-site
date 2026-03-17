@@ -38,7 +38,7 @@ export function createActionsColumn<T extends GridValidRowModel>({
                     <GridActionsCellItem
                         key="view"
                         icon={<MdVisibility size={20} />}
-                        label="View"
+                        label="مشاهده"
                         onClick={() => onView(row)}
                     />
                 );
@@ -49,7 +49,7 @@ export function createActionsColumn<T extends GridValidRowModel>({
                     <GridActionsCellItem
                         key="edit"
                         icon={<MdEdit size={20} />}
-                        label="Edit"
+                        label="ویرایش"
                         onClick={() => onEdit(row)}
                     />
                 );
@@ -60,7 +60,7 @@ export function createActionsColumn<T extends GridValidRowModel>({
                     <GridActionsCellItem
                         key="delete"
                         icon={<MdDelete size={20} />}
-                        label="Delete"
+                        label="حذف"
                         onClick={() => onDelete(row)}
                         showInMenu
                     />

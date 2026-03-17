@@ -14,5 +14,5 @@ export const poemTypeHooks = createCrudHooks<
     UpdatePoemTypeDTO
 >(
     queryKeys.poemTypes,
-    poemTypeService
+    () => poemTypeService
 );
