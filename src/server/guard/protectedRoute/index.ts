@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z, ZodTypeAny, ZodError } from "zod";
 import { accessService } from "../access";
 import { PermissionRequirement, AuthorizationMode } from "../access/types";
-import { AuthUser, getUserFromRequest } from "../utils/getUserFromRequest";
-import { z, ZodTypeAny } from "zod";
+import { getUserFromRequest, AuthUser } from "../utils/getUserFromRequest";
 
 interface ProtectedRouteConfig<
     B extends ZodTypeAny | undefined = undefined,
@@ -19,7 +19,7 @@ interface ProtectedRouteConfig<
 type InferOrUndefined<T extends ZodTypeAny | undefined> =
     T extends ZodTypeAny ? z.infer<T> : undefined;
 
-type InferredData<
+type RouteData<
     B extends ZodTypeAny | undefined,
     P extends ZodTypeAny | undefined,
     Q extends ZodTypeAny | undefined
@@ -37,58 +37,58 @@ export function protectedRoute<
     config: ProtectedRouteConfig<B, P, Q>,
     handler: (
         req: NextRequest,
-        ctx: { params?: any },
-        data: InferredData<B, P, Q>,
+        ctx: { params?: Promise<any> },
+        data: RouteData<B, P, Q>,
         user: AuthUser
     ) => Promise<Response>
 ) {
-    return async (req: NextRequest, ctx: { params?: any }) => {
-        // 1️⃣ Authentication
-        const user = await getUserFromRequest(req);
-        if (!user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
+    return async (req: NextRequest, ctx: { params?: Promise<any> }) => {
         try {
-            // 2️⃣ Validation Phase
+            // Authentication
+            const user = await getUserFromRequest(req);
 
-            // Body
+            if (!user) {
+                return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+            }
+
+            // Resolve params (Next.js 15)
+            const rawParams = ctx?.params ? await ctx.params : {};
+
+            // Body validation
             let body: any = undefined;
             if (config.bodySchema) {
                 const json = await req.json();
                 body = config.bodySchema.parse(json);
             }
 
-            // Params
+            // Params validation
             let params: any = undefined;
             if (config.paramsSchema) {
-                params = config.paramsSchema.parse(ctx?.params ?? {});
+                params = config.paramsSchema.parse(rawParams ?? {});
             }
 
-            // Query
+            // Query validation
             let query: any = undefined;
             if (config.querySchema) {
-                const rawQuery = Object.fromEntries(req.nextUrl.searchParams);
+                const rawQuery = Object.fromEntries(req.nextUrl.searchParams.entries());
                 query = config.querySchema.parse(rawQuery);
             }
 
-            const data: InferredData<B, P, Q> = {
+            const data: RouteData<B, P, Q> = {
                 body,
                 params,
                 query,
             };
 
-            // 3️⃣ Authorization Context
-            const authContext = {
-                body,
-                params: params ?? ctx?.params ?? {},
-                query,
-            };
-
+            // Authorization
             const allowed = await accessService.canAccess(
                 user,
                 config.require,
-                authContext,
+                {
+                    body,
+                    params: params ?? rawParams,
+                    query,
+                },
                 config.mode ?? "AND"
             );
 
@@ -96,13 +96,24 @@ export function protectedRoute<
                 return NextResponse.json({ error: "Forbidden" }, { status: 403 });
             }
 
-            // 4️⃣ Business Logic
-            return handler(req, ctx, data, user);
+            // Run handler
+            return handler(req, { params: rawParams }, data, user);
+        } catch (err) {
+            if (err instanceof ZodError) {
+                return NextResponse.json(
+                    {
+                        error: "Validation failed",
+                        issues: err.issues,
+                    },
+                    { status: 400 }
+                );
+            }
 
-        } catch (err: any) {
+            console.error(err);
+
             return NextResponse.json(
-                { error: err?.message ?? "Validation failed" },
-                { status: 400 }
+                { error: "Internal Server Error" },
+                { status: 500 }
             );
         }
     };

@@ -21,7 +21,6 @@ export const GET = protectedRoute(
     async (_req, _ctx, { params }) => {
         const { poemTypeId } = params;
         await connectDB();
-        console.log("params", params);
 
         const poemType = await PoemTypeModel.findById(poemTypeId).lean();
         if (!poemType) {
