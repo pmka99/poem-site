@@ -6,6 +6,7 @@ import { Action, Resource } from "@/enum/permission";
 import PoemTypeModel from "@/server/models/poemType";
 import { updatePoemTypeSchema } from "@/shared/schemas/poemType.schema";
 import { successResponse } from "@/server/utils/response";
+import { toPoemTypeResponse } from "@/server/transformers/poemType.transformer";
 
 const paramsSchema = createIdParamsSchema(["poemTypeId"], [])
 
@@ -20,11 +21,16 @@ export const GET = protectedRoute(
     async (_req, _ctx, { params }) => {
         const { poemTypeId } = params;
         await connectDB();
+        console.log("params", params);
 
         const poemType = await PoemTypeModel.findById(poemTypeId).lean();
+        if (!poemType) {
+            return NextResponse.json({ error: "PoemType not found" }, { status: 404 });
+        }
+        const data = toPoemTypeResponse(poemType)
 
         return successResponse({
-            data: poemType,
+            data,
         });
     }
 );
@@ -45,7 +51,9 @@ export const PUT = protectedRoute(
 
         const updatedPoemType = await PoemTypeModel.findByIdAndUpdate(poemTypeId, body, { new: true });
 
-        return successResponse({ data: updatedPoemType });
+        const data = toPoemTypeResponse(updatedPoemType);
+
+        return successResponse({ data });
     }
 );
 

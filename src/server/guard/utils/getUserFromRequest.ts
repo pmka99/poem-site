@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken";
 import UserModel, { IUser } from "../../models/user";
+import { cookies } from "next/headers";
+import { connectDB } from "@/server/utils/db";
+import { verifyToken } from "@/server/utils/authUtils";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -11,32 +14,43 @@ export interface AuthUser {
 
 export async function getUserFromRequest(req: any): Promise<AuthUser | null> {
     try {
-        const authHeader = req.headers.get("authorization");
 
-        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        const cookieStore = await cookies();
+        const token = cookieStore.get("access_token")?.value;
+
+        if (!token) {
             return null;
         }
 
-        const token = authHeader.split(" ")[1];
+        const decoded: any = verifyToken(token);
 
-        const decoded = jwt.verify(token, JWT_SECRET) as {
-            sub: string;
-        };
+        if (!decoded || !decoded.sub) {
+            return null;
 
-        if (!decoded?.sub) return null;
+        }
 
-        const user: IUser = await UserModel
-            .findById(decoded.sub)
-            .populate("role")
-            .lean();
+        await connectDB();
+        console.log("decoded.sub", decoded.sub);
 
-        if (!user) return null;
+        const user =
+            await UserModel
+                .findById(decoded.sub)
+                .select("")
+                .populate({
+                    path: "role",
+                    select: "permissions name -_id"
+                })
+                .lean()
 
+        if (!user) {
+            return null;
+        }
+        
         return {
             _id: user._id.toString(),
             username: user.username,
-            role: user.role,
-        };
+            role: user.role
+        }
 
     } catch (err) {
         return null;

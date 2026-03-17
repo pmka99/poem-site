@@ -1,9 +1,10 @@
 import { Action, Resource } from "@/enum/permission";
 import { protectedRoute } from "@/server/guard/protectedRoute";
-import { successResponse } from "@/server/utils/response";
+import { errorResponse, successResponse } from "@/server/utils/response";
 import { createPoemTypeSchema } from "@/shared/schemas/poemType.schema";
 import PoemTypesModel from "@/server/models/poemType";
 import { connectDB } from "@server/utils/db";
+import { toPoemTypeResponse } from "@/server/transformers/poemType.transformer";
 
 // GET all poem types
 export const GET = protectedRoute(
@@ -15,8 +16,10 @@ export const GET = protectedRoute(
 
         const poemTypes = await PoemTypesModel.find().lean();
 
+        const data = poemTypes.map(toPoemTypeResponse)
+
         return successResponse({
-            data: poemTypes,
+            data,
         });
     }
 );
@@ -28,14 +31,27 @@ export const POST = protectedRoute(
         bodySchema: createPoemTypeSchema,
     },
     async (_req, _ctx, { body }) => {
-        await connectDB();
 
-        const newPoemType = await PoemTypesModel.create(body);
+        try {
+            await connectDB();
 
-        return successResponse({
-            data: newPoemType,
-            status: 201
-        });
+            const newPoemType = await PoemTypesModel.create(body);
+
+            // ✳️ اصلاح این خط:
+            const data = toPoemTypeResponse(newPoemType);
+
+            return successResponse({
+                data,
+                status: 201,
+            });
+        } catch (error) {
+            console.error(error);
+
+            return errorResponse({ message: "ssss", status: 500 })
+
+
+        }
+
     }
 );
 

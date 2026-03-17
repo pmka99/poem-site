@@ -5,6 +5,7 @@ import {
 } from "./types";
 import { IPolicyRegistry } from "./policyRegistry";
 import { AuthUser } from "../utils/getUserFromRequest";
+import { RoleName } from "@/enum/role";
 
 export class AccessService {
 
@@ -18,7 +19,7 @@ export class AccessService {
     ): Promise<boolean> {
 
         // Admin bypass
-        if (user.role?.name === "admin") {
+        if (user.role?.name === RoleName.ADMIN) {
             return true;
         }
 

@@ -22,8 +22,11 @@ const hemistichSchema = new mongoose.Schema<IHemistich>({
 // اضافه کردن paginate
 hemistichSchema.plugin(mongoosePaginate);
 
-const HemistichModel = mongoose.model<IHemistich, mongoose.PaginateModel<IHemistich>>(
-    "Hemistich",
-    hemistichSchema
-);
+const HemistichModel =
+    mongoose.models.Hemistich ||
+    mongoose.model<IHemistich, mongoose.PaginateModel<IHemistich>>(
+        "Hemistich",
+        hemistichSchema
+    );
+    
 export default HemistichModel;

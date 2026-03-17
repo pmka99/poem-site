@@ -8,14 +8,12 @@ export const MODALS = {
 export type ModalName = (typeof MODALS)[keyof typeof MODALS];
 
 
-export type ModalProps = {
+export type ModalPayloadMap = {
     [MODALS.LOGIN]: undefined;
 
     [MODALS.REGISTER]: undefined;
 
-    [MODALS.ADD_POEMTYPE]: {
-        poemTypeId: string;
-    };
+    [MODALS.ADD_POEMTYPE]: undefined;
 
     [MODALS.EDIT_POEMTYPE]: {
         poemTypeId: string;

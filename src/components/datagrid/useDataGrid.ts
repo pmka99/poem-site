@@ -73,7 +73,10 @@ export function useDataGrid({ mode = "client" }: { mode?: "client" | "server" } 
 
     return {
         mode,
-        query: parsed,
+        query: {
+            ...parsed,
+            search,
+        },
         paginationModel,
         sortModel,
         setPaginationModel,

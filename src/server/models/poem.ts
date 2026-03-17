@@ -75,9 +75,9 @@ poemSchema.index({ createdAt: -1 });
 
 poemSchema.plugin(mongoosePaginate);
 
-const PoemModel = mongoose.model<IPoem, mongoose.PaginateModel<IPoem>>(
-    "Poem",
-    poemSchema
-);
+const PoemModel =
+    mongoose.models.Poem ||
+    mongoose.model<IPoem, mongoose.PaginateModel<IPoem>>("Poem", poemSchema);
+
 
 export default PoemModel

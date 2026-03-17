@@ -1,4 +1,4 @@
-import { GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
+import { GridColDef, GridActionsCellItem, GridValidRowModel } from "@mui/x-data-grid";
 import React from "react";
 import { MdEdit, MdDelete, MdVisibility, MdMoreVert } from "react-icons/md";
 
@@ -16,12 +16,12 @@ type Options<T> = {
     customActions?: CustomAction<T>[];
 };
 
-export function createActionsColumn<T>({
+export function createActionsColumn<T extends GridValidRowModel>({
     onEdit,
     onDelete,
     onView,
     customActions = [],
-}: Options<T>): GridColDef {
+}: Options<T>): GridColDef<T> {
     return {
         field: "actions",
         type: "actions",
@@ -30,7 +30,7 @@ export function createActionsColumn<T>({
         renderHeader: () => <MdMoreVert size={20} />,
 
         getActions: (params) => {
-            const row = params.row;
+            const row = params.row as T;
             const actions = [];
 
             if (onView) {

@@ -10,14 +10,20 @@ import mongoose from "mongoose";
  * @returns Zod schema for validating a MongoDB ObjectId
  */
 export const objectIdField = (fieldName: string, required: boolean) => {
-    required
-        ? z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
+    if (required) {
+        return z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
+            message: `The ${fieldName} is not a valid ObjectId`,
+        });
+    }
+
+    return z
+        .string()
+        .refine((val) => mongoose.Types.ObjectId.isValid(val), {
             message: `The ${fieldName} is not a valid ObjectId`,
         })
-        : z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
-            message: `The ${fieldName} is not a valid ObjectId`,
-        }).optional();
-}
+        .optional();
+};
+
 
 
 /**

@@ -16,7 +16,11 @@ export const queryKeys = {
         detail: (id: string) => [...queryKeys.poems.all, "detail", id] as const,
     },
 
-    comments: {
-        all: ["comments"] as const,
+    poemTypes: {
+        all: ["poemTypes"] as const,
+        list: () => [...queryKeys.poemTypes.all, "list"] as const,
+        detail: (id: string) => [...queryKeys.poemTypes.all, "detail", id] as const,
     },
+
+    comments: { all: ["comments"] as const },
 };
