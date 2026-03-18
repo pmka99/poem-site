@@ -53,7 +53,7 @@ export default function DashboardPoemTypesTable({ filters }: Props) {
         },
 
         createActionsColumn<PoemTypeResponse>({
-            onEdit: (row) => { openModal(MODALS.EDIT_POEMTYPE, { poemTypeId:row._id}) },
+            onEdit: (row) => { openModal(MODALS.EDIT_POEMTYPE, { poemTypeId: row._id }) },
             onDelete: async (row) => {
                 const ok = await confirm("آیا از حذف این نوع شعر مطمئن هستید؟");
 
@@ -62,7 +62,7 @@ export default function DashboardPoemTypesTable({ filters }: Props) {
                 deleteMutation.mutate(row._id);
             },
         }),
-    ];    
+    ];
 
     return (
         <>

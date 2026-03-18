@@ -1,14 +1,14 @@
 import { Dispatch, SetStateAction } from "react"
-import { TDashboardFiltersPoems } from "."
+import { TDashboardPoemsFilters } from "."
 import { MultiSelect, SingleSelect } from "@/components/filters"
 import { poemTypeHooks } from "@/api/hooks/poemType.hooks"
 
 type Props = {
-    filters: TDashboardFiltersPoems,
-    setFilters: Dispatch<SetStateAction<TDashboardFiltersPoems>>
+    filters: TDashboardPoemsFilters,
+    setFilters: Dispatch<SetStateAction<TDashboardPoemsFilters>>
 }
 
-export default function DashboardFiltersPoems({ filters, setFilters }: Props) {
+export default function DashboardPoemsFilters({ filters, setFilters }: Props) {
 
     const changeSelectHandler = (value: string | number) => {
         setFilters(prev => ({

@@ -4,11 +4,11 @@ import Link from "next/link"
 const items = [
     { name: "پنل کاربری", href: "/dashboard", roles: [RoleName.ADMIN, RoleName.AUTHOR, RoleName.USER] },
     { name: "اشعار", href: "/dashboard/poems", roles: [RoleName.AUTHOR] },
-    { name: "نظرات", href: "/dashboard/comments", roles: [RoleName.ADMIN, RoleName.AUTHOR, RoleName.USER] },
+    // { name: "نظرات", href: "/dashboard/comments", roles: [RoleName.ADMIN, RoleName.AUTHOR, RoleName.USER] },
     { name: "کاربران", href: "/dashboard/users", roles: [RoleName.ADMIN] },
     { name: "انواع شعرها", href: "/dashboard/poemTypes", roles: [RoleName.ADMIN] },
-    { name: "نقش ها", href: "/dashboard/roles", roles: [RoleName.ADMIN] },
-    { name: "تنظیمات", href: "/dashboard/settings", roles: [RoleName.ADMIN, RoleName.AUTHOR] }
+    // { name: "نقش ها", href: "/dashboard/roles", roles: [RoleName.ADMIN] },
+    // { name: "تنظیمات", href: "/dashboard/settings", roles: [RoleName.ADMIN, RoleName.AUTHOR] }
 ]
 
 

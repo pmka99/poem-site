@@ -41,7 +41,7 @@ export default function DashboardPoemTypeAddModal() {
                 methods.reset();
             },
         });
-    };    
+    };
 
     return (
         <CustomModal

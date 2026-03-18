@@ -36,10 +36,10 @@ export default function SignUpView() {
 
     const onSubmit = async (data: SingUpFormData) => {
         await authService.signUp({
-            username:data.username,
-            password:data?.password,
-            phoneNumber:data.phoneNumber,
-            
+            username: data.username,
+            password: data?.password,
+            phoneNumber: data.phoneNumber,
+
         })
     }
 

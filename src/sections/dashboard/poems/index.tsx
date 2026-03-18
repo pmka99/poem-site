@@ -1,29 +1,24 @@
 "use client"
 
 import { useState } from "react"
-import DashboardFiltersPoems from "./filters"
+import DashboardPoemsFilters from "./filters"
 
-export type TDashboardFiltersPoems = {
+export type TDashboardPoemsFilters = {
     search: string
     poemType: string
 }
 
 export default function DashboardPeomsView() {
 
-    const [filters, setFilters] = useState<TDashboardFiltersPoems>({
+    const [filters, setFilters] = useState<TDashboardPoemsFilters>({
         search: "",
         poemType: "",
     })
 
     return (
         <div className="flex flex-col">
-            {/** filters */}
-            <DashboardFiltersPoems filters={filters} setFilters={setFilters} />
-
-            {/** table */}
+            {/* <DashboardPoemsFilters filters={filters} setFilters={setFilters} /> */}
             
-
-            {/** modals */}
         </div>
     )
 }
