@@ -1,5 +1,6 @@
 import mongoose, { Schema, model, models, Types } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
+import type { PaginateModel } from "mongoose";
 import { IUser } from "./user";
 import { IStory } from "./story";
 import { IPoemType } from "./poemType";
@@ -76,8 +77,8 @@ poemSchema.index({ createdAt: -1 });
 poemSchema.plugin(mongoosePaginate);
 
 const PoemModel =
-    mongoose.models.Poem ||
-    mongoose.model<IPoem, mongoose.PaginateModel<IPoem>>("Poem", poemSchema);
+    (mongoose.models.Poem as PaginateModel<IPoem>) ||
+    mongoose.model<IPoem, PaginateModel<IPoem>>("Poem", poemSchema);
 
 
 export default PoemModel
