@@ -7,5 +7,6 @@ export interface ApiResponse<T = null> {
         page?: number
         limit?: number
         total?: number
+        totalPage?: number
     }
 }

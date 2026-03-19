@@ -5,8 +5,9 @@ import { protectedRoute } from "@server/guard/protectedRoute";
 import { Action, Resource } from "@/enum/permission";
 import PoemTypeModel from "@/server/models/poemType";
 import { updatePoemTypeSchema } from "@/shared/schemas/poemType.schema";
-import { successResponse } from "@/server/utils/response";
-import { toPoemTypeResponse } from "@/server/transformers/poemType.transformer";
+import { errorResponse, successResponse } from "@/server/utils/response";
+import { toPoemTypeResponse } from "@/server/mapper/poemType.mapper";
+import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
 
 const paramsSchema = createIdParamsSchema(["poemTypeId"], [])
 
@@ -24,12 +25,13 @@ export const GET = protectedRoute(
 
         const poemType = await PoemTypeModel.findById(poemTypeId).lean();
         if (!poemType) {
-            return NextResponse.json({ error: "PoemType not found" }, { status: 404 });
+            return errorResponse({ message: ERRORSMESSAGES.POEM_TYPE_NOT_FOUND, status: 404 });
         }
         const data = toPoemTypeResponse(poemType)
 
         return successResponse({
             data,
+            message: SUCCESSMESSAGES.POEM_TYPE_FETCHED
         });
     }
 );
@@ -49,10 +51,13 @@ export const PUT = protectedRoute(
         await connectDB();
 
         const updatedPoemType = await PoemTypeModel.findByIdAndUpdate(poemTypeId, body, { new: true });
+        if (!updatedPoemType) {
+            return errorResponse({ message: ERRORSMESSAGES.POEM_TYPE_NOT_FOUND, status: 404 });
+        }
 
         const data = toPoemTypeResponse(updatedPoemType);
 
-        return successResponse({ data });
+        return successResponse({ data, message: SUCCESSMESSAGES.POEM_TYPE_UPDATED });
     }
 );
 
@@ -68,6 +73,6 @@ export const DELETE = protectedRoute(
         const { poemTypeId } = params;
         await connectDB();
         await PoemTypeModel.findByIdAndDelete(poemTypeId);
-        return successResponse({ message: "PoemType deleted successfully" });
+        return successResponse({ message: SUCCESSMESSAGES.POEM_TYPE_DELETED });
     }
 );

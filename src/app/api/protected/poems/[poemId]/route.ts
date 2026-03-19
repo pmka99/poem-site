@@ -5,6 +5,8 @@ import { createIdParamsSchema } from "@server/validators";
 import { updatePoemSchema } from "@shared/schemas/poem.schema";
 import { protectedRoute } from "@server/guard/protectedRoute";
 import { Action, Resource } from "@/enum/permission";
+import { toPoemResponse } from "@/server/mapper/poem.mapper";
+import { errorResponse, successResponse } from "@/server/utils/response";
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
 
@@ -20,9 +22,14 @@ export const GET = protectedRoute(
         const { poemId } = params;
         await connectDB();
 
-        const poems: IPoem | null = await PoemModel.findById(poemId).lean();
+        const poem = await PoemModel.findById(poemId).lean();
+        if (!poem) {
+            return errorResponse({ message: "Poem not found", status: 404 });
+        }
 
-        return NextResponse.json(poems);
+        const data = toPoemResponse(poem)
+
+        return successResponse({ data });
     }
 );
 
@@ -40,9 +47,13 @@ export const PUT = protectedRoute(
 
         await connectDB();
 
-        const updatedPoem: IPoem | null = await PoemModel.findByIdAndUpdate(poemId, body, { new: true });
+        const updatedPoem = await PoemModel.findByIdAndUpdate(poemId, body, { new: true });
+        if (!updatedPoem) {
+            return errorResponse({ message: "Poem not found", status: 404 });
+        }
+        const data = toPoemResponse(updatedPoem)
 
-        return NextResponse.json({ data: updatedPoem });
+        return successResponse({ data });
     }
 );
 
@@ -58,6 +69,6 @@ export const DELETE = protectedRoute(
         const { poemId } = params;
         await connectDB();
         await PoemModel.findByIdAndDelete(poemId);
-        return NextResponse.json({ message: "Poem deleted successfully" });
+        return successResponse({ message: "Poem deleted successfully" });
     }
 );

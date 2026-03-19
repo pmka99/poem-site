@@ -17,7 +17,7 @@ export function withValidation<
 >(
     options: WithValidationOptions<B, P>,
     handler: (
-        req: NextRequest, // 🔹 تغییر از Request به NextRequest
+        req: NextRequest, 
         ctx: any,
         data: {
             body: B extends ZodTypeAny ? zInfer<B> : undefined;
@@ -25,7 +25,7 @@ export function withValidation<
         }
     ) => Promise<Response>
 ) {
-    return async (req: NextRequest, ctx: any) => { // 🔹 همینجا هم NextRequest
+    return async (req: NextRequest, ctx: any) => { 
         try {
             let validatedBody: any = undefined;
             let validatedParams: any = undefined;

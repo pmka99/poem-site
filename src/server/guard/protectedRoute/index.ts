@@ -3,6 +3,8 @@ import { z, ZodTypeAny, ZodError } from "zod";
 import { accessService } from "../access";
 import { PermissionRequirement, AuthorizationMode } from "../access/types";
 import { getUserFromRequest, AuthUser } from "../utils/getUserFromRequest";
+import { ERRORSMESSAGES } from "@/server/messages";
+import { errorResponse } from "@/server/utils/response";
 
 interface ProtectedRouteConfig<
     B extends ZodTypeAny | undefined = undefined,
@@ -48,7 +50,7 @@ export function protectedRoute<
             const user = await getUserFromRequest(req);
 
             if (!user) {
-                return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+                return errorResponse({ message: ERRORSMESSAGES.UNAUTHORIZED, status: 401 });
             }
 
             // Resolve params (Next.js 15)
@@ -93,27 +95,24 @@ export function protectedRoute<
             );
 
             if (!allowed) {
-                return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+                return errorResponse({ message: ERRORSMESSAGES.FORBIDDEN, status: 403 });
             }
 
             // Run handler
             return handler(req, { params: rawParams }, data, user);
         } catch (err) {
             if (err instanceof ZodError) {
-                return NextResponse.json(
-                    {
-                        error: "Validation failed",
-                        issues: err.issues,
-                    },
-                    { status: 400 }
-                );
+                return errorResponse({
+                    message: ERRORSMESSAGES.VALIDATION_ERROR,
+                    errors: err.issues,
+                    status: 400
+                })
             }
 
             console.error(err);
 
-            return NextResponse.json(
-                { error: "Internal Server Error" },
-                { status: 500 }
+            return errorResponse(
+                { message: ERRORSMESSAGES.INTERNAL_SERVER_ERROR, status: 500 }
             );
         }
     };

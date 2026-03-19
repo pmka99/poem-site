@@ -1,11 +1,11 @@
 import { LayoutPoemType } from "@/enum/poemType";
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 
 export interface IPoemType extends mongoose.Document {
     name: string;
     description?: string;
     layout: LayoutPoemType
-    
+
     createdAt: Date;
     updatedAt: Date;
 }
@@ -22,6 +22,6 @@ const poemTypeSchema = new mongoose.Schema<IPoemType>({
     { timestamps: true, versionKey: false }
 );
 
-const PoemTypeModel = mongoose.models.PoemType || mongoose.model<IPoemType>("PoemType", poemTypeSchema);
+const PoemTypeModel = (mongoose.models.PoemType as Model<IPoemType>) || mongoose.model<IPoemType>("PoemType", poemTypeSchema);
 
 export default PoemTypeModel;

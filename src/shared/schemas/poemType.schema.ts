@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export const createPoemTypeSchema = z.object({
     name: z.string().min(1, "نام نوع شعر الزامی است"),
-    layout: z.enum(Object.values(LayoutPoemType)),
+    layout: z.nativeEnum(LayoutPoemType),
     description: z.string().optional(),
 });
 

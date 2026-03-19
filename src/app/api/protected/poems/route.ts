@@ -5,6 +5,8 @@ import { protectedRoute } from "@server/guard/protectedRoute";
 import { createPoemSchema } from "@shared/schemas/poem.schema";
 import { createIdParamsSchema } from "@server/validators";
 import { Action, Resource } from "@/enum/permission";
+import { successResponse } from "@/server/utils/response";
+import { toPoemResponse } from "@/server/mapper/poem.mapper";
 
 // ✅ Schema for query params (GET)
 const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "author", "poemType", "text"])
@@ -26,26 +28,34 @@ export const GET = protectedRoute(
         const poemType = query.poemType;
         const text = query.text;
 
-        // search for hemistichs that match the text and get their poem IDs
-        const resultOfHemistich = await PoemModel.find({
+        const resultOfStories = await PoemModel.find({
             story: { $regex: text ?? "", $options: "i" },
         }).select("_id");
 
-        const hemistichIds = resultOfHemistich.map((poem) => poem._id);
+        const resultOfStoriesIds = resultOfStories.map((poem) => poem._id);
 
         const filter: any = {};
         if (author) filter.author = author;
         if (poemType) filter.poemType = poemType;
-        if (text) filter._id = { $in: hemistichIds };
+        if (text) filter._id = { $in: resultOfStoriesIds };
 
         const result = await PoemModel.paginate(filter, {
             limit,
             page,
-            populate: ["author", "poemType"],
+            populate: [Resource.POEM_TYPES, Resource.STORY, Resource.COMMENT],
             lean: true,
         });
 
-        return NextResponse.json({ data: result.docs });
+        const data = result.docs.map(toPoemResponse)
+
+        return successResponse({
+            data, meta: {
+                page: result.page,
+                limit: result.limit,
+                total: result.totalDocs,
+                totalPage: result.totalPages
+            }
+        });
     }
 );
 
@@ -60,8 +70,10 @@ export const POST = protectedRoute(
     async (_req, _ctx, { body }) => {
         await connectDB();
 
-        const newPoem: IPoem = await PoemModel.create(body);
+        const newPoem = await PoemModel.create(body);
 
-        return NextResponse.json({ data: newPoem });
+        const data = toPoemResponse(newPoem)
+
+        return successResponse({ data });
     }
 );

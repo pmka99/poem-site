@@ -11,7 +11,7 @@ export type UpdatePoemTypeDTO = z.infer<typeof updatePoemTypeSchema>;
 //---------------------------------------------------
 // response
 
-export interface PoemTypeResponse {
+export type PoemTypeResponse = {
     _id: string
     name: string;
     description: string;

@@ -4,7 +4,9 @@ import { errorResponse, successResponse } from "@/server/utils/response";
 import { createPoemTypeSchema } from "@/shared/schemas/poemType.schema";
 import PoemTypesModel from "@/server/models/poemType";
 import { connectDB } from "@server/utils/db";
-import { toPoemTypeResponse } from "@/server/transformers/poemType.transformer";
+import { toPoemTypeResponse } from "@/server/mapper/poemType.mapper";
+import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
+import { LayoutPoemType } from "@/enum/poemType";
 
 // GET all poem types
 export const GET = protectedRoute(
@@ -19,6 +21,7 @@ export const GET = protectedRoute(
         const data = poemTypes.map(toPoemTypeResponse)
 
         return successResponse({
+            message: SUCCESSMESSAGES.POEM_TYPE_FETCHED,
             data,
         });
     }
@@ -31,27 +34,17 @@ export const POST = protectedRoute(
         bodySchema: createPoemTypeSchema,
     },
     async (_req, _ctx, { body }) => {
+        await connectDB();
 
-        try {
-            await connectDB();
+        const newPoemType = await PoemTypesModel.create(body);
 
-            const newPoemType = await PoemTypesModel.create(body);
+        const data = toPoemTypeResponse(newPoemType);
 
-            // ✳️ اصلاح این خط:
-            const data = toPoemTypeResponse(newPoemType);
-
-            return successResponse({
-                data,
-                status: 201,
-            });
-        } catch (error) {
-            console.error(error);
-
-            return errorResponse({ message: "ssss", status: 500 })
-
-
-        }
-
+        return successResponse({
+            message: SUCCESSMESSAGES.POEM_TYPE_CREATED,
+            data,
+            status: 201,
+        });
     }
 );
 

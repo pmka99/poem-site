@@ -4,7 +4,7 @@ import type { PaginateModel } from "mongoose";
 import { IPoem } from "./poem";
 
 export interface IHemistich extends Document {
-    poem: mongoose.Types.ObjectId | IPoem;
+    poem: mongoose.Types.ObjectId;
     text: string;
     order: number;
     show: boolean;

@@ -9,3 +9,15 @@ export type UpdateCommentDTO = z.infer<typeof updateCommentSchema>;
 
 //---------------------------------------------------
 // response
+
+
+export type CommentResponse = {
+    _id: string;
+    user: string;
+    poem: string;
+    text: string;
+    parrent?: string;
+
+    createdAt: Date;
+    updatedAt: Date;
+}
