@@ -1,3 +1,11 @@
-export * from "./queryClient";
+import { QueryClient } from "@tanstack/react-query";
 
-export * from "./keys"
+export const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 1000 * 60,
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
+        },
+    },
+});

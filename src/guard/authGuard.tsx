@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { useAuth } from "@/hooks";
+import { useAuth } from "@features/auth/hooks";
 import { AllRoutes } from "@/routes";
 
 export default function AuthGuard({ children }: { children: React.ReactNode }) {

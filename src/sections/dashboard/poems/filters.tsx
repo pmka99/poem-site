@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import { TDashboardPoemsFilters } from "."
-import { MultiSelect, SingleSelect } from "@/components/filters"
-import { poemTypeHooks } from "@/api/hooks/poemType.hooks"
+import { SingleSelect } from "@/components/filters"
+import { usePoemTypes } from "@/features/poemType/protected/hooks"
 
 type Props = {
     filters: TDashboardPoemsFilters,
@@ -17,7 +17,7 @@ export default function DashboardPoemsFilters({ filters, setFilters }: Props) {
         }))
     }
 
-    const { data, isLoading } = poemTypeHooks.useList();
+    const { data, isLoading } = usePoemTypes();
 
     const items = data?.data?.map(item => ({ id: item._id, label: item.name })
     ) ?? []

@@ -16,8 +16,8 @@ import { UpdatePoemTypeDTO } from "@/shared/types/poemType.type";
 
 import { LayoutPoemType } from "@/enum/poemType";
 
-import { poemTypeHooks } from "@/api/hooks/poemType.hooks";
 import { useEffect } from "react";
+import { usePoemType, useUpdatePoemType } from "@/features/poemType/protected/hooks";
 
 export default function DashboardPoemTypeEditModal() {
     const { modals, closeModal } = useModal();
@@ -25,9 +25,9 @@ export default function DashboardPoemTypeEditModal() {
     const poemTypeId = modals[MODALS.EDIT_POEMTYPE]?.data?.poemTypeId;
 
     const { mutate: updatePoemType, isPending } =
-        poemTypeHooks.useUpdate();
+        useUpdatePoemType();
 
-    const { data, isLoading } = poemTypeHooks.useDetail(poemTypeId ?? "")
+    const { data, isLoading } = usePoemType(poemTypeId ?? "")
 
     const methods = useForm<UpdatePoemTypeDTO>({
         defaultValues: {

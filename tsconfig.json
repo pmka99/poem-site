@@ -22,7 +22,7 @@
       "@/*": ["./src/*"],
       "@shared/*":["./src/shared/*"],
       "@server/*":["./src/server/*"],
-      "@services/*":["./src/api/services/*"],
+      "@features/*":["./src/features/*"]
     }
   },
   "include": [

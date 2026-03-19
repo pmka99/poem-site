@@ -15,14 +15,14 @@ import { createPoemTypeSchema } from "@/shared/schemas/poemType.schema";
 import { CreatePoemTypeDTO } from "@/shared/types/poemType.type";
 
 import { LayoutPoemType } from "@/enum/poemType";
+import { useCreatePoemType } from "@/features/poemType/protected/hooks";
 
-import { poemTypeHooks } from "@/api/hooks/poemType.hooks";
 
 export default function DashboardPoemTypeAddModal() {
     const { modals, closeModal } = useModal();
 
     const { mutate: createPoemType, isPending } =
-        poemTypeHooks.useCreate();
+        useCreatePoemType();
 
     const methods = useForm<CreatePoemTypeDTO>({
         defaultValues: {

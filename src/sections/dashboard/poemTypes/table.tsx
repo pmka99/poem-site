@@ -3,7 +3,6 @@
 import { useConfirm, useModal } from "@/hooks";
 import { MODALS } from "@/types/modals";
 
-import { poemTypeHooks } from "@/api/hooks/poemType.hooks";
 
 import { PoemTypeResponse } from "@/shared/types/poemType.type";
 import { LayoutPoemTypeLabels } from "@/labels/poemType";
@@ -19,6 +18,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { TDashboardFiltersPoemTypes } from ".";
 import { LayoutPoemType } from "@/enum/poemType";
 import ShowModals from "./actions";
+import { useDeletePoemType, usePoemTypes } from "@/features/poemType/protected/hooks";
 
 type Props = { filters: TDashboardFiltersPoemTypes };
 
@@ -28,9 +28,9 @@ export default function DashboardPoemTypesTable({ filters }: Props) {
 
     const grid = useDataGrid({ mode: "client" });
 
-    const { data, isLoading } = poemTypeHooks.useList();
+    const { data, isLoading } = usePoemTypes();
 
-    const deleteMutation = poemTypeHooks.useDelete();
+    const deleteMutation = useDeletePoemType();
 
     const rows = data?.data ?? [];
 

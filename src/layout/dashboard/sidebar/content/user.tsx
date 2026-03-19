@@ -1,6 +1,6 @@
 "use client"
 
-import { useAuth } from "@/hooks";
+import { useAuth } from "@features/auth/hooks";
 
 export default function DashboardSidebarUser() {
 

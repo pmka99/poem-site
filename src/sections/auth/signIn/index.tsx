@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/form/formProvider";
 import { Field } from "@/components/form";
 import { Button } from "@mui/material";
-import { authService } from "@/api/services/auth/auth.service";
+import { authService } from "@/features/auth/services";
 import { useRouter } from "next/navigation";
 
 const schema = z.object({

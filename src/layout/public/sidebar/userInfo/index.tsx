@@ -1,6 +1,6 @@
 "use client"
 
-import { authService } from "@/api/services/auth/auth.service"
+import { authService } from "@/features/auth/services"
 import { useEffect } from "react"
 
 
