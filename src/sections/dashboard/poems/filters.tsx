@@ -9,7 +9,7 @@ type Props = {
 }
 
 export default function DashboardPoemsFilters({ filters, setFilters }: Props) {
-
+    
     const changeSelectHandler = (value: string | number) => {
         setFilters(prev => ({
             poemType: value.toString(),

@@ -38,11 +38,11 @@ export const ERRORSMESSAGES = {
     COMMENT_CREATE_FAILED: "ثبت نظر با خطا مواجه شد",
     COMMENT_DELETE_FAILED: "حذف نظر با خطا مواجه شد",
 
-    // داستان
-    STORY_NOT_FOUND: "داستان مورد نظر یافت نشد",
-    STORY_CREATE_FAILED: "ایجاد داستان با خطا مواجه شد",
-    STORY_UPDATE_FAILED: "به‌روزرسانی داستان با خطا مواجه شد",
-    STORY_DELETE_FAILED: "حذف داستان با خطا مواجه شد",
+    // مصرع
+    HEMISTICH_NOT_FOUND: "مصرع مورد نظر یافت نشد",
+    HEMISTICH_CREATE_FAILED: "ایجاد مصرع با خطا مواجه شد",
+    HEMISTICH_UPDATE_FAILED: "به‌روزرسانی مصرع با خطا مواجه شد",
+    HEMISTICH_DELETE_FAILED: "حذف مصرع با خطا مواجه شد",
 
     // پایگاه داده
     DATABASE_CONNECTION_FAILED: "اتصال به پایگاه داده برقرار نشد",

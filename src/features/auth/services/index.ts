@@ -4,6 +4,7 @@ import {
     SignInResponse,
     SignUpDTO,
     SignUpResponse,
+    UserInfoResponse,
 } from "@/shared/types/auth.type";
 import { ApiResponse } from "@/shared/types/response.type";
 
@@ -18,9 +19,9 @@ export const authService = {
         return res;
     },
 
-    async getUserInfo(): Promise<ApiResponse<SignInResponse>> {
+    async getUserInfo(): Promise<ApiResponse<UserInfoResponse>> {
         const res = await authApi.getUserInfo();
-        return res;
+        return res
     },
 
     async logout(): Promise<ApiResponse<null>> {

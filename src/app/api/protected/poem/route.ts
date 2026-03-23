@@ -7,6 +7,7 @@ import { createIdParamsSchema } from "@server/validators";
 import { Action, Resource } from "@/enum/permission";
 import { successResponse } from "@/server/utils/response";
 import { toPoemResponse } from "@/server/mapper/poem.mapper";
+import { SUCCESSMESSAGES } from "@/server/messages";
 
 // ✅ Schema for query params (GET)
 const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "author", "poemType", "text"])
@@ -28,28 +29,30 @@ export const GET = protectedRoute(
         const poemType = query.poemType;
         const text = query.text;
 
-        const resultOfStories = await PoemModel.find({
-            story: { $regex: text ?? "", $options: "i" },
-        }).select("_id");
+        // const resultOfStories = await PoemModel.find({
+        //     story: { $regex: text ?? "", $options: "i" },
+        // }).select("_id");
 
-        const resultOfStoriesIds = resultOfStories.map((poem) => poem._id);
+        // const resultOfStoriesIds = resultOfStories.map((poem) => poem._id);
 
         const filter: any = {};
-        if (author) filter.author = author;
-        if (poemType) filter.poemType = poemType;
-        if (text) filter._id = { $in: resultOfStoriesIds };
+        // if (author) filter.author = author;
+        // if (poemType) filter.poemType = poemType;
+        // if (text) filter._id = { $in: resultOfStoriesIds };
 
         const result = await PoemModel.paginate(filter, {
             limit,
             page,
-            populate: [Resource.POEM_TYPES, Resource.STORY, Resource.COMMENT],
+            populate: ["poemType", "author"],
             lean: true,
         });
 
         const data = result.docs.map(toPoemResponse)
 
         return successResponse({
-            data, meta: {
+            message: SUCCESSMESSAGES.POEMS_FETCHED,
+            data,
+            meta: {
                 page: result.page,
                 limit: result.limit,
                 total: result.totalDocs,
@@ -74,6 +77,6 @@ export const POST = protectedRoute(
 
         const data = toPoemResponse(newPoem)
 
-        return successResponse({ data });
+        return successResponse({ data, message: SUCCESSMESSAGES.POEM_CREATED });
     }
 );

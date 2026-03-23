@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
-import UserModel, { IUser } from "../../models/user";
+import UserModel, { IUser } from "@/server/models/user";
 import { cookies } from "next/headers";
 import { connectDB } from "@/server/utils/db";
 import { verifyToken } from "@/server/utils/authUtils";
+import { Resource } from "@/enum/permission";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -37,7 +38,7 @@ export async function getUserFromRequest(req: any): Promise<AuthUser | null> {
                 .findById(decoded.sub)
                 .select("")
                 .populate({
-                    path: "role",
+                    path: "role" ,
                     select: "permissions name -_id"
                 })
                 .lean()

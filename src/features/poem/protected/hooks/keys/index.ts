@@ -1,7 +1,7 @@
-export const poemTypeKeys = {
-    all: ["poem-types"] as const,
+export const poemKeys = {
+    all: ["poem"] as const,
 
-    list: () => [...poemTypeKeys.all, "list"] as const,
+    list: () => [...poemKeys.all, "list"] as const,
 
-    detail: (id: string) => [...poemTypeKeys.all, "detail", id] as const,
+    detail: (id: string) => [...poemKeys.all, "detail", id] as const,
 };

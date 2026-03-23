@@ -37,7 +37,7 @@ export default function CustomModal({
                     bgcolor: "background.paper",
                     borderRadius: 2,
                     boxShadow: 24,
-                    p: 3,
+                    p: 2,
                     outline: "none",
                 }}
             >

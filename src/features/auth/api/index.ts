@@ -4,6 +4,7 @@ import {
     SignInResponse,
     SignUpDTO,
     SignUpResponse,
+    UserInfoResponse,
 } from "@/shared/types/auth.type";
 import { ApiResponse } from "@/shared/types/response.type";
 
@@ -15,7 +16,7 @@ export const authApi = {
         apiClient.post<ApiResponse<SignInResponse>>("/auth/signIn", data),
 
     getUserInfo: () =>
-        apiClient.get<ApiResponse<SignInResponse>>("/auth/userInfo"),
+        apiClient.get<ApiResponse<UserInfoResponse>>("/auth/userInfo"),
 
     logout: () =>
         apiClient.post<ApiResponse<null>>("/auth/logout"),

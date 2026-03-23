@@ -7,6 +7,7 @@ import { protectedRoute } from "@server/guard/protectedRoute";
 import { Action, Resource } from "@/enum/permission";
 import { toPoemResponse } from "@/server/mapper/poem.mapper";
 import { errorResponse, successResponse } from "@/server/utils/response";
+import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
 
@@ -24,12 +25,12 @@ export const GET = protectedRoute(
 
         const poem = await PoemModel.findById(poemId).lean();
         if (!poem) {
-            return errorResponse({ message: "Poem not found", status: 404 });
+            return errorResponse({ message: ERRORSMESSAGES.POEM_NOT_FOUND, status: 404 });
         }
 
         const data = toPoemResponse(poem)
 
-        return successResponse({ data });
+        return successResponse({ data, message: SUCCESSMESSAGES.POEM_FETCHED });
     }
 );
 
@@ -49,11 +50,11 @@ export const PUT = protectedRoute(
 
         const updatedPoem = await PoemModel.findByIdAndUpdate(poemId, body, { new: true });
         if (!updatedPoem) {
-            return errorResponse({ message: "Poem not found", status: 404 });
+            return errorResponse({ message: ERRORSMESSAGES.POEM_NOT_FOUND, status: 404 });
         }
         const data = toPoemResponse(updatedPoem)
 
-        return successResponse({ data });
+        return successResponse({ data, message: SUCCESSMESSAGES.POEM_UPDATED });
     }
 );
 
@@ -69,6 +70,6 @@ export const DELETE = protectedRoute(
         const { poemId } = params;
         await connectDB();
         await PoemModel.findByIdAndDelete(poemId);
-        return successResponse({ message: "Poem deleted successfully" });
+        return successResponse({ message: SUCCESSMESSAGES.POEM_DELETED });
     }
 );

@@ -74,7 +74,7 @@ export function createActionsColumn<T extends GridValidRowModel>({
                         icon={action.icon}
                         label={action.label}
                         onClick={() => action.onClick(row)}
-                        showInMenu={action.showInMenu}
+                        showInMenu={action.showInMenu ?? true}
                     />
                 );
             });

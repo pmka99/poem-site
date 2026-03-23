@@ -38,11 +38,11 @@ export const SUCCESSMESSAGES = {
     COMMENT_DELETED: "نظر با موفقیت حذف شد",
     COMMENT_FETCHED: "نظر با موفقیت دریافت شد",
 
-    // داستان
-    STORY_CREATED: "داستان با موفقیت ایجاد شد",
-    STORY_UPDATED: "داستان با موفقیت به‌روزرسانی شد",
-    STORY_DELETED: "داستان با موفقیت حذف شد",
-    STORY_FETCHED: "داستان با موفقیت دریافت شد",
+    // مصرع
+    HEMISTICH_CREATED: "مصرع با موفقیت ایجاد شد",
+    HEMISTICH_UPDATED: "مصرع با موفقیت به‌روزرسانی شد",
+    HEMISTICH_DELETED: "مصرع با موفقیت حذف شد",
+    HEMISTICH_FETCHED: "مصرع با موفقیت دریافت شد",
 
     // داده‌ها
     DATA_FETCHED: "اطلاعات با موفقیت دریافت شد",

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import DashboardPoemsFilters from "./filters"
+import DashboardPoemsTable from "./table"
 
 export type TDashboardPoemsFilters = {
     search: string
@@ -17,8 +18,8 @@ export default function DashboardPeomsView() {
 
     return (
         <div className="flex flex-col">
-            {/* <DashboardPoemsFilters filters={filters} setFilters={setFilters} /> */}
-            
+            <DashboardPoemsFilters filters={filters} setFilters={setFilters} />
+            <DashboardPoemsTable filters={filters} />
         </div>
     )
 }

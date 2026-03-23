@@ -1,43 +1,43 @@
 import { apiClient } from "@/api/core/apiClient";
 import { ApiResponse } from "@/shared/types/response.type";
 import {
-    CreatePoemTypeDTO,
-    UpdatePoemTypeDTO,
-    PoemTypeResponse,
-} from "@/shared/types/poemType.type";
+    CreatePoemDTO,
+    UpdatePoemDTO,
+    PoemResponse,
+} from "@/shared/types/poem.type";
 
 /**
- * API layer for poem types.
- * Provides direct HTTP access to poem type endpoints.
+ * API layer for poem.
+ * Provides direct HTTP access to poem endpoints.
  *
- * Base URL: /api/protected/poemType
+ * Base URL: /api/protected/poem
  */
-export const poemTypeApi = {
-    /** Get all poem types */
+export const poemApi = {
+    /** Get all poems */
     getAll: () =>
-        apiClient.get<ApiResponse<PoemTypeResponse[]>>("/protected/poemType"),
+        apiClient.get<ApiResponse<PoemResponse[]>>("/protected/poem"),
 
-    /** Get a single poem type by ID */
-    getById: (poemTypeId: string) =>
-        apiClient.get<ApiResponse<PoemTypeResponse>>(
-            `/protected/poemType/${poemTypeId}`
+    /** Get a single poem by ID */
+    getById: (poemId: string) =>
+        apiClient.get<ApiResponse<PoemResponse>>(
+            `/protected/poem/${poemId}`
         ),
 
-    /** Create a new poem type */
-    create: (data: CreatePoemTypeDTO) =>
-        apiClient.post<ApiResponse<PoemTypeResponse>>(
-            "/protected/poemType",
+    /** Create a new poem */
+    create: (data: CreatePoemDTO) =>
+        apiClient.post<ApiResponse<PoemResponse>>(
+            "/protected/poem",
             data
         ),
 
-    /** Update an existing poem type by ID */
-    update: (poemTypeId: string, data: UpdatePoemTypeDTO) =>
-        apiClient.put<ApiResponse<PoemTypeResponse>>(
-            `/protected/poemType/${poemTypeId}`,
+    /** Update an existing poem by ID */
+    update: (poemId: string, data: UpdatePoemDTO) =>
+        apiClient.put<ApiResponse<PoemResponse>>(
+            `/protected/poem/${poemId}`,
             data
         ),
 
-    /** Delete a poem type by ID */
-    delete: (poemTypeId: string) =>
-        apiClient.delete<ApiResponse<null>>(`/protected/poemType/${poemTypeId}`),
+    /** Delete a poem by ID */
+    delete: (poemId: string) =>
+        apiClient.delete<ApiResponse<null>>(`/protected/poem/${poemId}`),
 };

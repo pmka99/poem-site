@@ -1,79 +1,75 @@
-// "use client";
+"use client";
 
-// import { useConfirm, useModal } from "@/hooks";
-// import { MODALS } from "@/types/modals";
+import { useConfirm, useModal } from "@/hooks";
+import { MODALS } from "@/types/modals";
 
-// import { poemTypeHooks } from "@/api/hooks/poemType.hooks";
+import { PoemResponse } from "@/shared/types/poem.type";
 
-// import { PoemTypeResponse } from "@/shared/types/poemType.type";
-// import { LayoutPoemTypeLabels } from "@/labels/poemType";
+import {
+    AppDataGrid,
+    createActionsColumn,
+    useDataGrid,
+} from "@/components/datagrid";
 
-// import {
-//     AppDataGrid,
-//     createActionsColumn,
-//     useDataGrid,
-// } from "@/components/datagrid";
+import { GridColDef } from "@mui/x-data-grid";
 
-// import { GridColDef } from "@mui/x-data-grid";
-
-// import { TDashboardPoemsFilters } from ".";
+import { TDashboardPoemsFilters } from ".";
+import { useDeletePoem, usePoems } from "@/features/poem/protected/hooks";
+import ShowModals from "./actions";
 
 
-// type Props = { filters: TDashboardPoemsFilters };
+type Props = { filters: TDashboardPoemsFilters };
 
-// export default function DashboardPoemTypesTable({ filters }: Props) {
-//     const { openModal } = useModal();
-//     const confirm = useConfirm();
+export default function DashboardPoemsTable({ filters }: Props) {
+    const { openModal } = useModal();
+    const confirm = useConfirm();
 
-//     const grid = useDataGrid({ mode: "client" });
+    const grid = useDataGrid({ mode: "server" });
 
-//     const { data, isLoading } = poemTypeHooks.useList();
+    const { data, isLoading } = usePoems();
 
-//     const deleteMutation = poemTypeHooks.useDelete();
+    const deleteMutation = useDeletePoem();
 
-//     const rows = data?.data ?? [];
+    const rows = data?.data ?? [];
 
-//     const filteredRows =
-//         filters.layout.length > 0
-//             ? rows.filter((r) => filters.layout.includes(r.layout))
-//             : rows;
+    const columns: GridColDef<PoemResponse>[] = [
+        { field: "title", headerName: "نام", flex: 1 },
 
-//     const columns: GridColDef<PoemTypeResponse>[] = [
-//         { field: "name", headerName: "نام", flex: 1 },
+        { field: "poemType", headerName: "دسته بندی", flex: 1, renderCell: (params) => params.value?.name },
 
-//         { field: "description", headerName: "توضیحات", flex: 1 },
+        { field: "story", headerName: "داستان", flex: 4 },
 
-//         {
-//             field: "layout",
-//             headerName: "چیدمان",
-//             flex: 1,
-//             renderCell: (params) =>
-//                 LayoutPoemTypeLabels[params.value as LayoutPoemType],
-//         },
+        createActionsColumn<PoemResponse>({
+            onEdit: (row) => { openModal(MODALS.EDIT_POEM, { poemId: row._id }) },
+            onDelete: async (row) => {
+                const ok = await confirm("آیا از حذف این شعر مطمئن هستید؟");
 
-//         createActionsColumn<PoemTypeResponse>({
-//             onEdit: (row) => { openModal(MODALS.EDIT_POEMTYPE, { poemTypeId: row._id }) },
-//             onDelete: async (row) => {
-//                 const ok = await confirm("آیا از حذف این نوع شعر مطمئن هستید؟");
+                if (!ok) return;
 
-//                 if (!ok) return;
+                deleteMutation.mutate(row._id);
+            },
+            customActions: [
+                {
+                    icon: <></>,
+                    label: "ویرایش ابیات",
+                    onClick: (row) => { }
+                }
+            ]
+        }),
+    ];
 
-//                 deleteMutation.mutate(row._id);
-//             },
-//         }),
-//     ];
+    return (
+        <>
+            <AppDataGrid
+                grid={grid}
+                rows={rows}
+                rowCount={data?.meta?.total ?? 0}
+                columns={columns}
+                loading={isLoading}
+                onAddClick={() => openModal(MODALS.ADD_POEM)}
+            />
 
-//     return (
-//         <>
-//             <AppDataGrid
-//                 grid={grid}
-//                 rows={filteredRows}
-//                 columns={columns}
-//                 loading={isLoading}
-//                 onAddClick={() => openModal(MODALS.ADD_POEMTYPE)}
-//             />
-
-//             {/* <ShowModals /> */}
-//         </>
-//     );
-// }
+            <ShowModals />
+        </>
+    );
+}

@@ -1,34 +1,34 @@
-import { poemTypeApi } from "@/features/poemType/protected/api";
+import { poemApi } from "@/features/poem/protected/api";
 import {
-    CreatePoemTypeDTO,
-    UpdatePoemTypeDTO,
-    PoemTypeResponse,
-} from "@/shared/types/poemType.type";
+    CreatePoemDTO,
+    UpdatePoemDTO,
+    PoemResponse,
+} from "@/shared/types/poem.type";
 import { ApiResponse } from "@/shared/types/response.type";
 
-export const poemTypeService = {
-    async getAll(): Promise<ApiResponse<PoemTypeResponse[]>> {
-        const res = await poemTypeApi.getAll();
+export const poemService = {
+    async getAll(): Promise<ApiResponse<PoemResponse[]>> {
+        const res = await poemApi.getAll();
         return res;
     },
 
-    async getById(id: string): Promise<ApiResponse<PoemTypeResponse>> {
-        const res = await poemTypeApi.getById(id);
+    async getById(id: string): Promise<ApiResponse<PoemResponse>> {
+        const res = await poemApi.getById(id);
         return res;
     },
 
-    async create(data: CreatePoemTypeDTO): Promise<ApiResponse<PoemTypeResponse>> {
-        const res = await poemTypeApi.create(data);
+    async create(data: CreatePoemDTO): Promise<ApiResponse<PoemResponse>> {
+        const res = await poemApi.create(data);
         return res;
     },
 
-    async update(id: string, data: UpdatePoemTypeDTO): Promise<ApiResponse<PoemTypeResponse>> {
-        const res = await poemTypeApi.update(id, data);
+    async update(id: string, data: UpdatePoemDTO): Promise<ApiResponse<PoemResponse>> {
+        const res = await poemApi.update(id, data);
         return res;
     },
 
     async delete(id: string): Promise<ApiResponse<any>> {
-        const res = await poemTypeApi.delete(id);
+        const res = await poemApi.delete(id);
         return res;
     },
 };

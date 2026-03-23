@@ -20,7 +20,7 @@ export interface PoemResponse {
     _id: string;
     title: string;
     author: string | UserResponse;
-    story: string[] | StoryResponse[];
+    story: string[];
     poemType: string | PoemTypeResponse;
     createdAt?: Date;
     updatedAt?: Date;

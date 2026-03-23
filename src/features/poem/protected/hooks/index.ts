@@ -1,6 +1,6 @@
-export * from "./queries/usePoemTypes";
-export * from "./queries/usePoemType";
+export * from "./queries/usePoems";
+export * from "./queries/usePoem";
 
-export * from "./mutations/useCreatePoemType";
-export * from "./mutations/useUpdatePoemType";
-export * from "./mutations/useDeletePoemType";
+export * from "./mutations/useCreatePoem";
+export * from "./mutations/useUpdatePoem";
+export * from "./mutations/useDeletePoem";

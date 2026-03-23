@@ -6,6 +6,7 @@ import { createIdParamsSchema } from "@server/validators";
 import { NextResponse } from "next/server";
 import { errorResponse, successResponse } from "@/server/utils/response";
 import { Action, Resource } from "@/enum/permission";
+import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
 
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
@@ -34,10 +35,10 @@ export const GET = protectedRoute(
         await connectDB();
 
         const result = await HemistichModel.paginate(filter,
-            { limit, page, populate: ["author", "poemType"], lean: true });
+            { limit, page, lean: true });
         const hemistichs: IHemistich[] = result.docs;
 
-        return successResponse({ data: hemistichs });
+        return successResponse({ data: hemistichs, message: SUCCESSMESSAGES.DATA_FETCHED });
     }
 )
 
@@ -57,12 +58,12 @@ export const POST = protectedRoute(
         await connectDB();
         const poemExists = await HemistichModel.exists({ poem: poemId });
         if (!poemExists) {
-            return errorResponse({ message: "شعری یافت نشد", status: 404 });
+            return errorResponse({ message: ERRORSMESSAGES.POEM_NOT_FOUND, status: 404 });
         }
         const newHemistich: IHemistich = await HemistichModel.create(
             body
         );
-        return successResponse({ data: newHemistich });
+        return successResponse({ data: newHemistich, message: SUCCESSMESSAGES.HEMISTICH_CREATED });
     }
 )
 
@@ -79,6 +80,6 @@ export const DELETE = protectedRoute(
         const { poemId } = params;
         await connectDB();
         await HemistichModel.deleteMany({ poem: poemId });
-        return NextResponse.json({ message: "Hemistichs deleted successfully" });
+        return successResponse({ message: SUCCESSMESSAGES.HEMISTICH_DELETED });
     }
 )

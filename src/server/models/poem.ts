@@ -2,16 +2,17 @@ import mongoose, { Schema, model, models, Types } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 import type { PaginateModel } from "mongoose";
 import { IUser } from "./user";
-import { IStory } from "./story";
 import { IPoemType } from "./poemType";
 import { IHemistich } from "./hemistich";
 import { IComment } from "./comment";
+
 
 export interface IPoem extends mongoose.Document {
     title: string;
 
     author: Types.ObjectId | IUser;
-    story: Types.ObjectId[] | IStory[];
+    // story: Types.ObjectId[] | IStory[];
+    story: string[];
     poemType: Types.ObjectId | IPoemType;
 
     createdAt?: Date;
@@ -36,12 +37,16 @@ const poemSchema = new Schema<IPoem>(
             index: true
         },
 
-        story: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: "Story"
-            }
-        ],
+        // story: [
+        //     {
+        //         type: Schema.Types.ObjectId,
+        //         ref: "Story"
+        //     }
+        // ],
+        story: [{
+            type: String,
+            required: false,
+        }],
 
         poemType: {
             type: Schema.Types.ObjectId,

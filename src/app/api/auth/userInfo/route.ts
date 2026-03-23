@@ -5,6 +5,7 @@ import { verifyToken } from "@/server/utils/authUtils";
 import  UserModel  from "@/server/models/user";
 
 import { errorResponse, successResponse } from "@/server/utils/response";
+import { Resource } from "@/enum/permission";
 
 export const GET = async () => {
     try {
