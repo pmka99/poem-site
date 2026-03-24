@@ -13,7 +13,7 @@ export const useUpdatePoem = () => {
         },
         onSuccess: (_, variables) => {
             queryClient.invalidateQueries({ queryKey: poemKeys.detail(variables.id) });
-            queryClient.invalidateQueries({ queryKey: poemKeys.list() });
+            queryClient.invalidateQueries({ queryKey: poemKeys.lists() });
         },
     });
 };

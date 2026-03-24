@@ -43,6 +43,7 @@ export const ERRORSMESSAGES = {
     HEMISTICH_CREATE_FAILED: "ایجاد مصرع با خطا مواجه شد",
     HEMISTICH_UPDATE_FAILED: "به‌روزرسانی مصرع با خطا مواجه شد",
     HEMISTICH_DELETE_FAILED: "حذف مصرع با خطا مواجه شد",
+    HEMISTICH_ORDER_FAILED: "مشکلی در ترتیب مصرع ها به وجود امده است",
 
     // پایگاه داده
     DATABASE_CONNECTION_FAILED: "اتصال به پایگاه داده برقرار نشد",

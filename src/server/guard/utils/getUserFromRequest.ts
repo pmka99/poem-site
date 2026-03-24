@@ -31,7 +31,6 @@ export async function getUserFromRequest(req: any): Promise<AuthUser | null> {
         }
 
         await connectDB();
-        console.log("decoded.sub", decoded.sub);
 
         const user =
             await UserModel

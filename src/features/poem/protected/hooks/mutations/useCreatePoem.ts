@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { poemService } from "@/features/poem/protected/services";
 import { poemKeys } from "@/features/poem/protected/hooks/keys";
-import type { CreatePoemDTO } from "@/shared/types/poem.type";
+import { CreatePoemDTO } from "@/shared/types/poem.type";
 
 
 export const useCreatePoem = () => {
@@ -13,7 +13,7 @@ export const useCreatePoem = () => {
             return response
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: poemKeys.list() });
+            queryClient.invalidateQueries({ queryKey: poemKeys.lists() });
         },
     });
 };

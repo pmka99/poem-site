@@ -11,7 +11,7 @@ export const useDeletePoem = () => {
             return response;
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: poemKeys.list() });
+            queryClient.invalidateQueries({ queryKey: poemKeys.lists() });
         },
     });
 };

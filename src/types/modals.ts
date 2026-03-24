@@ -1,3 +1,5 @@
+import { Position } from "@/enum/poem";
+
 export const MODALS = {
     LOGIN: "LOGIN",
     REGISTER: "REGISTER",
@@ -7,6 +9,10 @@ export const MODALS = {
 
     ADD_POEM: "ADD_POEM",
     EDIT_POEM: "EDIT_POEM",
+
+    ADD_HEMISTICH: "ADD_HEMISTICH",
+    EDIT_HEMISTICH: "EDIT_HEMISTICH"
+
 } as const;
 
 export type ModalName = (typeof MODALS)[keyof typeof MODALS];
@@ -24,6 +30,17 @@ export type ModalPayloadMap = {
     [MODALS.ADD_POEM]: undefined;
     [MODALS.EDIT_POEM]: {
         poemId: string;
+    };
+
+    [MODALS.ADD_HEMISTICH]: {
+        poemId: string;
+        hemistichId?: string;
+        position: Position;
+    };
+
+    [MODALS.EDIT_HEMISTICH]: {
+        poemId: string;
+        hemistichId: string;
     };
 
 };

@@ -27,14 +27,15 @@ const data = `
 //
 حضوری گر همی خواهی از او غایب مشو حافظ
 //
-مَتیٰ ما تَلْقَ مَنْ تَهْویٰ دَعِ الدُّنْیا وَ اَهْمِلْها`
+مَتیٰ ما تَلْقَ مَنْ تَهْویٰ دَعِ الدُّنْیا وَ اَهْمِلْها
+`
 
 function Hemistich({ children }: { children: React.ReactNode }) {
 
   const hemistich = children?.toLocaleString() || "";
 
   const parts = hemistich.split(" ").filter(part => part.trim().length > 0);
-  
+
   return (
     <div className="w-full">
       <p aria-hidden="true" className="lg:text-3xl text-2xl w-full flex justify-between text-justify">
@@ -51,18 +52,18 @@ function Hemistich({ children }: { children: React.ReactNode }) {
   )
 }
 
-
 export default function Home() {
 
   const hemistiches = data.split("//").map(line => line.trim()).filter(line => line.length > 0);
-  
+
   return (
     <div className="flex w-full p-4 justify-center  ">
       <div className="
-      lg:py-10
-      grid lg:grid-cols-2 
-      gap-y-12 lg:gap-x-36 lg:gap-y-16
-      lg:w-10/12 select-none">
+          lg:py-10
+          grid lg:grid-cols-2 
+          gap-y-12 lg:gap-x-36 lg:gap-y-16
+          lg:w-10/12 select-none"
+      >
         {
           hemistiches.map((hemistich, index) => (
             <div

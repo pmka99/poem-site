@@ -1,6 +1,7 @@
 import { useModal } from "@/hooks";
 import DashboardPoemAddModal from "./add";
 import DashboardPoemEditModal from "./edit";
+import { MODALS } from "@/types/modals";
 
 
 export default function ShowModals() {
@@ -8,8 +9,8 @@ export default function ShowModals() {
 
     return (
         <>
-            {modals.ADD_POEM?.open && <DashboardPoemAddModal />}
-            {modals.EDIT_POEM?.open && <DashboardPoemEditModal />}
+            {modals[MODALS.ADD_POEM]?.open && <DashboardPoemAddModal />}
+            {modals[MODALS?.EDIT_POEM]?.open && <DashboardPoemEditModal />}
             {/* {modals.POEM_STORY?.open && <DashboardPoemEditModal />} */}
         </>
     )

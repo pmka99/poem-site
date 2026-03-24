@@ -3,7 +3,7 @@
 import { useState } from "react"
 import DashboardPoemTypesFilters from "./filters"
 import { LayoutPoemType } from "@/enum/poemType";
-import DashboardPeomTypesTable from "./table";
+import DashboardPoemTypesTable from "./table";
 
 export type TDashboardFiltersPoemTypes = {
     search: string
@@ -11,7 +11,7 @@ export type TDashboardFiltersPoemTypes = {
 }
 
 
-export default function DashboardPeomTypesView() {
+export default function DashboardPoemTypesView() {
 
     const [filters, setFilters] = useState<TDashboardFiltersPoemTypes>({
         search: "",
@@ -21,7 +21,7 @@ export default function DashboardPeomTypesView() {
     return (
         <div className="flex flex-col">
             <DashboardPoemTypesFilters filters={filters} setFilters={setFilters} />
-            <DashboardPeomTypesTable filters={filters} />
+            <DashboardPoemTypesTable filters={filters} />
         </div>
     )
 }

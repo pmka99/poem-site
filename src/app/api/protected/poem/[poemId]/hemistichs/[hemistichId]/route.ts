@@ -41,7 +41,7 @@ export const PUT = protectedRoute(
         paramsSchema: paramsSchema,
         bodySchema: updateHemistichSchema
     },
-    async (request: Request, _ctx, { params, body }) => {
+    async (_req, _ctx, { params, body }) => {
         const { hemistichId } = params;
         await connectDB();
         const updatedHemistich = await HemistichModel.findByIdAndUpdate(

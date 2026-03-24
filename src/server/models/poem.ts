@@ -11,7 +11,6 @@ export interface IPoem extends mongoose.Document {
     title: string;
 
     author: Types.ObjectId | IUser;
-    // story: Types.ObjectId[] | IStory[];
     story: string[];
     poemType: Types.ObjectId | IPoemType;
 
@@ -37,12 +36,6 @@ const poemSchema = new Schema<IPoem>(
             index: true
         },
 
-        // story: [
-        //     {
-        //         type: Schema.Types.ObjectId,
-        //         ref: "Story"
-        //     }
-        // ],
         story: [{
             type: String,
             required: false,

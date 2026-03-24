@@ -18,7 +18,7 @@ import { UpdatePoemDTO } from "@/shared/types/poem.type";
 import { useEffect, useState } from "react";
 import { usePoem, useUpdatePoem } from "@/features/poem/protected/hooks";
 import { usePoemTypes } from "@/features/poemType/protected/hooks";
-import StoryBox from "./components/story";
+import StoryBox from "@/features/poem/protected/components/story";
 
 export default function DashboardPoemEditModal() {
     const { modals, closeModal } = useModal();

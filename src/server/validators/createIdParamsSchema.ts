@@ -18,9 +18,6 @@ export const objectIdField = (fieldName: string, required: boolean) => {
 
     return z
         .string()
-        .refine((val) => mongoose.Types.ObjectId.isValid(val), {
-            message: `The ${fieldName} is not a valid ObjectId`,
-        })
         .optional();
 };
 

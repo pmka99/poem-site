@@ -1,34 +1,37 @@
-import { poemApi } from "@/features/poem/protected/api";
-import {
-    CreatePoemDTO,
-    UpdatePoemDTO,
-    PoemResponse,
-} from "@/shared/types/poem.type";
+import { poemApi } from "@features/poem/protected/api";
+import { PoemResponse, CreatePoemDTO, UpdatePoemDTO } from "@/shared/types/poem.type";
+import { HemistichResponse, CreateHemistichDTO, UpdateHemistichDTO } from "@/shared/types/hemistich.type";
 import { ApiResponse } from "@/shared/types/response.type";
-
 export const poemService = {
-    async getAll(): Promise<ApiResponse<PoemResponse[]>> {
-        const res = await poemApi.getAll();
-        return res;
-    },
+    // ------------------------ Poem ------------------------
+    getAll: (params?: Record<string, any>): Promise<ApiResponse<PoemResponse[]>> =>
+        poemApi.getAll(params),
 
-    async getById(id: string): Promise<ApiResponse<PoemResponse>> {
-        const res = await poemApi.getById(id);
-        return res;
-    },
+    getById: (poemId: string): Promise<ApiResponse<PoemResponse>> =>
+        poemApi.getById(poemId),
 
-    async create(data: CreatePoemDTO): Promise<ApiResponse<PoemResponse>> {
-        const res = await poemApi.create(data);
-        return res;
-    },
+    create: (data: CreatePoemDTO): Promise<ApiResponse<PoemResponse>> =>
+        poemApi.create(data),
 
-    async update(id: string, data: UpdatePoemDTO): Promise<ApiResponse<PoemResponse>> {
-        const res = await poemApi.update(id, data);
-        return res;
-    },
+    update: (poemId: string, data: UpdatePoemDTO): Promise<ApiResponse<PoemResponse>> =>
+        poemApi.update(poemId, data),
 
-    async delete(id: string): Promise<ApiResponse<any>> {
-        const res = await poemApi.delete(id);
-        return res;
-    },
+    delete: (poemId: string): Promise<ApiResponse<PoemResponse>> =>
+        poemApi.delete(poemId),
+
+    // ------------------------ Hemistich ------------------------
+    getAllHemistichs: (poemId: string, params?: Record<string, any>): Promise<ApiResponse<HemistichResponse[]>> =>
+        poemApi.getAllHemistichs(poemId, params),
+
+    getHemistichById: (poemId: string, hemistichId: string): Promise<ApiResponse<HemistichResponse>> =>
+        poemApi.getByHemistichId(poemId, hemistichId),
+
+    createHemistich: (poemId: string, data: CreateHemistichDTO): Promise<ApiResponse<HemistichResponse>> =>
+        poemApi.createHemistich(poemId, data),
+
+    updateHemistich: (poemId: string, hemistichId: string, data: UpdateHemistichDTO): Promise<ApiResponse<HemistichResponse>> =>
+        poemApi.updateHemistich(poemId, hemistichId, data),
+
+    deleteHemistich: (poemId: string, hemistichId: string): Promise<ApiResponse<HemistichResponse>> =>
+        poemApi.deleteHemistich(poemId, hemistichId),
 };

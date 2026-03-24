@@ -9,7 +9,7 @@ export type TDashboardPoemsFilters = {
     poemType: string
 }
 
-export default function DashboardPeomsView() {
+export default function DashboardPoemsView() {
 
     const [filters, setFilters] = useState<TDashboardPoemsFilters>({
         search: "",

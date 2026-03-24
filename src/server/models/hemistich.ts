@@ -22,6 +22,7 @@ const hemistichSchema = new mongoose.Schema<IHemistich>({
 
 // اضافه کردن paginate
 hemistichSchema.plugin(mongoosePaginate);
+hemistichSchema.index({ poem: 1, order: -1 });
 
 const HemistichModel =
     (mongoose.models.Hemistich as PaginateModel<IHemistich>) ||

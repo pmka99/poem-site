@@ -19,7 +19,7 @@ export default function StoryBox({ story, onChangeStory }: Props) {
         <div className="flex flex-col gap-1 w-full">
             <div className="text-foreground">
                 <p> داستان شعر </p>
-                <hr />
+                <hr className="text-border" />
             </div>
             <div className="max-h-80 overflow-y-auto">
                 {
@@ -30,10 +30,9 @@ export default function StoryBox({ story, onChangeStory }: Props) {
                     ))
                 }
             </div>
-
-            <div className="flex">
+            <div className="flex gap-1">
                 <TextField className="w-5/6" size="small" multiline rows={3} onChange={(event) => setParagraph(event.target.value)} value={paragraph} />
-                <Button onClick={addToStories} >افزودن</Button>
+                <Button variant="contained" onClick={addToStories} >افزودن</Button>
             </div>
         </div>
     )

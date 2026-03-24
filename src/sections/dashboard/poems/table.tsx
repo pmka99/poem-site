@@ -16,13 +16,15 @@ import { GridColDef } from "@mui/x-data-grid";
 import { TDashboardPoemsFilters } from ".";
 import { useDeletePoem, usePoems } from "@/features/poem/protected/hooks";
 import ShowModals from "./actions";
-
+import { useRouter } from "next/navigation";
 
 type Props = { filters: TDashboardPoemsFilters };
 
 export default function DashboardPoemsTable({ filters }: Props) {
     const { openModal } = useModal();
     const confirm = useConfirm();
+
+    const router = useRouter();
 
     const grid = useDataGrid({ mode: "server" });
 
@@ -52,7 +54,7 @@ export default function DashboardPoemsTable({ filters }: Props) {
                 {
                     icon: <></>,
                     label: "ویرایش ابیات",
-                    onClick: (row) => { }
+                    onClick: (row) => { router.push(`/dashboard/poems/${row._id}/hemistich`) }
                 }
             ]
         }),

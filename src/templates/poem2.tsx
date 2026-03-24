@@ -59,11 +59,13 @@ export default function Home() {
     return (
         <div className="flex w-full p-4 justify-center">
             <div className="
-      lg:py-10
-      text-gray-950 
-      grid lg:grid-cols-2 
-      gap-y-12 lg:gap-x-36 lg:gap-y-16
-      lg:w-10/12 select-none">
+                    lg:py-10
+                    text-gray-950 
+                    grid lg:grid-cols-2 
+                    gap-y-12 lg:gap-x-36 lg:gap-y-16
+                    lg:w-10/12 select-none
+                    "
+            >
                 {
                     hemistiches.map((hemistich, index) => (
                         <div

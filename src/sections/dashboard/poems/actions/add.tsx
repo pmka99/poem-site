@@ -18,7 +18,7 @@ import { useCreatePoem } from "@/features/poem/protected/hooks";
 import { useAuth } from "@/features/auth/hooks";
 import { usePoemTypes } from "@/features/poemType/protected/hooks";
 import { useEffect, useState } from "react";
-import StoryBox from "./components/story";
+import StoryBox from "@/features/poem/protected/components/story";
 
 
 export default function DashboardPoemAddModal() {
