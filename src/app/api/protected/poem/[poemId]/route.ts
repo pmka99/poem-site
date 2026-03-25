@@ -31,8 +31,6 @@ export const GET = protectedRoute(
         if (!poem) {
             return errorResponse({ message: ERRORSMESSAGES.POEM_NOT_FOUND, status: 404 });
         }
-        console.log(poem);
-
 
         const data = toPoemResponse(poem)
 

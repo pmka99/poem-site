@@ -45,7 +45,7 @@ export default function Drawer({ isOpen, onClose, children }: Props) {
             className={` relative
         flex text-primary-foreground
         shadow-2xl shadow-primary border-border
-        transition-all duration-500 h-full bg-background/90
+        transition-all duration-500 h-full bg-primary-foreground
         ${isOpen ? "w-full" : "w-0 p-0 overflow-hidden"}
       `}
         >

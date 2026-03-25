@@ -43,7 +43,7 @@ export default function HemistichItem({
         >
             <div>{hemistich.text}</div>
 
-            <div className="flex lg:gap-2 gap-1 min-w-35">
+            <div className="flex lg:gap-1 gap-1 min-w-35">
 
                 {!isShowMovementButton && !isGroupSelectActive && (
                     <>
