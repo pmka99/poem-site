@@ -4,7 +4,7 @@ import { useConfirm, useModal, useViewMode } from "@/hooks"
 import ViewModeSwitcher from "@/features/poem/protected/components/ViewModeSwitcher"
 import { DashboardPaginationHemistichView } from "./paginationView"
 import { MODALS } from "@/types/modals";
-import { useDeleteHemistich } from "@/features/poem/protected/hooks";
+import { useDeleteHemistich, useDeleteHemistichRange, useMoveHemistichRange, useUpdateHemistichVisibilityRange } from "@/features/poem/protected/hooks";
 import { Position } from "@/enum/poem";
 import DashboardHemistichAddModal from "./actions/add";
 import DashboardHemistichEditModal from "./actions/edit";
@@ -20,6 +20,8 @@ export default function DashboardPoemsHemistichView({
     const confirm = useConfirm();
 
     const { mode, setMode } = useViewMode();
+
+    // Single Operation ----------------------------------
 
     const onAddfirst = () => {
         openModal(MODALS.ADD_HEMISTICH, { poemId, position: Position.first })
@@ -45,8 +47,48 @@ export default function DashboardPoemsHemistichView({
         deleteMutation.mutate(hemistichId);
     }
 
-    const onMove = async (range: SelectedHemistichRange, targetId: string, position: Position) => {
+    // Group Operation -----------------------------------------
 
+    const moveHemistichRange = useMoveHemistichRange(poemId);
+
+    const onMoveGroup = async (range: SelectedHemistichRange, targetId: string, position: Position) => {
+        if (!(range?.first && range?.last)) return
+        await moveHemistichRange.mutate({
+            range: {
+                firstOrder: range.first.order,
+                lastOrder: range.last.order
+            },
+            targetHemistichId: targetId,
+            position
+        })
+    }
+
+    const deleteRangeMutation = useDeleteHemistichRange(poemId)
+
+    const onDeleteGroup = async (range: SelectedHemistichRange) => {
+        if (!(range?.first && range?.last)) return
+        await deleteRangeMutation.mutate({
+            range: {
+                firstOrder: range?.first?.order,
+                lastOrder: range?.last?.order
+            }
+        })
+
+    }
+
+    const updateHemistichVisibilityRange = useUpdateHemistichVisibilityRange(poemId)
+
+    const onChangeVisibilityGroup = async (range: SelectedHemistichRange, show: boolean) => {
+        if (!(range?.first && range?.last)) return
+        await updateHemistichVisibilityRange.mutate(
+            {
+                show,
+                range: {
+                    firstOrder: range.first.order,
+                    lastOrder: range.last.order
+                }
+            }
+        )
     }
 
     return (
@@ -64,7 +106,9 @@ export default function DashboardPoemsHemistichView({
                     onAddBefore={onAddBefore}
                     onEdit={onEdit}
                     onDelete={onDelete}
-                    onMove={onMove}
+                    onMoveGroup={onMoveGroup}
+                    onDeleteGroup={onDeleteGroup}
+                    onChangeVisibilityGroup={onChangeVisibilityGroup}
                 />
             ) : (
                 // <InfiniteHemistichView poemId={poemId} />

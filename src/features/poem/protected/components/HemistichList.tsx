@@ -9,22 +9,26 @@ import { SelectedHemistichRange } from "../types";
 
 type Props = {
     hemistichs: HemistichResponse[];
-    onMove: (range: SelectedHemistichRange, targetId: string, position: Position) => void;
     onEdit: (id: string) => void;
     onDelete: (id: string) => void;
     onAddBefore: (id: string) => void;
     onAddAfter: (id: string) => void;
+    onMoveGroup: (range: SelectedHemistichRange, targetId: string, position: Position) => void;
+    onDeleteGroup: (range: SelectedHemistichRange) => void;
+    onChangeVisibilityGroup: (range: SelectedHemistichRange, show: boolean) => void;
 };
 
 
 
 export default function HemistichList({
     hemistichs,
-    onMove,
     onEdit,
     onDelete,
     onAddBefore,
     onAddAfter,
+    onMoveGroup,
+    onDeleteGroup,
+    onChangeVisibilityGroup
 }: Props) {
 
     if (!hemistichs.length) {
@@ -40,9 +44,14 @@ export default function HemistichList({
     const [isGroupSelectActive, setIsGroupSelectActive] = useState<boolean>(false);
     const [isShowMovementButton, setIsShowMovementButton] = useState<boolean>(false)
 
-    const changeIsGroupSelectActive = () => {
+    const cancelGroupOperation = () => {
         setIsGroupSelectActive(prev => !prev);
         if (isGroupSelectActive) { setRange(null); setIsShowMovementButton(false) };
+    }
+
+    const showGroupOperation = () => {
+        setActive(null);
+        setIsGroupSelectActive(prev => !prev);
     }
 
     const isInRange = (order: number): boolean => {
@@ -81,13 +90,29 @@ export default function HemistichList({
     }
 
     const onAddGroupAfter = (targetId: string) => {
-        onMove(range, targetId, Position.after)
+        onMoveGroup(range, targetId, Position.after);
+        cancelGroupOperation();
     }
 
-    const onAddGroupBefore = (targetId: string) => {
-        onMove(range, targetId, Position.before)
+    const onAddGroupBefore =  (targetId: string) => {
+        onMoveGroup(range, targetId, Position.before);
+        cancelGroupOperation();
     }
 
+    const onHideGroup = () => {
+        onChangeVisibilityGroup(range, false);
+        cancelGroupOperation();
+    }
+
+    const onVisibleGroup = () => {
+        onChangeVisibilityGroup(range, true)
+        cancelGroupOperation();
+    }
+
+    const onDeleteGroupHandler = () => {
+        onDeleteGroup(range);
+        cancelGroupOperation();
+    }
 
 
     return (
@@ -108,6 +133,30 @@ export default function HemistichList({
                                         >
                                             جابه جایی
                                         </Button>
+                                        <Button
+                                            size="small"
+                                            color="info"
+                                            variant="contained"
+                                            onClick={onHideGroup}
+                                        >
+                                            مخفی کردن
+                                        </Button>
+                                        <Button
+                                            size="small"
+                                            color="info"
+                                            variant="contained"
+                                            onClick={onVisibleGroup}
+                                        >
+                                            مشاهده
+                                        </Button>
+                                        <Button
+                                            size="small"
+                                            color="error"
+                                            variant="contained"
+                                            onClick={onDeleteGroupHandler}
+                                        >
+                                            حذف
+                                        </Button>
                                     </>
                                     )
                                 }
@@ -115,7 +164,7 @@ export default function HemistichList({
                                     size="small"
                                     color="error"
                                     variant="contained"
-                                    onClick={changeIsGroupSelectActive}
+                                    onClick={cancelGroupOperation}
                                 >
                                     انصراف
                                 </Button>
@@ -127,7 +176,7 @@ export default function HemistichList({
                                 <Button
                                     size="small"
                                     variant="contained"
-                                    onClick={changeIsGroupSelectActive}
+                                    onClick={showGroupOperation}
                                 >
                                     انتخاب بازه گروهی
                                 </Button>
@@ -137,9 +186,9 @@ export default function HemistichList({
 
             </div>
 
-            <div className="grid lg:grid-cols-2 overflow-y-auto">
+            <div className="grid lg:grid-cols-2 lg:h-[34rem] overflow-y-auto">
                 {hemistichs.map((h, i) => (
-                    <div className={`${i % 2 === 0 ? "lg:mb-0" : "mb-3"}`}>
+                    <div key={h._id} className={`${i % 2 === 0 ? "lg:mb-0" : "mb-3"}`}>
                         <HemistichItem
                             key={h._id}
                             isShowMovementButton={isShowMovementButton}
@@ -158,6 +207,6 @@ export default function HemistichList({
                     </div>
                 ))}
             </div>
-        </div>
+        </div >
     );
 }

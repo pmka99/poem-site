@@ -1,6 +1,6 @@
 import { apiClient } from "@/api/core/apiClient";
 import { PoemResponse, CreatePoemDTO, UpdatePoemDTO } from "@/shared/types/poem.type";
-import { HemistichResponse, CreateHemistichDTO, UpdateHemistichDTO } from "@/shared/types/hemistich.type";
+import { HemistichResponse, CreateHemistichDTO, UpdateHemistichDTO, MoveRangeHemistichDTO, VisibiltyRangeHemistichDTO, DeleteRangeHemistichDTO } from "@/shared/types/hemistich.type";
 import { ApiResponse } from "@/shared/types/response.type";
 
 export const poemApi = {
@@ -35,4 +35,37 @@ export const poemApi = {
 
     deleteHemistich: (poemId: string, hemistichId: string) =>
         apiClient.delete<ApiResponse<HemistichResponse>>(`/protected/poem/${poemId}/hemistichs/${hemistichId}`),
+    
+    // ------------------------ Hemistich Range ------------------------
+
+    moveHemistichRange: (
+        poemId: string,
+        data: MoveRangeHemistichDTO
+    ) =>
+        apiClient.put<ApiResponse<void>>(
+            `/protected/poem/${poemId}/hemistichs/range/movement`,
+            data
+        ),
+
+    updateHemistichVisibilityRange: (
+        poemId: string,
+        data: VisibiltyRangeHemistichDTO
+    ) =>
+        apiClient.put<ApiResponse<void>>(
+            `/protected/poem/${poemId}/hemistichs/range/visibility`,
+            data
+        ),
+
+    deleteHemistichRange: (
+        poemId: string,
+        data: DeleteRangeHemistichDTO
+    ) =>
+        apiClient.delete<ApiResponse<void>>(
+            `/protected/poem/${poemId}/hemistichs/range`,
+            {
+                body: JSON.stringify(data),
+            }
+        ),
+
+
 };

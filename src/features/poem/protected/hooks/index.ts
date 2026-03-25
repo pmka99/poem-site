@@ -10,3 +10,6 @@ export * from "./mutations/useDeletePoem";
 export * from "./mutations/useCreateHemistich";
 export * from "./mutations/useUpdateHemistich";
 export * from "./mutations/useDeleteHemistich";
+export * from "./mutations/useMoveHemistichRange";
+export * from "./mutations/useUpdateHemistichVisibilityRange";
+export * from "./mutations/useDeleteHemistichRange";

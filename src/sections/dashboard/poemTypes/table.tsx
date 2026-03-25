@@ -5,7 +5,7 @@ import { MODALS } from "@/types/modals";
 
 
 import { PoemTypeResponse } from "@/shared/types/poemType.type";
-import { LayoutPoemTypeLabels } from "@/labels/poemType";
+import { LayoutPoemTypeLabels } from "@/shared/labels/poemType";
 
 import {
     AppDataGrid,

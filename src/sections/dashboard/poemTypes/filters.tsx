@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react"
 import { TDashboardFiltersPoemTypes } from "."
 import { MultiSelect } from "@/components/filters"
 import { LayoutPoemType } from "@/enum/poemType"
-import { LayoutPoemTypeLabels } from "@/labels/poemType"
+import { LayoutPoemTypeLabels } from "@/shared/labels/poemType"
 
 type Props = {
     filters: TDashboardFiltersPoemTypes,
@@ -17,7 +17,7 @@ export default function DashboardPoemTypesFilters({ filters, setFilters }: Props
             search: prev.search
         }))
     }
-    
+
     const items = Object.values(LayoutPoemType).map(item => ({ id: item, label: LayoutPoemTypeLabels[item] }))
 
     return (

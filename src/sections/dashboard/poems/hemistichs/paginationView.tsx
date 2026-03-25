@@ -13,7 +13,9 @@ type Props = {
     onDelete: (id: string) => void;
     onAddBefore: (id: string) => void;
     onAddAfter: (id: string) => void;
-    onMove: (range: SelectedHemistichRange, targetId: string, position: Position) => void;
+    onMoveGroup: (range: SelectedHemistichRange, targetId: string, position: Position) => void;
+    onDeleteGroup: (range: SelectedHemistichRange) => void;
+    onChangeVisibilityGroup: (range: SelectedHemistichRange, show: boolean) => void;
 }
 
 export function DashboardPaginationHemistichView({
@@ -23,7 +25,9 @@ export function DashboardPaginationHemistichView({
     onDelete,
     onAddBefore,
     onAddAfter,
-    onMove
+    onMoveGroup,
+    onDeleteGroup,
+    onChangeVisibilityGroup
 }: Props) {
 
 
@@ -51,7 +55,9 @@ export function DashboardPaginationHemistichView({
                 onDelete={onDelete}
                 onAddAfter={onAddAfter}
                 onAddBefore={onAddBefore}
-                onMove={onMove}
+                onMoveGroup={onMoveGroup}
+                onDeleteGroup={onDeleteGroup}
+                onChangeVisibilityGroup={onChangeVisibilityGroup}
             />
 
             <div className="flex items-center gap-3 mt-6">

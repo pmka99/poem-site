@@ -56,7 +56,7 @@ export const PUT = protectedRoute(
             return errorResponse({ message: ERRORSMESSAGES.HEMISTICH_NOT_FOUND, status: 404 });
         }
 
-        return NextResponse.json({ data: updatedHemistich });
+        return successResponse({ message: SUCCESSMESSAGES.HEMISTICH_UPDATED, data: updatedHemistich });
     }
 )
 

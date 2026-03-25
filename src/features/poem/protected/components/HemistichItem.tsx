@@ -62,7 +62,7 @@ export default function HemistichItem({
             className={`
                 group flex h-12 items-center
                 justify-between py-3 px-2
-                ${isSelected ? "text-accent " : isActive ? "text-primary" : ""}
+                ${isSelected ? "text-accent " : isActive ? "text-primary" : !hemistich.show ? "text-gray-300" : ""}
             `}
         >
             <div>{hemistich.text}</div>
@@ -74,42 +74,49 @@ export default function HemistichItem({
                     </IconButton>
 
                     <Menu anchorEl={anchorEl} open={open} onClose={closeMenu}>
-                        {!isShowMovementButton
-                            ? !isGroupSelectActive && (
-                                <>
-                                    <MenuItem onClick={() => handle(onAddBefore)}>
-                                        <FiPlus style={{ marginLeft: 8 }} />
-                                        افزودن به قبل
-                                    </MenuItem>
-
-                                    <MenuItem onClick={() => handle(onAddAfter)}>
-                                        <FiPlus style={{ marginLeft: 8 }} />
-                                        افزودن به بعد
-                                    </MenuItem>
-
-                                    <MenuItem onClick={() => handle(onEdit)}>
-                                        <FiEdit style={{ marginLeft: 8 }} />
-                                        ویرایش
-                                    </MenuItem>
-
-                                    <MenuItem onClick={() => handle(onDelete)}>
-                                        <FiTrash style={{ marginLeft: 8 }} />
-                                        حذف
-                                    </MenuItem>
-                                </>
-                            ) : !isSelected && (
-                                <>
-                                    <MenuItem onClick={() => handle(onAddGroupBefore)}>
-                                        <FiPlus style={{ marginLeft: 8 }} />
-                                        افزودن به قبل
-                                    </MenuItem>
-
-                                    <MenuItem onClick={() => handle(onAddGroupAfter)}>
-                                        <FiPlus style={{ marginLeft: 8 }} />
-                                        افزودن به بعد
-                                    </MenuItem>
-                                </>
+                        <Menu anchorEl={anchorEl} open={open} onClose={closeMenu}>
+                            {!isShowMovementButton && !isGroupSelectActive && (
+                                <MenuItem onClick={() => handle(onAddBefore)}>
+                                    <FiPlus style={{ marginLeft: 8 }} />
+                                    افزودن به قبل
+                                </MenuItem>
                             )}
+
+                            {!isShowMovementButton && !isGroupSelectActive && (
+                                <MenuItem onClick={() => handle(onAddAfter)}>
+                                    <FiPlus style={{ marginLeft: 8 }} />
+                                    افزودن به بعد
+                                </MenuItem>
+                            )}
+
+                            {!isShowMovementButton && !isGroupSelectActive && (
+                                <MenuItem onClick={() => handle(onEdit)}>
+                                    <FiEdit style={{ marginLeft: 8 }} />
+                                    ویرایش
+                                </MenuItem>
+                            )}
+
+                            {!isShowMovementButton && !isGroupSelectActive && (
+                                <MenuItem onClick={() => handle(onDelete)}>
+                                    <FiTrash style={{ marginLeft: 8 }} />
+                                    حذف
+                                </MenuItem>
+                            )}
+
+                            {!isShowMovementButton && isGroupSelectActive && !isSelected && (
+                                <MenuItem onClick={() => handle(onAddGroupBefore)}>
+                                    <FiPlus style={{ marginLeft: 8 }} />
+                                    افزودن به قبل
+                                </MenuItem>
+                            )}
+
+                            {!isShowMovementButton && isGroupSelectActive && !isSelected && (
+                                <MenuItem onClick={() => handle(onAddGroupAfter)}>
+                                    <FiPlus style={{ marginLeft: 8 }} />
+                                    افزودن به بعد
+                                </MenuItem>
+                            )}
+                        </Menu>
 
                     </Menu>
                 </>
