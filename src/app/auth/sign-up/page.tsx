@@ -1,4 +1,4 @@
-import SignUpView from "@/sections/auth/signUp";
+import SignUpView from "@/features/auth/views/signUp";
 
 export default function SignUpPage() {
 

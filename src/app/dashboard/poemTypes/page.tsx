@@ -1,5 +1,5 @@
 import DashboardContent from "@/layout/dashboard/content";
-import DashboardPoemTypesView from "@/sections/dashboard/poemTypes";
+import DashboardPoemTypesView from "@features/poemType/protected/views";
 
 
 export default function DashboardPoemPage() {
