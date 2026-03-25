@@ -6,13 +6,11 @@ import PoemTypesModel from "@/server/models/poemType";
 import { connectDB } from "@server/utils/db";
 import { toPoemTypeResponse } from "@/server/mapper/poemType.mapper";
 import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
+import { publicRoute } from "@/server/guard/publicRoute";
 
 // GET all poem types
-export const GET = protectedRoute(
-    {
-        require: [{ action: Action.READ, resource: Resource.POEM_TYPES }],
-    },
-    async (_req, _ctx) => {
+export const GET = publicRoute(
+    {}, async (_req, _ctx) => {
         await connectDB();
 
         const poemTypes = await PoemTypesModel.find().lean();

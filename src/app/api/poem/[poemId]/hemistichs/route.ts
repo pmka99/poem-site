@@ -9,18 +9,15 @@ import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
 import { Position } from "@/enum/poem";
 import PoemModel from "@/server/models/poem";
 import { rebalanceHemistichOrders } from "@/server/utils/rebalancerHemistichOrder";
+import { publicRoute } from "@/server/guard/publicRoute";
 
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
 const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "text"])
 
 /** get all hemistichs of a poem */
-export const GET = protectedRoute(
+export const GET = publicRoute(
     {
-        require: [
-            { action: Action.READ, resource: Resource.HEMISTICH },
-            { action: Action.READ, resource: Resource.POEM }
-        ],
         paramsSchema: paramsSchema,
         querySchema: queryParamsSchema
     },

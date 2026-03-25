@@ -8,16 +8,14 @@ import { Action, Resource } from "@/enum/permission";
 import { successResponse } from "@/server/utils/response";
 import { toPoemResponse } from "@/server/mapper/poem.mapper";
 import { SUCCESSMESSAGES } from "@/server/messages";
+import { publicRoute } from "@/server/guard/publicRoute";
 
 // ✅ Schema for query params (GET)
 const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "author", "poemType", "text"])
 
 // GET /poems
-export const GET = protectedRoute(
+export const GET = publicRoute(
     {
-        require: [
-            { action: Action.READ, resource: Resource.POEM }
-        ],
         querySchema: queryParamsSchema,
     },
     async (_req, _ctx, { query }) => {
@@ -43,7 +41,7 @@ export const GET = protectedRoute(
         const result = await PoemModel.paginate(filter, {
             limit,
             page,
-            populate: ["poemType", "author"],
+            populate: ["poemType"],
             lean: true,
         });
 

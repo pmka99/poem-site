@@ -8,15 +8,13 @@ import { Action, Resource } from "@/enum/permission";
 import { toPoemResponse } from "@/server/mapper/poem.mapper";
 import { errorResponse, successResponse } from "@/server/utils/response";
 import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
+import { publicRoute } from "@/server/guard/publicRoute";
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
 
 /** get a poem by id */
-export const GET = protectedRoute(
+export const GET = publicRoute(
     {
-        require: [
-            { action: Action.READ, resource: Resource.POEM }
-        ],
         paramsSchema: paramsSchema
     },
     async (_req, _ctx, { params }) => {
@@ -26,7 +24,6 @@ export const GET = protectedRoute(
         const poem = await PoemModel
             .findById(poemId)
             .populate("poemType")
-            .populate("author")
             .lean();
         if (!poem) {
             return errorResponse({ message: ERRORSMESSAGES.POEM_NOT_FOUND, status: 404 });

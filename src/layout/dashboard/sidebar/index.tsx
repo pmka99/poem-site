@@ -16,7 +16,7 @@ export default function DashboardSidebar() {
 
     return (
         <>
-            <div className="hidden h-screen lg:flex w-64">
+            <div className="hidden h-screen lg:flex w-64 min-w-64">
                 <DashboardSidebarContent />
             </div>
 
