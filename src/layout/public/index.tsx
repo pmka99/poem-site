@@ -1,6 +1,6 @@
 import PublicFooter from "./footer";
 import PublicHeader from "./header";
-import PublicSidebar from "./sidebar";
+import PublicSidebar from "./sidebar/index";
 
 
 export default function PublicLayoutComponent({ children }: { children: React.ReactNode }) {
