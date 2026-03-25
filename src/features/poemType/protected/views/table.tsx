@@ -5,7 +5,6 @@ import { MODALS } from "@/types/modals";
 
 
 import { PoemTypeResponse } from "@/shared/types/poemType.type";
-import { LayoutPoemTypeLabels } from "@/shared/labels/poemType";
 
 import {
     AppDataGrid,
@@ -16,7 +15,6 @@ import {
 import { GridColDef } from "@mui/x-data-grid";
 
 import { TDashboardFiltersPoemTypes } from ".";
-import { LayoutPoemType } from "@/enum/poemType";
 import ShowModals from "./actions";
 import { useDeletePoemType, usePoemTypes } from "@/features/poemType/protected/hooks";
 
@@ -39,6 +37,7 @@ export default function DashboardPoemTypesTable({ filters }: Props) {
             ? rows.filter((r) => filters.layout.includes(r.layout))
             : rows;
 
+
     const columns: GridColDef<PoemTypeResponse>[] = [
         { field: "name", headerName: "نام", flex: 1 },
 
@@ -48,8 +47,6 @@ export default function DashboardPoemTypesTable({ filters }: Props) {
             field: "layout",
             headerName: "چیدمان",
             flex: 1,
-            renderCell: (params) =>
-                LayoutPoemTypeLabels[params.value as LayoutPoemType],
         },
 
         createActionsColumn<PoemTypeResponse>({

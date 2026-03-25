@@ -2,12 +2,11 @@
 
 import { useState } from "react"
 import DashboardPoemTypesFilters from "./filters"
-import { LayoutPoemType } from "@/enum/poemType";
 import DashboardPoemTypesTable from "./table";
 
 export type TDashboardFiltersPoemTypes = {
     search: string
-    layout: LayoutPoemType[]
+    layout: number[]
 }
 
 

@@ -14,7 +14,6 @@ import { MODALS } from "@/types/modals";
 import { createPoemTypeSchema } from "@/shared/schemas/poemType.schema";
 import { CreatePoemTypeDTO } from "@/shared/types/poemType.type";
 
-import { LayoutPoemType } from "@/enum/poemType";
 import { useCreatePoemType } from "@/features/poemType/protected/hooks";
 
 
@@ -28,7 +27,7 @@ export default function DashboardPoemTypeAddModal() {
         defaultValues: {
             name: "",
             description: "",
-            layout: LayoutPoemType.COUPLET,
+            layout: 2,
         },
         resolver: zodResolver(createPoemTypeSchema),
         mode: "all",
@@ -43,6 +42,13 @@ export default function DashboardPoemTypeAddModal() {
         });
     };
 
+    const items = [
+        { label: "یکی", id: 1 },
+        { label: "دو تایی", id: 2 },
+        { label: "چهار تایی", id: 4 },
+        { label: "پنج تایی", id: 5 }
+    ]
+    
     return (
         <CustomModal
             title="افزودن"
@@ -54,6 +60,12 @@ export default function DashboardPoemTypeAddModal() {
                     <Field.Text
                         name="name"
                         label="نام"
+                    />
+
+                    <Field.Select
+                        name="poemType"
+                        label="نوع شعر"
+                        items={items}
                     />
 
                     <Field.Text

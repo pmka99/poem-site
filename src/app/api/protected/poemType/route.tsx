@@ -6,7 +6,6 @@ import PoemTypesModel from "@/server/models/poemType";
 import { connectDB } from "@server/utils/db";
 import { toPoemTypeResponse } from "@/server/mapper/poemType.mapper";
 import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
-import { LayoutPoemType } from "@/enum/poemType";
 
 // GET all poem types
 export const GET = protectedRoute(

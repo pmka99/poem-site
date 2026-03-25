@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { useHemistichContex } from "../context/hemistichContext";
 import HemistichItem from "./hemistichItem";
 import HemistichToolbar from "./hemistichToolbar";
@@ -7,16 +8,33 @@ export default function HemistichList() {
     const {
         hemistichs,
         active,
+        total,
 
+        onAddFirst,
         changeActivity,
         isInRange,
     } = useHemistichContex();
 
     if (!hemistichs.length) {
         return (
-            <div className="text-center py-6 text-gray-500">
-                نیم‌مصرعی وجود ندارد
-            </div>
+            <>
+                {
+                    total === 0 && (
+                        <Button
+                            className="h-fit"
+                            size="small"
+                            variant="contained"
+                            onClick={onAddFirst}
+                        >
+                            افزودن مصراع
+                        </Button>
+                    )
+                }
+                <div className="text-center py-6 text-gray-500">
+                    نیم‌مصرعی وجود ندارد
+                </div>
+
+            </>
         );
     }
 

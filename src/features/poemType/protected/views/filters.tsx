@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 import { TDashboardFiltersPoemTypes } from "."
 import { MultiSelect } from "@/components/filters"
-import { LayoutPoemType } from "@/enum/poemType"
-import { LayoutPoemTypeLabels } from "@/shared/labels/poemType"
 
 type Props = {
     filters: TDashboardFiltersPoemTypes,
@@ -13,12 +11,17 @@ export default function DashboardPoemTypesFilters({ filters, setFilters }: Props
 
     const changeMultiSelectHandler = (values: (string | number)[]) => {
         setFilters(prev => ({
-            layout: values.map(item => item.toString() as LayoutPoemType),
+            layout: values.map(item => Number(item)),
             search: prev.search
         }))
     }
 
-    const items = Object.values(LayoutPoemType).map(item => ({ id: item, label: LayoutPoemTypeLabels[item] }))
+    const items = [
+        { label: "یکی", id: 1 },
+        { label: "دو تایی", id: 2 },
+        { label: "چهار تایی", id: 4 },
+        { label: "پنج تایی", id: 5 }
+    ]
 
     return (
         <div className="py-2 grid grid-cols-4">

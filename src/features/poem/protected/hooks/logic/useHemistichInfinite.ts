@@ -23,6 +23,7 @@ export function useHemistichInfinite(poemId: string) {
     return {
         hemistichs,
         loadMore,
+        total: 0,
         hasNextPage: query.hasNextPage ?? false,
         isLoading: query.isLoading,
         isFetchingNextPage: query.isFetchingNextPage,

@@ -32,8 +32,9 @@ export function useHemistichPagination(poemId: string) {
 
     return {
         hemistichs: query.data?.data ?? [],
+        total: query.data?.meta?.total ?? 0,
         page,
-        setPage,    
+        setPage,
         totalPages,
         nextPage,
         prevPage,

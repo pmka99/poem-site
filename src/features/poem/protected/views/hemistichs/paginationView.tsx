@@ -22,6 +22,7 @@ export default function PaginationHemistichView() {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
+                mt={3}
             >
                 <Pagination
                     count={totalPages}
