@@ -1,4 +1,4 @@
-import { ModalContext, ModalState } from "@/contexts/ModalContext";
+import { ModalContext, ModalState } from "@/contexts/modalContext";
 import { ModalName, ModalPayloadMap } from "@/types/modals";
 import { useState } from "react";
 

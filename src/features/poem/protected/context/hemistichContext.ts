@@ -6,7 +6,7 @@ import { HemistichContextType } from "../types";
 export const HemistichContext =
     createContext<HemistichContextType | null>(null);
 
-export function useHemistich() {
+export function useHemistichContex() {
     const context = useContext(HemistichContext);
 
     if (!context) {

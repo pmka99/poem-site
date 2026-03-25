@@ -1,5 +1,5 @@
 import { HemistichResponse } from "@/shared/types/hemistich.type";
-import { useHemistich } from "../context/HemistichContext";
+import { useHemistichContex } from "../context/hemistichContext";
 import { IconButton } from "@mui/material";
 import { FiEdit, FiTrash, FiPlus } from "react-icons/fi";
 
@@ -26,7 +26,7 @@ export default function HemistichItem({
 
         moveGroupBefore,
         moveGroupAfter,
-    } = useHemistich();
+    } = useHemistichContex();
 
     return (
         <div

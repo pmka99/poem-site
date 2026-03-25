@@ -1,4 +1,4 @@
-import { useHemistich } from "../context/HemistichContext";
+import { useHemistichContex } from "../context/hemistichContext";
 import { Button } from "@mui/material";
 
 export default function HemistichToolbar() {
@@ -14,7 +14,7 @@ export default function HemistichToolbar() {
         deleteGroup,
         hideGroup,
         showGroup,
-    } = useHemistich();
+    } = useHemistichContex();
 
     return (
         <div className="flex h-16 p-2">

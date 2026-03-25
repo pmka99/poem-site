@@ -1,10 +1,10 @@
-import HemistichList from "@/features/poem/protected/components/HemistichList";
-import { useHemistich } from "@/features/poem/protected/context/HemistichContext";
+import HemistichList from "@/features/poem/protected/components/hemistichList";
+import { useHemistichContex } from "@/features/poem/protected/context/hemistichContext";
 import { Pagination, Stack } from "@mui/material";
 
 export default function PaginationHemistichView() {
 
-    const ctx = useHemistich();
+    const ctx = useHemistichContex();
 
     if (ctx.mode !== "pagination") return null;
 

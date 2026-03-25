@@ -1,5 +1,5 @@
 import { useHemistichController, HemistichMode } from "../hooks/logic/useHemistichController";
-import { HemistichContext } from "../context/HemistichContext";
+import { HemistichContext } from "../context/hemistichContext";
 
 export function HemistichProvider({
     poemId,

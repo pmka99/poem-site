@@ -1,6 +1,6 @@
-import { useHemistich } from "../context/HemistichContext";
-import HemistichItem from "./HemistichItem";
-import HemistichToolbar from "./HemistichToolbar";
+import { useHemistichContex } from "../context/hemistichContext";
+import HemistichItem from "./hemistichItem";
+import HemistichToolbar from "./hemistichToolbar";
 
 export default function HemistichList() {
 
@@ -10,7 +10,7 @@ export default function HemistichList() {
 
         changeActivity,
         isInRange,
-    } = useHemistich();
+    } = useHemistichContex();
 
     if (!hemistichs.length) {
         return (

@@ -1,11 +1,11 @@
 "use client";
 
 import { useViewMode, useModal } from "@/hooks";
-import ViewModeSwitcher from "@/features/poem/protected/components/ViewModeSwitcher";
+import ViewModeSwitcher from "@/features/poem/protected/components/viewModeSwitcher";
 
 import { MODALS } from "@/types/modals";
 
-import { HemistichProvider } from "@/features/poem/protected/provider/HemistichProvider";
+import { HemistichProvider } from "@/features/poem/protected/provider/hemistichProvider";
 
 import PaginationHemistichView from "./paginationView";
 import InfiniteHemistichView from "./infiniteScrollView";
