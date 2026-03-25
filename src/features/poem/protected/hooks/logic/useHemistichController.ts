@@ -126,6 +126,7 @@ export function useHemistichController(
     const shared = {
         ...selection,
         ...actions,
+        poemId,
 
         onAddFirst,
         onAddBefore,

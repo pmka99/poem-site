@@ -23,10 +23,16 @@ export const GET = protectedRoute(
         const { poemId } = params;
         await connectDB();
 
-        const poem = await PoemModel.findById(poemId).lean();
+        const poem = await PoemModel
+            .findById(poemId)
+            .populate("poemType")
+            .populate("author")
+            .lean();
         if (!poem) {
             return errorResponse({ message: ERRORSMESSAGES.POEM_NOT_FOUND, status: 404 });
         }
+        console.log(poem);
+
 
         const data = toPoemResponse(poem)
 

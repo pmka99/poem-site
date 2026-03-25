@@ -32,8 +32,9 @@ export default function HemistichItem({
         <div
             onClick={setActive}
             className={`
+                justify-between
                 md:h-8 rounded-sm px-1
-                flex items-center justify-between
+                flex items-center
                 ${isSelected ? "bg-primary" :
                 isActive ? "bg-primary" :
                         !hemistich.show ? "text-gray-400"

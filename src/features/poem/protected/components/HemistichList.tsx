@@ -2,6 +2,10 @@ import { Button } from "@mui/material";
 import { useHemistichContex } from "../context/hemistichContext";
 import HemistichItem from "./hemistichItem";
 import HemistichToolbar from "./hemistichToolbar";
+import { usePoem } from "../hooks";
+import { PoemTypeResponse } from "@/shared/types/poemType.type";
+
+
 
 export default function HemistichList() {
 
@@ -9,12 +13,33 @@ export default function HemistichList() {
         hemistichs,
         active,
         total,
+        poemId,
 
         onAddFirst,
         changeActivity,
         isInRange,
     } = useHemistichContex();
 
+    const { data } = usePoem(poemId)
+    const layout = (data?.data?.poemType as PoemTypeResponse)?.layout;
+
+    const getLayoutClass = (i: number) => {
+        if (layout === 2) {
+            return i % 2 === 1 ? "lg:mb-0 mb-2" : "";
+        }
+
+        if (layout === 4) {
+            if (i % 4 === 3) return "mb-8";
+            if (i % 4 === 1) return "mb-2";
+        }
+
+        if (layout === 5) {
+            if (i % 5 === 4) return "lg:w-full mb-8";
+            if (i % 5 === 1 || i % 5 === 3) return "mb-2";
+        }
+
+        return "";
+    };
     if (!hemistichs.length) {
         return (
             <>
@@ -43,17 +68,22 @@ export default function HemistichList() {
 
             <HemistichToolbar />
 
-            <div className="grid lg:grid-cols-2 gap-1 overflow-y-auto">
+            <div className="flex overflow-y-auto flex-wrap w-full">
 
-                {hemistichs.map((h) => (
-
-                    <HemistichItem
-                        key={h._id}
-                        hemistich={h}
-                        isActive={h._id === active?._id}
-                        isSelected={isInRange(h.order)}
-                        setActive={() => changeActivity(h)}
-                    />
+                {hemistichs.map((h, i) => (
+                    <div key={h._id}
+                        className={`w-full lg:w-1/2 lg:p-1
+                            ${getLayoutClass(i)}
+                        `}
+                    >
+                        <HemistichItem
+                            key={h._id}
+                            hemistich={h}
+                            isActive={h._id === active?._id}
+                            isSelected={isInRange(h.order)}
+                            setActive={() => changeActivity(h)}
+                        />
+                    </div>
 
                 ))}
 
