@@ -21,11 +21,12 @@ export default function HemistichToolbar() {
 
             {isGroupSelectActive ? (
 
-                <div className="flex gap-1">
+                <div className="flex gap-1 h-fit">
 
                     {range?.first && range?.last && (
                         <>
                             <Button
+                                color="info"
                                 size="small"
                                 variant="contained"
                                 onClick={enableMovementMode}
@@ -62,7 +63,7 @@ export default function HemistichToolbar() {
 
                     <Button
                         size="small"
-                        color="error"
+                        color="secondary"
                         variant="contained"
                         onClick={cancelGroupOperation}
                     >
@@ -74,6 +75,7 @@ export default function HemistichToolbar() {
             ) : (
 
                 <Button
+                    className="h-fit"
                     size="small"
                     variant="contained"
                     onClick={showGroupOperation}

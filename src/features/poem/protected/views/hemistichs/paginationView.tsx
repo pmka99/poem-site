@@ -1,41 +1,40 @@
 import HemistichList from "@/features/poem/protected/components/HemistichList";
 import { useHemistich } from "@/features/poem/protected/context/HemistichContext";
+import { Pagination, Stack } from "@mui/material";
 
 export default function PaginationHemistichView() {
 
     const ctx = useHemistich();
 
-    if (ctx.mode !== "pagination") {
-        return null;
-    }
+    if (ctx.mode !== "pagination") return null;
 
-    const { page, totalPages, nextPage, prevPage } = ctx;
+    const { page, totalPages, setPage } = ctx;
+
+    const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    };
 
     return (
         <>
             <HemistichList />
 
-            <div className="flex justify-center gap-4 mt-6">
-
-                <button
-                    onClick={prevPage}
-                    disabled={page === 1}
-                >
-                    قبلی
-                </button>
-
-                <span>
-                    {page} / {totalPages}
-                </span>
-
-                <button
-                    onClick={nextPage}
-                    disabled={page === totalPages}
-                >
-                    بعدی
-                </button>
-
-            </div>
+            <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+            >
+                <Pagination
+                    count={totalPages}
+                    page={page}
+                    onChange={handleChange}
+                    color="primary"
+                    shape="rounded"
+                    showFirstButton
+                    showLastButton
+                    siblingCount={1}
+                    boundaryCount={1}
+                />
+            </Stack>
         </>
     );
 }

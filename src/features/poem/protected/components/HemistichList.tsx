@@ -21,11 +21,11 @@ export default function HemistichList() {
     }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col max-h-150 lg:min-h-150">
 
             <HemistichToolbar />
 
-            <div className="grid lg:grid-cols-2 overflow-y-auto">
+            <div className="grid lg:grid-cols-2 gap-1 overflow-y-auto">
 
                 {hemistichs.map((h) => (
 

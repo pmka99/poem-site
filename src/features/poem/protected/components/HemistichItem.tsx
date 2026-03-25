@@ -1,3 +1,4 @@
+import { HemistichResponse } from "@/shared/types/hemistich.type";
 import { useHemistich } from "../context/HemistichContext";
 import { IconButton } from "@mui/material";
 import { FiEdit, FiTrash, FiPlus } from "react-icons/fi";
@@ -7,7 +8,12 @@ export default function HemistichItem({
     isActive,
     isSelected,
     setActive,
-}: any) {
+}: {
+    hemistich: HemistichResponse,
+    isActive: boolean,
+    isSelected: boolean,
+    setActive: () => void,
+}) {
 
     const {
         isGroupSelectActive,
@@ -26,30 +32,34 @@ export default function HemistichItem({
         <div
             onClick={setActive}
             className={`
-        flex justify-between p-2
-        ${isSelected ? "text-accent" : isActive ? "text-primary" : ""}
-      `}
+                md:h-8 rounded-sm px-1
+                flex items-center justify-between
+                ${isSelected ? "bg-primary" :
+                isActive ? "bg-primary" :
+                        !hemistich.show ? "text-gray-400"
+                            : ""}
+            `}
         >
             <div>{hemistich.text}</div>
 
-            <div className="flex gap-2">
+            <div className="flex lg:gap-2 gap-1 min-w-35">
 
                 {!isShowMovementButton && !isGroupSelectActive && (
                     <>
-                        <IconButton onClick={() => onAddBefore(hemistich._id)}>
-                            <FiPlus />
+                        <IconButton   onClick={() => onAddBefore(hemistich._id)}>
+                            <FiPlus className="w-4" />
                         </IconButton>
 
                         <IconButton onClick={() => onAddAfter(hemistich._id)}>
-                            <FiPlus />
+                            <FiPlus className="w-4" />
                         </IconButton>
 
-                        <IconButton onClick={() => onEdit(hemistich._id)}>
-                            <FiEdit />
+                        <IconButton color="info" onClick={() => onEdit(hemistich._id)}>
+                            <FiEdit className="w-4" />
                         </IconButton>
 
-                        <IconButton onClick={() => onDelete(hemistich._id)}>
-                            <FiTrash />
+                        <IconButton color="error" onClick={() => onDelete(hemistich._id)}>
+                            <FiTrash className="w-4" />
                         </IconButton>
                     </>
                 )}
@@ -57,11 +67,11 @@ export default function HemistichItem({
                 {isShowMovementButton && !isSelected && (
                     <>
                         <IconButton onClick={() => moveGroupBefore(hemistich._id)}>
-                            <FiPlus />
+                            <FiPlus className="w-4" />
                         </IconButton>
 
                         <IconButton onClick={() => moveGroupAfter(hemistich._id)}>
-                            <FiPlus />
+                            <FiPlus className="w-4" />
                         </IconButton>
                     </>
                 )}

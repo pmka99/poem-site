@@ -17,6 +17,7 @@ import { TDashboardPoemsFilters } from ".";
 import { useDeletePoem, usePoems } from "@/features/poem/protected/hooks";
 import ShowModals from "./actions";
 import { useRouter } from "next/navigation";
+import { MdEditNote } from "react-icons/md";
 
 type Props = { filters: TDashboardPoemsFilters };
 
@@ -52,7 +53,7 @@ export default function DashboardPoemsTable({ filters }: Props) {
             },
             customActions: [
                 {
-                    icon: <></>,
+                    icon: <MdEditNote />,
                     label: "ویرایش ابیات",
                     onClick: (row) => { router.push(`/dashboard/poems/${row._id}/hemistich`) }
                 }
