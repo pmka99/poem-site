@@ -6,6 +6,8 @@ import { updateHemistichSchema } from "@shared/schemas/hemistich.schema";
 import { createIdParamsSchema } from "@server/validators/createIdParamsSchema";
 import { protectedRoute } from "@server/guard/protectedRoute";
 import { Action, Resource } from "@/enum/permission";
+import { errorResponse, successResponse } from "@/server/utils/response";
+import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
 
 const paramsSchema = createIdParamsSchema(["hemistichId", "poemId"], [])
 
@@ -25,9 +27,9 @@ export const GET = protectedRoute(
         const hemistich = await HemistichModel.findById(hemistichId).lean();
 
         if (!hemistich) {
-            return NextResponse.json({ error: "Hemistich not found" }, { status: 404 });
+            return errorResponse({ message: ERRORSMESSAGES.HEMISTICH_NOT_FOUND, status: 404 });
         }
-        return NextResponse.json({ data: hemistich });
+        return successResponse({ data: hemistich, message: SUCCESSMESSAGES.HEMISTICH_FETCHED });
     }
 )
 
@@ -51,7 +53,7 @@ export const PUT = protectedRoute(
         );
 
         if (!updatedHemistich) {
-            return NextResponse.json({ error: "Hemistich not found" }, { status: 404 });
+            return errorResponse({ message: ERRORSMESSAGES.HEMISTICH_NOT_FOUND, status: 404 });
         }
 
         return NextResponse.json({ data: updatedHemistich });
@@ -74,8 +76,8 @@ export const DELETE = protectedRoute(
         const deletedHemistich = await HemistichModel.findByIdAndDelete(hemistichId);
 
         if (!deletedHemistich) {
-            return NextResponse.json({ error: "Hemistich not found" }, { status: 404 });
+            return errorResponse({ message: ERRORSMESSAGES.HEMISTICH_NOT_FOUND, status: 404 });
         }
-        return NextResponse.json({ message: "Hemistich deleted successfully" });
+        return successResponse({ message: SUCCESSMESSAGES.HEMISTICH_DELETED });
     }
 )

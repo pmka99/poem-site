@@ -39,7 +39,6 @@ export default function DashboardHemistichEditModal() {
     useEffect(() => {
         methods.setValue("text", data?.data?.text)
         methods.setValue("show", data?.data?.show)
-
     }, [data])
 
     const onSubmit = (data: UpdateHemistichDTO) => {

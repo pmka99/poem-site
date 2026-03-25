@@ -8,6 +8,7 @@ import { useDeleteHemistich } from "@/features/poem/protected/hooks";
 import { Position } from "@/enum/poem";
 import DashboardHemistichAddModal from "./actions/add";
 import DashboardHemistichEditModal from "./actions/edit";
+import { SelectedHemistichRange } from "@/features/poem/protected/types";
 // import { InfiniteHemistichView } from "./infiniteScrollView"
 
 export default function DashboardPoemsHemistichView({
@@ -39,12 +40,12 @@ export default function DashboardPoemsHemistichView({
     const deleteMutation = useDeleteHemistich(poemId);
 
     const onDelete = async (hemistichId: string) => {
-
         const ok = await confirm("آیا از حذف این مصرع مطمئن هستید؟");
-
         if (!ok) return;
-
         deleteMutation.mutate(hemistichId);
+    }
+
+    const onMove = async (range: SelectedHemistichRange, targetId: string, position: Position) => {
 
     }
 
@@ -63,6 +64,7 @@ export default function DashboardPoemsHemistichView({
                     onAddBefore={onAddBefore}
                     onEdit={onEdit}
                     onDelete={onDelete}
+                    onMove={onMove}
                 />
             ) : (
                 // <InfiniteHemistichView poemId={poemId} />

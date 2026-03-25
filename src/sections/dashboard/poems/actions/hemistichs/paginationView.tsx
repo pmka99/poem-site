@@ -3,6 +3,8 @@ import HemistichList from "@/features/poem/protected/components/HemistichList"
 import { useState } from "react"
 import { Button, IconButton } from "@mui/material"
 import { FiPlus } from "react-icons/fi"
+import { Position } from "@/enum/poem"
+import { SelectedHemistichRange } from "@/features/poem/protected/types"
 
 type Props = {
     poemId: string;
@@ -11,6 +13,7 @@ type Props = {
     onDelete: (id: string) => void;
     onAddBefore: (id: string) => void;
     onAddAfter: (id: string) => void;
+    onMove: (range: SelectedHemistichRange, targetId: string, position: Position) => void;
 }
 
 export function DashboardPaginationHemistichView({
@@ -19,7 +22,8 @@ export function DashboardPaginationHemistichView({
     onEdit,
     onDelete,
     onAddBefore,
-    onAddAfter
+    onAddAfter,
+    onMove
 }: Props) {
 
 
@@ -35,7 +39,7 @@ export function DashboardPaginationHemistichView({
 
 
     return (
-        <div className="">
+        <div className="flex flex-col h-full grow">
             {data?.meta?.total === 0 &&
                 <IconButton title="افزودن مصرع جدید" onClick={onAddfirst}>
                     <FiPlus />
@@ -47,6 +51,7 @@ export function DashboardPaginationHemistichView({
                 onDelete={onDelete}
                 onAddAfter={onAddAfter}
                 onAddBefore={onAddBefore}
+                onMove={onMove}
             />
 
             <div className="flex items-center gap-3 mt-6">
