@@ -1,85 +1,41 @@
-import { useHemistichs } from "@/features/poem/protected/hooks"
-import HemistichList from "@/features/poem/protected/components/HemistichList"
-import { useState } from "react"
-import { Button, IconButton } from "@mui/material"
-import { FiPlus } from "react-icons/fi"
-import { Position } from "@/enum/poem"
-import { SelectedHemistichRange } from "@/features/poem/protected/types"
+import HemistichList from "@/features/poem/protected/components/HemistichList";
+import { useHemistich } from "@/features/poem/protected/context/HemistichContext";
 
-type Props = {
-    poemId: string;
-    onAddfirst: () => void;
-    onEdit: (id: string) => void;
-    onDelete: (id: string) => void;
-    onAddBefore: (id: string) => void;
-    onAddAfter: (id: string) => void;
-    onMoveGroup: (range: SelectedHemistichRange, targetId: string, position: Position) => void;
-    onDeleteGroup: (range: SelectedHemistichRange) => void;
-    onChangeVisibilityGroup: (range: SelectedHemistichRange, show: boolean) => void;
-}
+export default function PaginationHemistichView() {
 
-export function DashboardPaginationHemistichView({
-    poemId,
-    onAddfirst,
-    onEdit,
-    onDelete,
-    onAddBefore,
-    onAddAfter,
-    onMoveGroup,
-    onDeleteGroup,
-    onChangeVisibilityGroup
-}: Props) {
+    const ctx = useHemistich();
 
+    if (ctx.mode !== "pagination") {
+        return null;
+    }
 
-    const [page, setPage] = useState(1)
-
-    const { data } = useHemistichs(poemId, {
-        page,
-        limit: 20
-    })
-
-    const hemistichs = data?.data ?? []
-
-
+    const { page, totalPages, nextPage, prevPage } = ctx;
 
     return (
-        <div className="flex flex-col h-full grow">
-            {data?.meta?.total === 0 &&
-                <IconButton title="افزودن مصرع جدید" onClick={onAddfirst}>
-                    <FiPlus />
-                </IconButton>
-            }
-            <HemistichList
-                hemistichs={hemistichs}
-                onEdit={onEdit}
-                onDelete={onDelete}
-                onAddAfter={onAddAfter}
-                onAddBefore={onAddBefore}
-                onMoveGroup={onMoveGroup}
-                onDeleteGroup={onDeleteGroup}
-                onChangeVisibilityGroup={onChangeVisibilityGroup}
-            />
+        <>
+            <HemistichList />
 
-            <div className="flex items-center gap-3 mt-6">
-                <Button
-                    size="small"
-                    variant="contained"
+            <div className="flex justify-center gap-4 mt-6">
+
+                <button
+                    onClick={prevPage}
                     disabled={page === 1}
-                    onClick={() => setPage(p => p - 1)}
                 >
                     قبلی
-                </Button>
-                <span className="text-primary">
-                    {page}
+                </button>
+
+                <span>
+                    {page} / {totalPages}
                 </span>
-                <Button
-                    size="small"
-                    variant="contained"
-                    disabled={page === data?.meta?.totalPage}
-                    onClick={() => setPage(p => p + 1)}>
+
+                <button
+                    onClick={nextPage}
+                    disabled={page === totalPages}
+                >
                     بعدی
-                </Button>
+                </button>
+
             </div>
-        </div>
-    )
+        </>
+    );
 }

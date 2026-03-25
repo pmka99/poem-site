@@ -1,47 +1,23 @@
-// import { useInfiniteHemistichs } from "@/features/poem/protected/hooks"
-// import HemistichVirtualList from "@/features/poem/protected/components/HemistichVirtualList"
-// import InfiniteScrollTrigger from "@/features/poem/protected/components/InfiniteScrollTrigger"
+import { useHemistich } from "@/features/poem/protected/context/HemistichContext";
+// import HemistichVirtualList from "@/features/poem/protected/components/HemistichVirtualList";
+import InfiniteScrollTrigger from "@/features/poem/protected/components/InfiniteScrollTrigger";
 
-// type Props = {
-//     poemId: string;
-//     onAddfirst: () => void;
-//     onEdit: (id: string) => void;
-//     onDelete: (id: string) => void;
-//     onAddBefore: (id: string) => void;
-//     onAddAfter: (id: string) => void;
-// }
+export default function InfiniteHemistichView() {
 
-// export function InfiniteHemistichView({
-//     poemId,
-//     onEdit,
-//     onDelete,
-//     onAddBefore,
-//     onAddAfter
-// }: Props) {
+    const ctx = useHemistich();
 
-//     const query = useInfiniteHemistichs(poemId, {
-//         limit: 20
-//     })
+    if (ctx.mode !== "infinite") return null;
 
-//     const hemistichs =
-//         query.data?.pages.flatMap(
-//             page => page.data ?? []
-//         ) ?? []
+    const { hemistichs, loadMore, hasNextPage } = ctx;
 
-//     const loadMore = () => {
-//         if (query.hasNextPage && !query.isFetchingNextPage) {
-//             query.fetchNextPage()
-//         }
-//     }
+    return (
+        <>
+            {/* <HemistichVirtualList hemistichs={hemistichs} /> */}
 
-//     return (
-//         <>
-//             <HemistichVirtualList hemistichs={hemistichs} />
-
-//             <InfiniteScrollTrigger
-//                 onLoadMore={loadMore}
-//                 disabled={!query.hasNextPage}
-//             />
-//         </>
-//     )
-// }
+            <InfiniteScrollTrigger
+                onLoadMore={loadMore}
+                disabled={!hasNextPage}
+            />
+        </>
+    );
+}
