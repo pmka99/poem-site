@@ -9,6 +9,7 @@ import { rebalanceHemistichOrders } from "@/server/utils/rebalancerHemistichOrde
 import { errorResponse, successResponse } from "@/server/utils/response";
 import { createIdParamsSchema } from "@/server/validators";
 import { moveRangeHemistichSchema } from "@/shared/schemas/hemistich.schema";
+import "@/server/models"
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
 

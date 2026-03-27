@@ -7,14 +7,10 @@ type Props = {
     params: Promise<{
         poemId: string;
     }>;
-    searchParams: Promise<{
-        [key: string]: string | string[] | undefined;
-    }>;
 }
 
 
-
-export default async function PoemView({ searchParams, params }: Props) {
+export default async function PoemView({ params }: Props) {
 
     const cookieStore = await cookies();
     const readTypeMode = cookieStore.get("read-type")?.value;
@@ -26,7 +22,7 @@ export default async function PoemView({ searchParams, params }: Props) {
         <div className="flex w-full py-20 flex-col bg-background/20">
 
             {readTypeMode === "pagination" ? (
-                <PaginationHemistichView poemId={poemId}  />
+                <PaginationHemistichView poemId={poemId} />
             ) : (
                 <InfiniteHemistichView />
             )}

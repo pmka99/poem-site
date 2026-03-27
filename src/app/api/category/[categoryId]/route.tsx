@@ -7,6 +7,7 @@ import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
 import CategoryModel from "@/server/models/category";
 import { toCategoryResponse } from "@/server/mapper/category.mapper";
 import { updateCategorySchema } from "@/shared/schemas/category.schema";
+import "@/server/models"
 
 const paramsSchema = createIdParamsSchema(["categoryId"], [])
 

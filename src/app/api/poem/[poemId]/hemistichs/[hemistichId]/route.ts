@@ -8,6 +8,7 @@ import { protectedRoute } from "@server/guard/protectedRoute";
 import { Action, Resource } from "@/enum/permission";
 import { errorResponse, successResponse } from "@/server/utils/response";
 import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
+import "@/server/models"
 
 const paramsSchema = createIdParamsSchema(["hemistichId", "poemId"], [])
 

@@ -6,6 +6,7 @@ import { connectDB } from "@/server/utils/db";
 import { errorResponse, successResponse } from "@/server/utils/response";
 import { createIdParamsSchema } from "@/server/validators";
 import { deleteRangeHemistichSchema } from "@/shared/schemas/hemistich.schema";
+import "@/server/models"
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
 

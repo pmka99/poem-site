@@ -63,8 +63,8 @@ export default function DashboardPoemTypeAddModal() {
                     />
 
                     <Field.Select
-                        name="poemType"
-                        label="نوع شعر"
+                        name="layout"
+                        label="چیدمان"
                         items={items}
                     />
 

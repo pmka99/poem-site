@@ -11,6 +11,7 @@ import PoemModel from "@/server/models/poem";
 import { rebalanceHemistichOrders } from "@/server/utils/rebalancerHemistichOrder";
 import { publicRoute } from "@/server/guard/publicRoute";
 import { getHemistichReadFilter } from "@/server/guard/access/policies/hemistich.policy";
+import "@/server/models"
 
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])

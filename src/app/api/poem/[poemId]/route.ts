@@ -10,6 +10,7 @@ import { errorResponse, successResponse } from "@/server/utils/response";
 import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
 import { publicRoute } from "@/server/guard/publicRoute";
 import { getPoemPopulate, getPoemReadFilter } from "@/server/guard/access/policies/poem.policy";
+import "@/server/models"
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
 

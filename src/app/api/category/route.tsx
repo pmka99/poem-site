@@ -7,6 +7,7 @@ import { publicRoute } from "@/server/guard/publicRoute";
 import { toCategoryResponse } from "@/server/mapper/category.mapper";
 import CategoryModel from "@/server/models/category";
 import { createCategorySchema } from "@/shared/schemas/category.schema";
+import "@/server/models"
 
 // GET all categories
 export const GET = publicRoute(

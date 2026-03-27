@@ -8,6 +8,7 @@ import { updatePoemTypeSchema } from "@/shared/schemas/poemType.schema";
 import { errorResponse, successResponse } from "@/server/utils/response";
 import { toPoemTypeResponse } from "@/server/mapper/poemType.mapper";
 import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
+import "@/server/models"
 
 const paramsSchema = createIdParamsSchema(["poemTypeId"], [])
 

@@ -7,6 +7,7 @@ import { connectDB } from "@server/utils/db";
 import { toPoemTypeResponse } from "@/server/mapper/poemType.mapper";
 import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
 import { publicRoute } from "@/server/guard/publicRoute";
+import "@/server/models"
 
 // GET all poem types
 export const GET = publicRoute(
