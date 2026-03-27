@@ -10,6 +10,7 @@ import { toPoemResponse } from "@/server/mapper/poem.mapper";
 import { SUCCESSMESSAGES } from "@/server/messages";
 import { publicRoute } from "@/server/guard/publicRoute";
 import { getPoemPopulate, getPoemReadFilter } from "@/server/guard/access/policies/poem.policy";
+import "@/server/models"
 
 // ✅ Schema for query params (GET)
 const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "author", "poemType", "text"])

@@ -1,10 +1,10 @@
 import Image from "next/image";
 
-export default function PublicFooter() {
+export default function PublicFooterImage() {
 
 
     return (
-        <footer className="w-full h-20 lg:h-40 justify-between flex items-center p-1">
+        <div className="w-full absolute bottom-0 h-20 lg:h-40 justify-between flex items-center p-1">
             <Image
                 src={"/images/bird-down.webp"}
                 alt={"flower"}
@@ -17,6 +17,6 @@ export default function PublicFooter() {
                 width={200} height={200}
                 className="absolute w-auto h-80 bottom-0 left-0"
             />
-        </footer>
+        </div>
     )
 }

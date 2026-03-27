@@ -1,6 +1,6 @@
 import { apiClient } from "@/api/core/apiClient";
-import { PoemResponse, CreatePoemDTO, UpdatePoemDTO } from "@/shared/types/poem.type";
-import { HemistichResponse, CreateHemistichDTO, UpdateHemistichDTO, MoveRangeHemistichDTO, VisibiltyRangeHemistichDTO, DeleteRangeHemistichDTO } from "@/shared/types/hemistich.type";
+import { PoemResponse } from "@/shared/types/poem.type";
+import { HemistichResponse} from "@/shared/types/hemistich.type";
 import { ApiResponse } from "@/shared/types/response.type";
 
 export const poemApi = {

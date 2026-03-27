@@ -24,7 +24,7 @@ type MultiSelectProps = {
 
 export function MultiSelect({
     items,
-    label = "Select",
+    label,
     value,
     defaultValue = [],
     onChange,

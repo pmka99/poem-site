@@ -1,5 +1,5 @@
 import DashboardContent from "@/layout/dashboard/content";
-import DashboardPoemsHemistichView from "@features/poem/protected/views/hemistichs"
+import DashboardPoemsHemistichView from "@/features/poem/protected/views/hemistich"
 
 export default async function DashboardPoemHemistichPage({
     params,

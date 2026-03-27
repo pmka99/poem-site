@@ -1,13 +1,14 @@
 import { PoemTypeResponse } from "@/shared/types/poemType.type";
 import HemistichItem from "./hemistichItem";
 import { HemistichResponse } from "@/shared/types/hemistich.type";
-import { usePoem } from "../../protected/hooks";
+import { poemService } from "../services";
 
-export default function HemistichList({ hemistichs }: {
+export default async function HemistichList({ hemistichs, poemId }: {
     hemistichs: HemistichResponse[],
+    poemId: string
 }) {
 
-    const { data } = usePoem("poemId")
+    const data = await poemService.getById(poemId)
     const layout = (data?.data?.poemType as PoemTypeResponse)?.layout;
 
     const getLayoutClass = (i: number) => {
@@ -39,9 +40,9 @@ export default function HemistichList({ hemistichs }: {
     }
 
     return (
-        <div className="flex flex-col max-h-150 lg:min-h-150">
+        <div className="flex flex-col py-10">
 
-            <div className="flex overflow-y-auto flex-wrap w-full">
+            <div className="flex flex-wrap w-full">
 
                 {hemistichs.map((h, i) => (
                     <div key={h._id}

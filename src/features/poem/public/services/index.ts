@@ -1,6 +1,6 @@
-import { poemApi } from "@features/poem/protected/api";
-import { PoemResponse, CreatePoemDTO, UpdatePoemDTO } from "@/shared/types/poem.type";
-import { HemistichResponse, CreateHemistichDTO, UpdateHemistichDTO, MoveRangeHemistichDTO, VisibiltyRangeHemistichDTO, DeleteRangeHemistichDTO } from "@/shared/types/hemistich.type";
+import { poemApi } from "@features/poem/public/api";
+import { PoemResponse } from "@/shared/types/poem.type";
+import { HemistichResponse } from "@/shared/types/hemistich.type";
 import { ApiResponse } from "@/shared/types/response.type";
 export const poemService = {
     // ------------------------ Poem ------------------------
