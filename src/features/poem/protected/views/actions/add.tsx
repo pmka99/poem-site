@@ -19,6 +19,7 @@ import { useAuth } from "@/features/auth/hooks";
 import { usePoemTypes } from "@/features/poemType/protected/hooks";
 import { useEffect, useState } from "react";
 import StoryBox from "@/features/poem/protected/components/story";
+import { useCategorys } from "@/features/category/protected/hooks";
 
 
 export default function DashboardPoemAddModal() {
@@ -36,6 +37,8 @@ export default function DashboardPoemAddModal() {
             title: "",
             author: "",
             poemType: "",
+            category: "",
+            show: true,
             story: [],
         },
         resolver: zodResolver(createPoemSchema),
@@ -49,7 +52,7 @@ export default function DashboardPoemAddModal() {
 
 
     const onSubmit: SubmitHandler<CreatePoemDTO> = (data) => {
-
+        
         createPoem({
             ...data,
             story
@@ -61,10 +64,16 @@ export default function DashboardPoemAddModal() {
         });
     };
 
-    const { data, isLoading } = usePoemTypes();
+    const { data: poemTypes, isLoading: poemTypes_isloading } = usePoemTypes();
 
-    const items = data?.data?.map(item => ({ id: item._id, label: item.name })
+    const poemTypesItems = poemTypes?.data?.map(item => ({ id: item._id, label: item.name })
     ) ?? []
+
+    const { data: categories, isLoading: categories_isLoading } = useCategorys();
+
+    const categoriesItems = categories?.data?.map(item => ({ id: item._id, label: item.title })
+    ) ?? []
+
 
     return (
         <CustomModal
@@ -82,7 +91,13 @@ export default function DashboardPoemAddModal() {
                     <Field.Select
                         name="poemType"
                         label="نوع شعر"
-                        items={items}
+                        items={poemTypesItems}
+                    />
+
+                    <Field.Select
+                        name="category"
+                        label="موضوع شعر"
+                        items={categoriesItems}
                     />
 
                     <StoryBox story={story} onChangeStory={(value) => setStory(value)} />

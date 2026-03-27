@@ -26,6 +26,12 @@ export const SUCCESSMESSAGES = {
     POEM_FETCHED: "شعر با موفقیت دریافت شد",
     POEMS_FETCHED: "لیست اشعار با موفقیت دریافت شد",
 
+    // موضوع شعر
+    CATEGORY_CREATED: "موضوع شعر با موفقیت ایجاد شد",
+    CATEGORY_UPDATED: "موضوع شعر با موفقیت به‌روزرسانی شد",
+    CATEGORY_DELETED: "موضوع شعر با موفقیت حذف شد",
+    CATEGORY_FETCHED: "موضوع شعر با موفقیت دریافت شد",
+
     // نوع شعر
     POEM_TYPE_CREATED: "نوع شعر با موفقیت ایجاد شد",
     POEM_TYPE_UPDATED: "نوع شعر با موفقیت به‌روزرسانی شد",

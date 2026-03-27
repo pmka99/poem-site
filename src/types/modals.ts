@@ -7,6 +7,9 @@ export const MODALS = {
     ADD_POEMTYPE: "ADD_POEMTYPE",
     EDIT_POEMTYPE: "EDIT_POEMTYPE",
 
+    ADD_CATEGORY: "ADD_CATEGORY",
+    EDIT_CATEGORY: "EDIT_CATEGORY",
+
     ADD_POEM: "ADD_POEM",
     EDIT_POEM: "EDIT_POEM",
 
@@ -25,6 +28,11 @@ export type ModalPayloadMap = {
     [MODALS.ADD_POEMTYPE]: undefined;
     [MODALS.EDIT_POEMTYPE]: {
         poemTypeId: string;
+    };
+
+    [MODALS.ADD_CATEGORY]: undefined;
+    [MODALS.EDIT_CATEGORY]: {
+        categoryId: string;
     };
 
     [MODALS.ADD_POEM]: undefined;

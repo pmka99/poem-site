@@ -6,6 +6,7 @@ import { toUserResponse } from "./user.mapper";
 import { toPoemTypeResponse } from "./poemType.mapper";
 import { toHemistichResponse } from "./hemistich.mapper";
 import { toCommentResponse } from "./comment.mapper";
+import { toCategoryResponse } from "./category.mapper";
 
 export const toPoemResponse = (doc: IPoem): PoemResponse => ({
     _id: mapId(doc._id),
@@ -17,6 +18,10 @@ export const toPoemResponse = (doc: IPoem): PoemResponse => ({
     story: doc.story,
 
     poemType: mapRelation(doc.poemType, toPoemTypeResponse),
+
+    show:doc.show,
+
+    category:mapRelation(doc.category,toCategoryResponse),
 
     createdAt: doc.createdAt,
     updatedAt: doc.updatedAt,

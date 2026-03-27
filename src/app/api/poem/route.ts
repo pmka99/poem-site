@@ -9,6 +9,7 @@ import { successResponse } from "@/server/utils/response";
 import { toPoemResponse } from "@/server/mapper/poem.mapper";
 import { SUCCESSMESSAGES } from "@/server/messages";
 import { publicRoute } from "@/server/guard/publicRoute";
+import { getPoemPopulate, getPoemReadFilter } from "@/server/guard/access/policies/poem.policy";
 
 // ✅ Schema for query params (GET)
 const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "author", "poemType", "text"])
@@ -18,34 +19,28 @@ export const GET = publicRoute(
     {
         querySchema: queryParamsSchema,
     },
-    async (_req, _ctx, { query }) => {
+    async (_req, _ctx, { query }, user) => {
         await connectDB();
 
         const page = parseInt(query.page ?? "1");
         const limit = parseInt(query.limit ?? "10");
-        const author = query.author;
-        const poemType = query.poemType;
-        const text = query.text;
 
-        // const resultOfStories = await PoemModel.find({
-        //     story: { $regex: text ?? "", $options: "i" },
-        // }).select("_id");
+        const visibilityFilter = getPoemReadFilter(user);
+        const populate = getPoemPopulate(user);
 
-        // const resultOfStoriesIds = resultOfStories.map((poem) => poem._id);
 
-        const filter: any = {};
-        // if (author) filter.author = author;
-        // if (poemType) filter.poemType = poemType;
-        // if (text) filter._id = { $in: resultOfStoriesIds };
+        const filter = {
+            ...visibilityFilter,
+        };
 
         const result = await PoemModel.paginate(filter, {
             limit,
             page,
-            populate: ["poemType"],
+            populate,
             lean: true,
         });
 
-        const data = result.docs.map(toPoemResponse)
+        const data = result.docs.map(toPoemResponse);
 
         return successResponse({
             message: SUCCESSMESSAGES.POEMS_FETCHED,

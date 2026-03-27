@@ -9,6 +9,7 @@ import { toPoemResponse } from "@/server/mapper/poem.mapper";
 import { errorResponse, successResponse } from "@/server/utils/response";
 import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
 import { publicRoute } from "@/server/guard/publicRoute";
+import { getPoemPopulate, getPoemReadFilter } from "@/server/guard/access/policies/poem.policy";
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
 
@@ -17,17 +18,21 @@ export const GET = publicRoute(
     {
         paramsSchema: paramsSchema
     },
-    async (_req, _ctx, { params }) => {
+    async (_req, _ctx, { params }, user) => {
         const { poemId } = params;
         await connectDB();
 
+        const filter = getPoemReadFilter(user);
+        const populate = getPoemPopulate(user);
+
         const poem = await PoemModel
-            .findById(poemId)
-            .populate("poemType")
+            .findOne({ _id: poemId, ...filter })
+            .populate(populate)
             .lean();
         if (!poem) {
             return errorResponse({ message: ERRORSMESSAGES.POEM_NOT_FOUND, status: 404 });
         }
+
 
         const data = toPoemResponse(poem)
 

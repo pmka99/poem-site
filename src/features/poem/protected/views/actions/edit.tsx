@@ -19,6 +19,10 @@ import { useEffect, useState } from "react";
 import { usePoem, useUpdatePoem } from "@/features/poem/protected/hooks";
 import { usePoemTypes } from "@/features/poemType/protected/hooks";
 import StoryBox from "@/features/poem/protected/components/story";
+import { useCategorys } from "@/features/category/protected/hooks";
+import { UserResponse } from "@/shared/types/user.type";
+import { PoemTypeResponse } from "@/shared/types/poemType.type";
+import { CategoryResponse } from "@/shared/types/category.type";
 
 export default function DashboardPoemEditModal() {
     const { modals, closeModal } = useModal();
@@ -36,19 +40,26 @@ export default function DashboardPoemEditModal() {
         defaultValues: {
             title: "",
             author: "",
-            poemType: ""
+            poemType: "",
+            category: "",
+            show: true,
+            story: []
         },
         resolver: zodResolver(updatePoemSchema),
         mode: "all",
     });
 
     useEffect(() => {
-        methods.setValue("title", data?.data?.title)
-        methods.setValue("author", data?.data?.author as string)
-        methods.setValue("poemType", data?.data?.poemType as string)
-        methods.setValue("story", data?.data?.story)
-        setStory(data?.data?.story ?? [])
-    }, [data])
+        if (!isLoading) {
+            methods.setValue("title", data?.data?.title)
+            methods.setValue("author", (data?.data?.author as UserResponse)._id)
+            methods.setValue("poemType", (data?.data?.poemType as PoemTypeResponse)._id)
+            methods.setValue("story", data?.data?.story)
+            methods.setValue("show", data?.data?.show)
+            methods.setValue("category", (data?.data?.category as CategoryResponse)._id)
+            setStory(data?.data?.story ?? [])            
+        }
+    }, [data,isLoading])
 
     const onSubmit = (data: UpdatePoemDTO) => {
         if (!poemId) return
@@ -61,9 +72,14 @@ export default function DashboardPoemEditModal() {
         });
     };
 
-    const { data: poemTypes, isLoading: isLoadingPoemTypes } = usePoemTypes();
+    const { data: poemTypes, isLoading: poemTypes_isloading } = usePoemTypes();
 
-    const items = poemTypes?.data?.map(item => ({ id: item._id, label: item.name })
+    const poemTypesItems = poemTypes?.data?.map(item => ({ id: item._id, label: item.name })
+    ) ?? []
+
+    const { data: categories, isLoading: categories_isLoading } = useCategorys();
+
+    const categoriesItems = categories?.data?.map(item => ({ id: item._id, label: item.title })
     ) ?? []
 
     return (
@@ -82,7 +98,13 @@ export default function DashboardPoemEditModal() {
                     <Field.Select
                         name="poemType"
                         label="نوع شعر"
-                        items={items}
+                        items={poemTypesItems}
+                    />
+
+                    <Field.Select
+                        name="category"
+                        label="موضوع شعر"
+                        items={categoriesItems}
                     />
 
                     <StoryBox story={story} onChangeStory={(value) => setStory(value)} />

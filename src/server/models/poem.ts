@@ -5,6 +5,7 @@ import { IUser } from "./user";
 import { IPoemType } from "./poemType";
 import { IHemistich } from "./hemistich";
 import { IComment } from "./comment";
+import { ICategory } from "./category";
 
 
 export interface IPoem extends mongoose.Document {
@@ -13,6 +14,8 @@ export interface IPoem extends mongoose.Document {
     author: Types.ObjectId | IUser;
     story: string[];
     poemType: Types.ObjectId | IPoemType;
+    show: boolean;
+    category: Types.ObjectId | ICategory;
 
     createdAt?: Date;
     updatedAt?: Date;
@@ -44,6 +47,19 @@ const poemSchema = new Schema<IPoem>(
         poemType: {
             type: Schema.Types.ObjectId,
             ref: "PoemType",
+            required: true,
+            index: true
+        },
+
+        show: {
+            type: Boolean,
+            required: true,
+            default: true,
+        },
+
+        category:{
+            type: Schema.Types.ObjectId,
+            ref: "Category",
             required: true,
             index: true
         }

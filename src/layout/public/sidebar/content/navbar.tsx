@@ -2,11 +2,12 @@ import { RoleName } from "@/enum/role"
 import Link from "next/link"
 
 const items = [
-    { name: " رفتن به پنل کاربری", href: "/dashboard", roles: [RoleName.ADMIN, RoleName.AUTHOR, RoleName.USER] },
+    { name: " رفتن به پنل کاربری", href: "/dashboard", roles: [] },
     { name: "اشعار", href: "/dashboard/poems", roles: [RoleName.AUTHOR] },
     { name: "نظرات", href: "/dashboard/comments", roles: [RoleName.ADMIN, RoleName.AUTHOR, RoleName.USER] },
     { name: "کاربران", href: "/dashboard/users", roles: [RoleName.ADMIN] },
     { name: "انواع شعرها", href: "/dashboard/poemTypes", roles: [RoleName.ADMIN] },
+    { name: "انواع موضوعات", href: "/dashboard/categories", roles: [RoleName.ADMIN] },
     { name: "نقش ها", href: "/dashboard/roles", roles: [RoleName.ADMIN] },
     { name: "تنظیمات", href: "/dashboard/settings", roles: [RoleName.ADMIN, RoleName.AUTHOR] }
 ]

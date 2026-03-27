@@ -29,6 +29,12 @@ export const ERRORSMESSAGES = {
     POEM_UPDATE_FAILED: "به‌روزرسانی شعر با خطا مواجه شد",
     POEM_DELETE_FAILED: "حذف شعر با خطا مواجه شد",
 
+     // موضوع شعر
+    CATEGORY_NOT_FOUND: "موضوع شعر مورد نظر یافت نشد",
+    CATEGORY_CREATE_FAILED: "ایجاد موضوع شعر با خطا مواجه شد",
+    CATEGORY_UPDATE_FAILED: "به‌روزرسانی موضوع شعر با خطا مواجه شد",
+    CATEGORY_DELETE_FAILED: "حذف موضوع شعر با خطا مواجه شد",
+
     // نوع شعر
     POEM_TYPE_NOT_FOUND: "نوع شعر یافت نشد",
     POEM_TYPE_ALREADY_EXISTS: "این نوع شعر قبلاً ثبت شده است",

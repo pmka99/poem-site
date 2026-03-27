@@ -32,7 +32,7 @@ export default function DashboardSidebar() {
                 <button
                     onClick={() => setIsOpenDrawer(prev => !prev)}
                     className={`
-                        fixed top-2 left-2 z-50
+                        fixed top-2 left-2 z-40
                         text-2xl p-3
                         hover:text-secondary-foreground hover:bg-secondary
                         text-primary-foreground bg-primary shadow-lg shadow-primary border-border

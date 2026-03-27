@@ -11,6 +11,7 @@ export enum Resource {
     ROLE = "role",
     POEM = "poem",
     POEM_TYPES = "poemType",
+    CATEGORY ="CATEGORY",
     STORY = "story",
     HEMISTICH = "hemistich",
     COMMENT = "comment",

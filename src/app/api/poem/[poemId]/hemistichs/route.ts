@@ -10,6 +10,7 @@ import { Position } from "@/enum/poem";
 import PoemModel from "@/server/models/poem";
 import { rebalanceHemistichOrders } from "@/server/utils/rebalancerHemistichOrder";
 import { publicRoute } from "@/server/guard/publicRoute";
+import { getHemistichReadFilter } from "@/server/guard/access/policies/hemistich.policy";
 
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
@@ -21,19 +22,26 @@ export const GET = publicRoute(
         paramsSchema: paramsSchema,
         querySchema: queryParamsSchema
     },
-    async (_req, _ctx, { params, query }) => {
+    async (_req, _ctx, { params, query }, user) => {
         const { poemId } = params;
         await connectDB();
+
         const page = parseInt(query.page ?? "1");
         const limit = parseInt(query.limit ?? "10");
         const text = query.text;
 
-        const filter: any = { poem: poemId };
-        if (text) filter.text = { $regex: text, $options: "i" };
+        const filter = await getHemistichReadFilter(user, poemId);
+        
+        if (text) {
+            filter.text = { $regex: text, $options: "i" };
+        }
 
-        const result = await HemistichModel.paginate(filter,
-            { limit, page, lean: true, sort: { order: 1 } });
-        const hemistichs: IHemistich[] = result.docs;
+        const result = await HemistichModel.paginate(filter, {
+            limit,
+            page,
+            lean: true,
+            sort: { order: 1 }
+        });
 
         return successResponse({
             meta: {
@@ -42,11 +50,11 @@ export const GET = publicRoute(
                 total: result.totalDocs,
                 totalPage: result.totalPages
             },
-            data: hemistichs,
+            data: result.docs,
             message: SUCCESSMESSAGES.DATA_FETCHED
         });
     }
-)
+);
 
 /** add a hemistich to a poem */
 /* check if poem exists */
