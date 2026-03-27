@@ -9,17 +9,17 @@ export default async function PaginationHemistichView({ poemId }: { poemId: stri
 
 
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 px-2 lg:px-16">
             {
                 hemistichs.meta?.page === 1 &&
                 <PoemInfoBox poemId={poemId} />
             }
 
-            <hr />
+            <hr className="border-primary" />
 
             <HemistichList poemId={poemId} hemistichs={hemistichs.data ?? []} />
 
-            <hr/>
+            <hr className="border-primary" />
 
             <PaginationSection totalPages={hemistichs.meta?.totalPage as number} />
         </div>
