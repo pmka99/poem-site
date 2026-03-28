@@ -6,7 +6,7 @@ import { z } from "zod";
 import { useEffect, useRef, useState } from "react";
 
 export const gridQuerySchema = z.object({
-    page: z.coerce.number().default(0),
+    page: z.coerce.number().default(1),
     pageSize: z.coerce.number().default(10),
     search: z.string().default(""),
     sortField: z.string().optional(),
@@ -21,15 +21,14 @@ export function useDataGrid({ mode = "client" }: { mode?: "client" | "server" } 
 
     const parsed = gridQuerySchema.parse({
         page: param("page"),
-        pageSize: param("pageSize"),
+        pageSize: param("limit"),
         search: param("search"),
         sortField: param("sortField"),
         sortOrder: param("sortOrder"),
     });
 
-    /** ✅ local state */
     const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
-        page: parsed.page,
+        page: parsed.page - 1,
         pageSize: parsed.pageSize,
     });
 
@@ -41,10 +40,8 @@ export function useDataGrid({ mode = "client" }: { mode?: "client" | "server" } 
 
     const [search, setSearch] = useState(parsed.search);
 
-    /** جلوگیری از push در mount اولیه */
     const mounted = useRef(false);
 
-    /** ✅ sync URL ← state */
     useEffect(() => {
         if (!mounted.current) {
             mounted.current = true;
@@ -53,8 +50,8 @@ export function useDataGrid({ mode = "client" }: { mode?: "client" | "server" } 
 
         const url = new URLSearchParams(searchParams.toString());
 
-        url.set("page", String(paginationModel.page));
-        url.set("pageSize", String(paginationModel.pageSize));
+        url.set("page", String(paginationModel.page + 1));
+        url.set("limit", String(paginationModel.pageSize));
 
         if (search) url.set("search", search);
         else url.delete("search");

@@ -7,7 +7,8 @@ export const createPoemSchema = z.object({
     poemType: objectIdSchema,
     show: z.boolean(),
     category: objectIdSchema,
-    story: z.array(z.string()).default([]).optional()
+    story: z.array(z.string()).default([]).optional(),
+    order: z.number()
 });
 
 export const updatePoemSchema = createPoemSchema.partial();

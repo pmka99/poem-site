@@ -24,6 +24,7 @@ export interface PoemResponse {
     poemType: string | PoemTypeResponse;
     show: boolean;
     category: string | CategoryResponse;
+    order: number;
 
     createdAt?: Date;
     updatedAt?: Date;

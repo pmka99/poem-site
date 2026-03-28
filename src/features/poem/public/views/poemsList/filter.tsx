@@ -27,7 +27,7 @@ export default function ListFilter() {
     const categoriesValues = searchParams.get("categories")?.split(",") ?? [];
 
     const updateQuery = (key: string, value?: string) => {
-        const params = new URLSearchParams(searchParams.toString());
+        const params = new URLSearchParams(window.location.search);
 
         if (!value || value.length === 0) {
             params.delete(key);
@@ -39,13 +39,27 @@ export default function ListFilter() {
     };
 
     // debounce search
+    const oldSearch = searchParams.get("search") ?? "";
+
     useEffect(() => {
         const timer = setTimeout(() => {
-            updateQuery("search", searchInput);
+            // Combine search and page update into one call
+            const params = new URLSearchParams(window.location.search);
+            params.set("search", searchInput);
+            if (searchInput !== oldSearch) {
+                params.set("page", "1");
+            } else {
+                // Optional: if search is cleared, reset page too.
+                // If you want to keep the page when search is cleared, remove this else block.
+                params.set("page", "1");
+            }
+            router.replace(`?${params.toString()}`);
+
         }, 500);
 
         return () => clearTimeout(timer);
     }, [searchInput]);
+
 
     const poemTypesMultiSelectHandler = (values: (string | number)[]) => {
         updateQuery(
@@ -78,7 +92,7 @@ export default function ListFilter() {
 
     return (
         <MuiProvider>
-            <div className="grid grid-cols-1 lg:grid-cols-5 rounded-sm gap-2 p-3">
+            <div className="grid grid-cols-1 lg:grid-cols-3 rounded-sm gap-2 p-3 lg:mx-80">
                 <FilterInput label="جستجو">
                     <TextField
                         className="*:bg-white"

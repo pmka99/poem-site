@@ -12,9 +12,13 @@ export type SignUpDTO = z.infer<typeof signUpSchema>;
 // response
 
 export interface SignInResponse {
-    id: string;
+    _id: string;
     username: string;
     phoneNumber: string;
+    role: string | RoleResponse;
+    isActive: boolean;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface SignUpResponse {

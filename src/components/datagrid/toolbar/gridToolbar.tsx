@@ -68,6 +68,7 @@ export function GridSearchToolbar({
             {/* سمت راست - سرچ و ابزار گرید */}
             <Stack direction="row" spacing={1} alignItems="center">
                 <TextField
+                    autoFocus
                     size="small"
                     placeholder="جستجو..."
                     value={localValue}

@@ -17,7 +17,7 @@ export default function DashboardPoemsView() {
     })
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col h-full">
             <DashboardPoemsFilters filters={filters} setFilters={setFilters} />
             <DashboardPoemsTable filters={filters} />
         </div>

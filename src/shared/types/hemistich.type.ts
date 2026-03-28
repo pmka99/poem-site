@@ -20,6 +20,8 @@ export type HemistichResponse = {
     text: string;
     order: number;
     show: boolean;
+    chapterTitle: string;
+    description: string;
 
     createdAt: Date;
     updatedAt: Date;

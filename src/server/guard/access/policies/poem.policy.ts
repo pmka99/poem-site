@@ -55,14 +55,19 @@ export function getPoemPopulate(user: AuthUser | null) {
             {
                 path: "category",
                 select: "title _id"
-            }
+            },
+            { path: "author", select: "username _id" }
         ];
     }
 
     if (user.role === RoleName.ADMIN) {
         return [
             { path: "poemType" },
-            { path: "author", select: "name _id" }
+            { path: "author", select: "username _id" },
+            {
+                path: "category",
+                select: "title _id"
+            },
         ];
     }
 
@@ -72,7 +77,7 @@ export function getPoemPopulate(user: AuthUser | null) {
             path: "category",
             select: "title _id"
         },
-        { path: "author", select: "name _id" }
+        { path: "author", select: "username _id" }
     ];
 }
 

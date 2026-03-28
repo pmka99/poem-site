@@ -1,12 +1,20 @@
 import HemistichList from "@features/poem/public/components/hemistichList";
 import { PoemInfoBox } from "@features/poem/public/components/poemInfoBox";
 import PaginationSection from "./paginiation";
-import { poemService } from "@/features/poem/protected/services";
+import { poemService } from "@/features/poem/public/services";
 
-export default async function PaginationHemistichView({ poemId }: { poemId: string }) {
+type Props = {
+    poemId: string;
+    searchParams: Promise<{
+        [key: string]: string | string[] | undefined;
+    }>;
+}
 
-    const hemistichs = await poemService.getAllHemistichs(poemId)
+export default async function PaginationHemistichView({ poemId, searchParams }: Props) {
 
+    const querySearchParams = await searchParams;
+
+    const hemistichs = await poemService.getAllHemistichs(poemId, { ...querySearchParams });
 
     return (
         <div className="flex flex-col gap-2 px-2 lg:px-16">
@@ -15,11 +23,11 @@ export default async function PaginationHemistichView({ poemId }: { poemId: stri
                 <PoemInfoBox poemId={poemId} />
             }
 
-            <hr className="border-primary" />
+            <hr className="border-primary lg:mx-28" />
 
             <HemistichList poemId={poemId} hemistichs={hemistichs.data ?? []} />
 
-            <hr className="border-primary" />
+            <hr className="border-primary lg:mx-28" />
 
             <PaginationSection totalPages={hemistichs.meta?.totalPage as number} />
         </div>

@@ -5,7 +5,9 @@ export const createHemistichSchema = z.object({
     text: z.string().min(1, "متن مصراع الزامی است"),
     show: z.boolean(),
     position: z.nativeEnum(Position),
-    targetHemistichId: z.string().optional()
+    targetHemistichId: z.string().optional(),
+    chapterTitle: z.string(),
+    description: z.string()
 });
 
 export const updateHemistichSchema = createHemistichSchema.partial();

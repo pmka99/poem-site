@@ -19,9 +19,11 @@ export const toPoemResponse = (doc: IPoem): PoemResponse => ({
 
     poemType: mapRelation(doc.poemType, toPoemTypeResponse),
 
-    show:doc.show,
+    show: doc.show,
 
-    category:mapRelation(doc.category,toCategoryResponse),
+    order: doc.order,
+
+    category: mapRelation(doc.category, toCategoryResponse),
 
     createdAt: doc.createdAt,
     updatedAt: doc.updatedAt,

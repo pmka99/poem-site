@@ -1,30 +1,41 @@
-import { poemService } from "@/features/poem/public/services";
 import { cookies } from "next/headers";
 import PaginationHemistichView from "./paginitaion";
 import InfiniteHemistichView from "./infinitScroll";
+import { poemService } from "@/features/poem/public/services";
 
 type Props = {
     params: Promise<{
         poemId: string;
     }>;
+    searchParams: Promise<{
+        [key: string]: string | string[] | undefined;
+    }>;
 }
 
 
-export default async function PoemView({ params }: Props) {
+export default async function PoemView({ params, searchParams }: Props) {
 
     const cookieStore = await cookies();
-    const readTypeMode = cookieStore.get("read-type")?.value;
+    const readTypeMode = cookieStore.get("read-type")?.value ?? "pagination";
 
     const poemId = (await params).poemId;
 
+    const poem =await poemService.getById(poemId);
 
     return (
-        <div className="flex w-full py-20 flex-col bg-background/20">
+        <div className="flex w-full lg:px-32 flex-col py-5 bg-background/0">
+
+            <div className="flex lg:w-1/3 mx-auto text-2xl rounded-xl h-16 p-6 text-primary-foreground items-center justify-center">
+                <span>
+                    {poem.data?.title}
+                </span>
+            </div>
 
             {readTypeMode === "pagination" ? (
-                <PaginationHemistichView poemId={poemId} />
+                <PaginationHemistichView searchParams={searchParams} poemId={poemId} />
             ) : (
-                <InfiniteHemistichView />
+                <></>
+                // <InfiniteHemistichView />
             )}
 
         </div>

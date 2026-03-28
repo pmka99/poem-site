@@ -11,9 +11,10 @@ import { SUCCESSMESSAGES } from "@/server/messages";
 import { publicRoute } from "@/server/guard/publicRoute";
 import { getPoemPopulate, getPoemReadFilter } from "@/server/guard/access/policies/poem.policy";
 import "@/server/models"
+import mongoose from "mongoose";
 
 // ✅ Schema for query params (GET)
-const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "author", "poemType", "text"])
+const queryParamsSchema = createIdParamsSchema([], ["page", "limit", "author", "poemType", "search"])
 
 // GET /poems
 export const GET = publicRoute(
@@ -24,21 +25,30 @@ export const GET = publicRoute(
         await connectDB();
 
         const page = parseInt(query.page ?? "1");
-        const limit = parseInt(query.limit ?? "10");
+        const limit = parseInt(query.limit ?? "20");
 
         const visibilityFilter = getPoemReadFilter(user);
         const populate = getPoemPopulate(user);
 
-
-        const filter = {
+        const filter: mongoose.QueryFilter<IPoem> = {
             ...visibilityFilter,
         };
+
+        if (query.search) {
+            const s = query.search.trim();
+
+            filter.$or = [
+                { title: { $regex: s, $options: "i" } },
+                { story: { $regex: s, $options: "i" } },
+            ];
+        }
 
         const result = await PoemModel.paginate(filter, {
             limit,
             page,
             populate,
             lean: true,
+            sort: { order: 1 }
         });
 
         const data = result.docs.map(toPoemResponse);

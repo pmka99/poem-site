@@ -33,14 +33,16 @@ export default function DashboardHemistichAddModal() {
             text: "",
             show: true,
             position: position,
-            targetHemistichId: hemistichId
+            targetHemistichId: hemistichId,
+            chapterTitle: "",
+            description: ""
         },
         resolver: zodResolver(createHemistichSchema),
         mode: "all",
     });
 
     const onSubmit: SubmitHandler<CreateHemistichDTO> = (data) => {
-        
+
         createHemistich(data, {
             onSuccess: () => {
                 closeModal(MODALS.ADD_HEMISTICH);
@@ -61,6 +63,16 @@ export default function DashboardHemistichAddModal() {
                     <Field.Text
                         name="text"
                         label="متن"
+                    />
+
+                    <Field.Text
+                        name="chapterTitle"
+                        label="عنوان"
+                    />
+
+                    <Field.Text
+                        name="description"
+                        label="توضیحات"
                     />
 
                     <Button

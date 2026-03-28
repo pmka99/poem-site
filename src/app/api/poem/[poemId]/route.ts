@@ -11,6 +11,7 @@ import { ERRORSMESSAGES, SUCCESSMESSAGES } from "@/server/messages";
 import { publicRoute } from "@/server/guard/publicRoute";
 import { getPoemPopulate, getPoemReadFilter } from "@/server/guard/access/policies/poem.policy";
 import "@/server/models"
+import HemistichModel from "@/server/models/hemistich";
 
 const paramsSchema = createIdParamsSchema(["poemId"], [])
 
@@ -33,7 +34,6 @@ export const GET = publicRoute(
         if (!poem) {
             return errorResponse({ message: ERRORSMESSAGES.POEM_NOT_FOUND, status: 404 });
         }
-
 
         const data = toPoemResponse(poem)
 
@@ -77,6 +77,7 @@ export const DELETE = protectedRoute(
         const { poemId } = params;
         await connectDB();
         await PoemModel.findByIdAndDelete(poemId);
+        await HemistichModel.deleteMany({ poem: poemId });
         return successResponse({ message: SUCCESSMESSAGES.POEM_DELETED });
     }
 );

@@ -16,6 +16,7 @@ export interface IPoem extends mongoose.Document {
     poemType: Types.ObjectId | IPoemType;
     show: boolean;
     category: Types.ObjectId | ICategory;
+    order: number;
 
     createdAt?: Date;
     updatedAt?: Date;
@@ -29,14 +30,13 @@ const poemSchema = new Schema<IPoem>(
         title: {
             type: String,
             required: true,
-            trim: true
+            trim: true,
         },
 
         author: {
             type: Schema.Types.ObjectId,
             ref: "User",
             required: true,
-            index: true
         },
 
         story: [{
@@ -48,7 +48,6 @@ const poemSchema = new Schema<IPoem>(
             type: Schema.Types.ObjectId,
             ref: "PoemType",
             required: true,
-            index: true
         },
 
         show: {
@@ -57,11 +56,15 @@ const poemSchema = new Schema<IPoem>(
             default: true,
         },
 
-        category:{
+        category: {
             type: Schema.Types.ObjectId,
             ref: "Category",
             required: true,
-            index: true
+        },
+
+        order: {
+            type: Number,
+            required: true,
         }
     },
     {
@@ -84,8 +87,7 @@ poemSchema.virtual("comments", {
     foreignField: "poem"
 });
 
-poemSchema.index({ author: 1 });
-poemSchema.index({ poemType: 1 });
+poemSchema.index({ order: -1 })
 poemSchema.index({ createdAt: -1 });
 
 poemSchema.plugin(mongoosePaginate);

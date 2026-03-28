@@ -8,6 +8,8 @@ export const toHemistichResponse = (doc: IHemistich): HemistichResponse => ({
     text: doc.text,
     order: doc.order,
     show: doc.show,
+    chapterTitle: doc.chapterTitle,
+    description: doc.description,
     createdAt: doc.createdAt,
     updatedAt: doc.updatedAt,
 });

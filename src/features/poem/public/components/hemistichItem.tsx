@@ -8,7 +8,7 @@ function Hemistich({ children }: { children: React.ReactNode }) {
 
     return (
         <div className="w-full select-none">
-            <p aria-hidden="true" className="lg:text-2xl text-2xl w-full flex justify-between text-justify">
+            <p aria-hidden="true" className="lg:text-3xl text-2xl w-full flex justify-between text-justify">
                 {parts.map((part, index) => (
                     <span key={index} className="inline-block">
                         {part}
@@ -29,7 +29,7 @@ export default function HemistichItem({
 }) {
 
     return (
-        <div className="justify-between h-10 md:h-12 rounded-sm px-4 lg:px-24 flex items-center">
+        <div className="justify-between h-fit lg:h-20 rounded-sm p-4 lg:px-16 flex items-center">
             <Hemistich>{hemistich.text}</Hemistich>
         </div>
     );

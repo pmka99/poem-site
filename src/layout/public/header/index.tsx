@@ -6,7 +6,7 @@ export default function PublicHeader({
 }: { isOpenDrawer: boolean, setIsOpenDrawer: (isOpenDrawer: boolean) => void }) {
 
     return (
-        <div className="bg-primary-foreground/90 z-10 w-full h-20">
+        <div className="bg-primary-foreground/0 z-50 w-full">
 
             <button
                 onClick={() => setIsOpenDrawer(true)}

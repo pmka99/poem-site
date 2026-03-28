@@ -33,6 +33,7 @@ export function AppDataGrid({
     onRefreshClick,
     ...props
 }: AppDataGridProps) {
+    
     const actions = React.useMemo(() => {
         const arr: GridSearchToolbarProps["actions"] = [];
         if (onAddClick)
@@ -70,7 +71,7 @@ export function AppDataGrid({
             />
         ),
         [grid.mode, grid.query.search, grid.setSearch, actions]
-    );
+    );    
 
     return (
         <DataGrid

@@ -29,7 +29,11 @@ export default function DashboardPoemsTable({ filters }: Props) {
 
     const grid = useDataGrid({ mode: "server" });
 
-    const { data, isLoading } = usePoems();
+    const { data, isLoading } = usePoems({
+        page: grid.query.page,
+        limit: grid.query.pageSize,
+        search: grid.query.search
+    });
 
     const deleteMutation = useDeletePoem();
 
@@ -66,7 +70,7 @@ export default function DashboardPoemsTable({ filters }: Props) {
             <AppDataGrid
                 grid={grid}
                 rows={rows}
-                rowCount={data?.meta?.total ?? 0}
+                rowCount={data?.meta?.total}
                 columns={columns}
                 loading={isLoading}
                 onAddClick={() => openModal(MODALS.ADD_POEM)}

@@ -40,6 +40,7 @@ export default function DashboardPoemAddModal() {
             category: "",
             show: true,
             story: [],
+            order: 1000000
         },
         resolver: zodResolver(createPoemSchema),
         mode: "all",
@@ -52,7 +53,7 @@ export default function DashboardPoemAddModal() {
 
 
     const onSubmit: SubmitHandler<CreatePoemDTO> = (data) => {
-        
+
         createPoem({
             ...data,
             story
@@ -86,6 +87,12 @@ export default function DashboardPoemAddModal() {
                     <Field.Text
                         name="title"
                         label="نام"
+                    />
+
+                    <Field.Text
+                        type="number"
+                        name="order"
+                        label="اولویت نمایش"
                     />
 
                     <Field.Select

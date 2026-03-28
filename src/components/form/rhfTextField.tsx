@@ -31,10 +31,10 @@ export function RHFTextField({
                     fullWidth
                     value={field.value}
                     onChange={(event) => {
-                        field.onChange(event.target.value);
+                        field.onChange(isNumberType ? Number(event.target.value) : event.target.value);
                     }}
                     onBlur={(event) => {
-                        field.onChange(event.target.value);
+                        field.onChange(isNumberType ? Number(event.target.value) : event.target.value);
                     }}
                     type={isNumberType ? 'text' : type}
                     error={!!error}

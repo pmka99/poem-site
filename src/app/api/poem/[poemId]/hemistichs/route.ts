@@ -26,9 +26,9 @@ export const GET = publicRoute(
     async (_req, _ctx, { params, query }, user) => {
         const { poemId } = params;
         await connectDB();
-
+        
         const page = parseInt(query.page ?? "1");
-        const limit = parseInt(query.limit ?? "10");
+        const limit = parseInt(query.limit ?? "40");
         const text = query.text;
 
         const filter = await getHemistichReadFilter(user, poemId);

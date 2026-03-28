@@ -19,7 +19,7 @@ export default function PublicLayoutComponent({ children }: { children: React.Re
 
             <div className="flex flex-col min-h-screen">
                 <PublicHeader setIsOpenDrawer={setIsOpenDrawer} isOpenDrawer={isOpenDrawer} />
-                <div className="w-full z-10 font-sans min-h-[calc(100vh-5rem)]">
+                <div className="w-full z-10 font-sans py-52 lg:py-0 min-h-100vh">
                     {children}
                 </div>
             </div>

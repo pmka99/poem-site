@@ -30,15 +30,17 @@ export default function DashboardHemistichEditModal() {
     const methods = useForm<UpdateHemistichDTO>({
         defaultValues: {
             text: "",
-            show: true
+            show: true,
         },
         resolver: zodResolver(updateHemistichSchema),
         mode: "all",
     });
 
     useEffect(() => {
-        methods.setValue("text", data?.data?.text)
-        methods.setValue("show", data?.data?.show)
+        methods.setValue("text", data?.data?.text);
+        methods.setValue("show", data?.data?.show);
+        methods.setValue("chapterTitle", data?.data?.chapterTitle);
+        methods.setValue("description", data?.data?.description);
     }, [data])
 
     const onSubmit = (data: UpdateHemistichDTO) => {
@@ -63,6 +65,16 @@ export default function DashboardHemistichEditModal() {
                     <Field.Text
                         name="text"
                         label="متن"
+                    />
+
+                    <Field.Text
+                        name="chapterTitle"
+                        label="عنوان"
+                    />
+
+                    <Field.Text
+                        name="description"
+                        label="توضیحات"
                     />
 
                     <Button

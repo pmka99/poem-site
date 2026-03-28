@@ -43,7 +43,7 @@ export default function DashboardPoemEditModal() {
             poemType: "",
             category: "",
             show: true,
-            story: []
+            story: [],
         },
         resolver: zodResolver(updatePoemSchema),
         mode: "all",
@@ -57,9 +57,10 @@ export default function DashboardPoemEditModal() {
             methods.setValue("story", data?.data?.story)
             methods.setValue("show", data?.data?.show)
             methods.setValue("category", (data?.data?.category as CategoryResponse)._id)
-            setStory(data?.data?.story ?? [])            
+            methods.setValue("order", Number(data?.data?.order))
+            setStory(data?.data?.story ?? [])
         }
-    }, [data,isLoading])
+    }, [data, isLoading])
 
     const onSubmit = (data: UpdatePoemDTO) => {
         if (!poemId) return
@@ -93,6 +94,12 @@ export default function DashboardPoemEditModal() {
                     <Field.Text
                         name="title"
                         label="نام"
+                    />
+
+                    <Field.Text
+                        type="number"
+                        name="order"
+                        label="اولویت نمایش"
                     />
 
                     <Field.Select

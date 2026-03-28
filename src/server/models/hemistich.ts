@@ -8,6 +8,8 @@ export interface IHemistich extends Document {
     text: string;
     order: number;
     show: boolean;
+    chapterTitle: string;
+    description: string;
 
     createdAt: Date;
     updatedAt: Date;
@@ -18,6 +20,8 @@ const hemistichSchema = new mongoose.Schema<IHemistich>({
     text: { type: String, required: true },
     order: { type: Number, required: true },
     show: { type: Boolean, default: false },
+    chapterTitle: { type: String, required: false },
+    description: { type: String, required: false }
 }, { timestamps: true, versionKey: false });
 
 // اضافه کردن paginate
