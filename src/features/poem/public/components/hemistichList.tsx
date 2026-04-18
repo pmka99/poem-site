@@ -41,6 +41,10 @@ export default async function HemistichList({ hemistichs, poemId }: {
         );
     }
 
+    const sum = hemistichs.reduce((pre, hemistich) => (pre + hemistich.text.length), 0)
+
+    const averageLengthText = sum / hemistichs.length
+
     return (
         <div className="flex text-black/90 flex-col py-10">
 
@@ -53,6 +57,7 @@ export default async function HemistichList({ hemistichs, poemId }: {
                         `}
                     >
                         <HemistichItem
+                            averageLengthText={averageLengthText}
                             hemistich={h}
                         />
                     </div>

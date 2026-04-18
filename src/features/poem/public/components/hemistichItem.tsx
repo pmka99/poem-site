@@ -24,12 +24,15 @@ function Hemistich({ children }: { children: React.ReactNode }) {
 
 export default function HemistichItem({
     hemistich,
+    averageLengthText
 }: {
     hemistich: HemistichResponse,
+    averageLengthText: number
 }) {
+    // console.log(hemistich.text.length, hemistich.text);
 
     return (
-        <div className="justify-between h-fit lg:h-20 rounded-sm p-4 lg:px-16 flex items-center">
+        <div className={`justify-between h-fit lg:h-20 rounded-sm p-4 lg:px-16 flex items-center`}>
             <Hemistich>{hemistich.text}</Hemistich>
         </div>
     );
