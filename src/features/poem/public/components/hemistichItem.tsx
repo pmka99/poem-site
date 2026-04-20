@@ -29,10 +29,12 @@ export default function HemistichItem({
     hemistich: HemistichResponse,
     averageLengthText: number
 }) {
-    // console.log(hemistich.text.length, hemistich.text);
+    console.log(averageLengthText);
+    
 
     return (
-        <div className={`justify-between h-fit lg:h-20 rounded-sm p-4 lg:px-16 flex items-center`}>
+        <div className={`justify-between w-full lg:h-20 h-fit ${averageLengthText > 32 ? "lg:px-1" : "lg:px-5"
+            } rounded-sm py-4  flex items-center`}>
             <Hemistich>{hemistich.text}</Hemistich>
         </div>
     );

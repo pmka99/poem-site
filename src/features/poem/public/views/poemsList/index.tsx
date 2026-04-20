@@ -41,7 +41,7 @@ export default async function PoemListView({ searchParams }: Props) {
                         poems.data?.map(poem =>
                             <Link key={poem._id}
                                 className="flex self-start h-28 rounded-md hover:shadow-2xl shadow-primary gap-4 text-center flex-col bg-primary-foreground  p-5 text-muted hover:text-primary-foreground hover:bg-primary" href={`/poem/${poem._id}`}>
-                                <div className="txt-4xl text-">{poem.title}</div>
+                                <div className="txt-4xl text-nowrap">{poem.title}</div>
                                 <div className="txt-xl">
                                     {(poem?.poemType as PoemTypeResponse).name}
                                     -

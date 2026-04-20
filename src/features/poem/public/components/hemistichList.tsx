@@ -48,11 +48,11 @@ export default async function HemistichList({ hemistichs, poemId }: {
     return (
         <div className="flex text-black/90 flex-col py-10">
 
-            <div className="flex flex-wrap w-full">
+            <div className="flex flex-wrap w-full justify-center">
 
                 {hemistichs.map((h, i) => (
                     <div key={h._id}
-                        className={`w-full lg:w-1/2 
+                        className={` ${averageLengthText > 32 ? "lg:w-130 w-[400px]" : "lg:w-120 w-[350px]"}
                             ${getLayoutClass(i)}
                         `}
                     >
