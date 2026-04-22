@@ -1,49 +1,144 @@
 import { HemistichResponse } from "@/shared/types/hemistich.type"
 import HemistichItem from "../hemistichItem"
+import { TFontSize } from "@/contexts/readerSettingContext"
+import { cookies } from "next/headers"
 
 type Props = {
     averageLengthText: number
     hemistichs: [HemistichResponse, HemistichResponse, HemistichResponse, HemistichResponse, HemistichResponse]
 }
 
-export default function VerseLayout5({ hemistichs, averageLengthText }: Props) {
+
+function VerseLayout5_1({ hemistichs, averageLengthText, fontSize }: Props & { fontSize: TFontSize }) {
+
+    const fsClass = {
+        large: "**:text-4xl",
+        medium: "**:text-2xl",
+        small: "**:text-lg",
+    }[fontSize]
+
+    const marginClass1 = {
+        large: "mb-4",
+        medium: "mb-2",
+        small: "mb-0",
+    }[fontSize]
+
+    const marginClass2 = {
+        large: "mb-14",
+        medium: "mb-8",
+        small: "mb-4",
+    }[fontSize]
+
+    const widthClass =
+        averageLengthText > 32
+            ? {
+                large: "*:w-150",
+                medium: "*:w-120",
+                small: "*:w-110",
+            }[fontSize]
+            : {
+                large: "*:w-130",
+                medium: "*:w-100",
+                small: "*:w-80",
+            }[fontSize]
+
+
+    return (
+        <div className={`hidden flex-col lg:flex *:justify-center`}>
+            <div className={`flex gap-24 ${fsClass} ${marginClass1} ${widthClass}`}>
+                <HemistichItem hemistich={hemistichs[0]} averageLengthText={averageLengthText} />
+                <HemistichItem hemistich={hemistichs[1]} averageLengthText={averageLengthText} />
+            </div>
+            <div className={`flex gap-24 ${fsClass} ${marginClass1} ${widthClass}`}>
+                <HemistichItem hemistich={hemistichs[2]} averageLengthText={averageLengthText} />
+                <HemistichItem hemistich={hemistichs[3]} averageLengthText={averageLengthText} />
+            </div>
+            <div className={`flex gap-24 ${fsClass} ${marginClass2} ${widthClass}`}>
+                <HemistichItem hemistich={hemistichs[4]} averageLengthText={averageLengthText} />
+            </div>
+        </div>
+
+    )
+}
+
+
+function VerseLayout5_2({ hemistichs, averageLengthText, fontSize }: Props & { fontSize: TFontSize }) {
+
+    const fsClass = {
+        large: "**:text-lg **:xs:text-xl **:xs2:text-2xl **:md:text-3xl",
+        medium: "**:text-base **:xs:text-lg **:xs2:text-xl **:md:text-2xl",
+        small: "**:text-sm **:xs:text-base **:xs2:text-lg **:md:text-xl",
+    }[fontSize]
+
+    const marginClass1 = {
+        large: "mb-6",
+        medium: "mb-2",
+        small: "mb-0",
+    }[fontSize]
+
+    const marginClass2 = {
+        large: "mb-14",
+        medium: "mb-8",
+        small: "mb-8",
+    }[fontSize]
+
+    const widthClass =
+        averageLengthText > 32
+            ? {
+                large: "*:w-70 *:xs:w-78 *:xs2:w-100 *:md:w-130",
+                medium: "*:w-68 *:xs:w-76 *:xs2:w-90 *:md:w-120",
+                small: "*:w-66 *:xs:w-70 *:xs2:w-80 *:md:w-110",
+            }[fontSize]
+            : {
+                large: "*:w-70 *:xs:w-70 *:xs2:w-100 *:md:w-120",
+                medium: "*:w-68 *:xs:w-68 *:xs2:w-90 *:md:w-110",
+                small: "*:w-64 *:xs:w-64 *:xs2:w-80 *:md:w-90",
+            }[fontSize]
+
+
+    return (
+        <div className={`lg:hidden flex flex-col *:md:self-center ${fsClass} ${widthClass}`
+        }>
+            <div className={`${marginClass1} md:ml-44`}>
+                <HemistichItem hemistich={hemistichs[0]} averageLengthText={averageLengthText} />
+            </div>
+            <div className={`${marginClass1} self-end md:mr-44`}>
+                <HemistichItem hemistich={hemistichs[1]} averageLengthText={averageLengthText} />
+            </div>
+            <div className={`${marginClass1} md:ml-44`}>
+                <HemistichItem hemistich={hemistichs[2]} averageLengthText={averageLengthText} />
+            </div>
+            <div className={`${marginClass1} self-end md:mr-44`}>
+                <HemistichItem hemistich={hemistichs[3]} averageLengthText={averageLengthText} />
+            </div>
+            <div className={`${marginClass1}`}>
+                <HemistichItem hemistich={hemistichs[4]} averageLengthText={averageLengthText} />
+            </div>
+            <hr className={`${marginClass2} border-primary mx-auto`} />
+        </div >
+
+    )
+}
+
+export default async function VerseLayout5({ hemistichs, averageLengthText }: Props) {
+
+    const cookieStore = await cookies();
+    const cookieValue = cookieStore.get("font-size")?.value;
+
+    const fontSize: TFontSize = (["small", "medium", "large"] as const).includes(
+        cookieValue as any
+    )
+        ? (cookieValue as TFontSize)
+        : "large";
 
 
     return (
         <>
             {/** lg */}
-            <div className={`hidden lg:flex flex-col justify-center  mb-8 `}>
-                <div className={`flex gap-24 ${averageLengthText > 32 ? "*:w-130 " : "*:w-100"}`}>
-                    <HemistichItem hemistich={hemistichs[0]} averageLengthText={averageLengthText} />
-                    <HemistichItem hemistich={hemistichs[1]} averageLengthText={averageLengthText} />
-                </div>
-                <div className={`flex gap-24 ${averageLengthText > 32 ? "*:w-130 " : "*:w-100"}`}>
-                    <HemistichItem hemistich={hemistichs[2]} averageLengthText={averageLengthText} />
-                    <HemistichItem hemistich={hemistichs[3]} averageLengthText={averageLengthText} />
-                </div>
-                <div className={`flex justify-center  ${averageLengthText > 32 ? "*:w-130 " : "*:w-100"}`}>
-                    <HemistichItem hemistich={hemistichs[4]} averageLengthText={averageLengthText} />
-                </div>
-            </div>
+            <VerseLayout5_1 hemistichs={hemistichs} averageLengthText={averageLengthText} fontSize={fontSize} />
 
             {/** md sm */}
-            <div className={`lg:hidden *:md:self-center **:text-base **:xs:text-lg **:xs2:text-xl **:md:text-2xl flex flex-col ${averageLengthText > 32 ? "*:w-70 *:xs:w-78 *:xs2:w-100 *:md:w-130" : "*:w-75"}`}>
-                <div className="mb-2 md:ml-44">
-                    <HemistichItem hemistich={hemistichs[0]} averageLengthText={averageLengthText} />
-                </div>
-                <div className="mb-2 self-end md:mr-44">
-                    <HemistichItem hemistich={hemistichs[1]} averageLengthText={averageLengthText} />
-                </div>
-                <div className="mb-2 md:ml-44">
-                    <HemistichItem hemistich={hemistichs[2]} averageLengthText={averageLengthText} />
-                </div>
-                <div className="mb-2 self-end md:mr-44">
-                    <HemistichItem hemistich={hemistichs[3]} averageLengthText={averageLengthText} />
-                </div>
-                <div className="mb-8 md:ml-0 ">
-                    <HemistichItem hemistich={hemistichs[4]} averageLengthText={averageLengthText} />
-                </div>
-            </div>
+            <VerseLayout5_2 hemistichs={hemistichs} averageLengthText={averageLengthText} fontSize={fontSize} />
 
         </>
     )

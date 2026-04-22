@@ -4,15 +4,21 @@ import PublicFooterImage from "./footer/PublicHeaderImage";
 import PublicHeaderImage from "./header/PublicHeaderImage";
 import PublicSidebar from "./sidebar/index";
 import PublicHeader from "./header";
+import { useReaderSetting } from "@/hooks";
 
 
 export default function PublicLayoutComponent({ children }: { children: React.ReactNode }) {
+    const { fontStyle } = useReaderSetting();
 
     const [isOpenDrawer, setIsOpenDrawer] = React.useState(false);
 
+    const fontClass =
+        fontStyle === "nastaliq"
+            ? "**:font-sans"
+            : "**:font-serif";
 
     return (
-        <div className="flex relative w-full flex-col min-h-screen justify-between">
+        <div className={`flex relative w-full flex-col min-h-screen justify-between ${fontClass}`}>
             <PublicSidebar setIsOpenDrawer={setIsOpenDrawer} isOpenDrawer={isOpenDrawer} />
 
             <PublicHeaderImage />

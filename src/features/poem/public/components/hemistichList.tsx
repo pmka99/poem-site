@@ -52,6 +52,7 @@ export default async function HemistichList({ hemistichs, poemId }: {
     const data = await poemService.getById(poemId)
     const layout = (data?.data?.poemType as PoemTypeResponse)?.layout ?? 2;
 
+
     if (!hemistichs.length) {
         return (
             <>

@@ -4,4 +4,4 @@ export * from "./useConfirm";
 
 export * from "./useViewMode";
 
-export * from "./useReadType";
+export * from "./useReaderSetting";

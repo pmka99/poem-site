@@ -1,4 +1,4 @@
-import ToggleReadTypeButton from "./ToggleReadTypeButton";
+import  ReaderSetting  from "./readerSetting";
 import PublicNavbar from "./navbar";
 
 
@@ -16,12 +16,11 @@ export default function PublicSidebarContent() {
                 </div> */}
 
                 <PublicNavbar />
-                
+
                 <hr className="border-border my-8" />
 
-                <div className="w-full px-1">
-                    <ToggleReadTypeButton />
-                </div>
+                <ReaderSetting />
+
 
             </div>
 

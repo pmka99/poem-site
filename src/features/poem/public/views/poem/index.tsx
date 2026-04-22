@@ -23,7 +23,7 @@ export default async function PoemView({ params, searchParams }: Props) {
     const poem =await poemService.getById(poemId);
 
     return (
-        <div className="flex w-full lg:px-32 flex-col py-5 bg-background/0">
+        <div className="flex w-full flex-col py-5 bg-background/0">
 
             <div className="flex lg:w-1/3 mx-auto text-2xl rounded-xl h-16 p-6 text-primary-foreground items-center justify-center">
                 <span>
