@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import PaginationHemistichView from "./paginitaion";
-import InfiniteHemistichView from "./infinitScroll";
+// import InfiniteHemistichView from "./infinitScroll";
 import { poemService } from "@/features/poem/public/services";
 
 type Props = {

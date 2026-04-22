@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xs: 350px;
+  --breakpoint-xs2: 430px;
+  --breakpoint-lg: 1520px;
+}
+
 /* ==================================================
    Base Theme — Light (Default)
    ================================================== */

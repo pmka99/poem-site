@@ -2,6 +2,7 @@
 
 import MuiProvider from "@/theme/MuiProvider"
 import { Pagination, Stack } from "@mui/material"
+import Link from "next/link"
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
 
 export default function PaginationSection({ totalPages }: { totalPages: number }) {
@@ -39,6 +40,25 @@ export default function PaginationSection({ totalPages }: { totalPages: number }
                     boundaryCount={1}
                 />
             </Stack>
+            {page < totalPages && (
+                <Link
+                    href={`${pathname}?page=${page + 1}`}
+                    className="sr-only"
+                    rel="next"
+                >
+                    صفحه بعد
+                </Link>
+            )}
+
+            {page > 1 && (
+                <Link
+                    href={`${pathname}?page=${page - 1}`}
+                    className="sr-only"
+                    rel="prev"
+                >
+                    صفحه قبل
+                </Link>
+            )}
         </MuiProvider>
     )
 }
