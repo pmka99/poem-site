@@ -7,6 +7,7 @@ import { HemistichResponse } from "@/shared/types/hemistich.type";
 import { PoemTypeResponse } from "@/shared/types/poemType.type";
 import { useEffect, useState } from "react";
 import { PoemInfoBox } from "../../../components/poemInfoBox";
+import { useReaderSetting } from "@/hooks";
 
 
 type Props = {
@@ -58,6 +59,9 @@ export default function InfiniteHemistichView({ poemId }: Props) {
     const [layout, setLayout] = useState<number>(2);
     const [averageLengthText, setAverageLengthText] = useState<number>(0);
 
+    const { fontSize } = useReaderSetting();
+
+
     useEffect(() => {
         (async () => {
             const poem = await poemService.getById(poemId)
@@ -69,9 +73,11 @@ export default function InfiniteHemistichView({ poemId }: Props) {
         (async () => {
             const res = await poemService.getAllHemistichs(poemId, { page });
             setTotalPages(res.meta?.totalPage ?? 0)
-            if (!averageLengthText) {
+            if (!averageLengthText && res.data && res.data.length > 0) {
                 const sum = res.data?.reduce((pre, hemistich) => (pre + hemistich.text.length), 0) ?? 0
-                setAverageLengthText(sum / hemistichs.length)
+                console.log(sum, res.data.length);
+
+                setAverageLengthText(sum / res.data.length)
             }
             const formattedHemistich = formatHemistichs(res.data ?? [], layout) ?? []
             setHemistichs(prev => ([...prev, ...formattedHemistich]))
@@ -88,6 +94,7 @@ export default function InfiniteHemistichView({ poemId }: Props) {
 
             <hr className="border-primary lg:mx-28" />
             <HemistichVirtualList
+                key={`${fontSize}-${layout}`}
                 layout={layout}
                 averageLengthText={averageLengthText}
                 hemistichs={hemistichs ?? []} />
