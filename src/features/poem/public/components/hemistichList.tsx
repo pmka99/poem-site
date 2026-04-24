@@ -5,6 +5,8 @@ import { poemService } from "../services";
 import VerseLayout2 from "./verseLayout/2";
 import VerseLayout4 from "./verseLayout/4";
 import VerseLayout5 from "./verseLayout/5";
+import { TFontSize } from "@/contexts/readerSettingContext";
+import { cookies } from "next/headers";
 
 function formatHemistichs(hemistichs: HemistichResponse[], layout: number) {
     const newFormatedHemistichs: HemistichResponse[][] = []
@@ -46,12 +48,20 @@ function formatHemistichs(hemistichs: HemistichResponse[], layout: number) {
 
 export default async function HemistichList({ hemistichs, poemId }: {
     hemistichs: HemistichResponse[],
-    poemId: string
+    poemId: string,
 }) {
+
+    const cookieStore = await cookies();
+    const cookieValue = cookieStore.get("font-size")?.value;
+
+    const fontSize: TFontSize = (["small", "medium", "large"] as const).includes(
+        cookieValue as any
+    )
+        ? (cookieValue as TFontSize)
+        : "large";
 
     const data = await poemService.getById(poemId)
     const layout = (data?.data?.poemType as PoemTypeResponse)?.layout ?? 2;
-
 
     if (!hemistichs.length) {
         return (
@@ -77,9 +87,9 @@ export default async function HemistichList({ hemistichs, poemId }: {
                 {
                     formattedHemistich?.map(item => (
                         layout === 2
-                            ? <VerseLayout2 hemistichs={item as any} averageLengthText={averageLengthText} />
-                            : layout === 4 ? <VerseLayout4 hemistichs={item as any} averageLengthText={averageLengthText} />
-                                : layout === 5 ? <VerseLayout5 hemistichs={item as any} averageLengthText={averageLengthText} />
+                            ? <VerseLayout2 fontSize={fontSize} hemistichs={item as any} averageLengthText={averageLengthText} />
+                            : layout === 4 ? <VerseLayout4 fontSize={fontSize} hemistichs={item as any} averageLengthText={averageLengthText} />
+                                : layout === 5 ? <VerseLayout5 fontSize={fontSize} hemistichs={item as any} averageLengthText={averageLengthText} />
                                     : <></>
                     ))
 

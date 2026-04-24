@@ -1,10 +1,10 @@
 import { HemistichResponse } from "@/shared/types/hemistich.type"
 import HemistichItem from "../hemistichItem"
 import { TFontSize } from "@/contexts/readerSettingContext"
-import { cookies } from "next/headers"
 
 type Props = {
     averageLengthText: number
+    fontSize: TFontSize
     hemistichs: [HemistichResponse, HemistichResponse, HemistichResponse, HemistichResponse]
 }
 
@@ -18,15 +18,15 @@ function VerseLayout4_1({ hemistichs, averageLengthText, fontSize }: Props & { f
     }[fontSize]
 
     const marginClass1 = {
-        large: "mb-4",
-        medium: "mb-2",
-        small: "mb-0",
+        large: "pb-4",
+        medium: "pb-2",
+        small: "pb-0",
     }[fontSize]
 
     const marginClass2 = {
-        large: "mb-14",
-        medium: "mb-8",
-        small: "mb-4",
+        large: "pb-14",
+        medium: "pb-8",
+        small: "pb-4",
     }[fontSize]
 
     const widthClass =
@@ -67,15 +67,15 @@ function VerseLayout4_2({ hemistichs, averageLengthText, fontSize }: Props & { f
     }[fontSize]
 
     const marginClass1 = {
-        large: "mb-6",
-        medium: "mb-2",
-        small: "mb-0",
+        large: "pb-6",
+        medium: "pb-2",
+        small: "pb-0",
     }[fontSize]
 
     const marginClass2 = {
-        large: "mb-14",
-        medium: "mb-8",
-        small: "mb-8",
+        large: "pb-14",
+        medium: "pb-8",
+        small: "pb-8",
     }[fontSize]
 
     const widthClass =
@@ -113,16 +113,7 @@ function VerseLayout4_2({ hemistichs, averageLengthText, fontSize }: Props & { f
     )
 }
 
-export default async function VerseLayout4({ hemistichs, averageLengthText }: Props) {
-
-    const cookieStore = await cookies();
-    const cookieValue = cookieStore.get("font-size")?.value;
-
-    const fontSize: TFontSize = (["small", "medium", "large"] as const).includes(
-        cookieValue as any
-    )
-        ? (cookieValue as TFontSize)
-        : "large";
+export default function VerseLayout4({ hemistichs, fontSize, averageLengthText }: Props) {
 
 
     return (

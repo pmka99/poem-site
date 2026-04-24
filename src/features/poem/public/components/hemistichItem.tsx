@@ -24,7 +24,7 @@ function Hemistich({ children }: { children: React.ReactNode }) {
 
 export default function HemistichItem({
     hemistich,
-    averageLengthText
+    averageLengthText,
 }: {
     hemistich: HemistichResponse,
     averageLengthText: number
@@ -33,7 +33,7 @@ export default function HemistichItem({
     
 
     return (
-        <div className={`justify-between w-full lg:h-20 h-fit ${averageLengthText > 32 ? "lg:px-1" : "lg:px-5"
+        <div className={`justify-between w-full h-fit ${averageLengthText > 32 ? "lg:px-1" : "lg:px-5"
             } rounded-sm py-4  flex items-center`}>
             <Hemistich>{hemistich.text}</Hemistich>
         </div>

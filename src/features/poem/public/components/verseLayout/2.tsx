@@ -1,10 +1,10 @@
 import { HemistichResponse } from "@/shared/types/hemistich.type"
 import HemistichItem from "../hemistichItem"
-import { cookies } from "next/headers"
 import { TFontSize } from "@/contexts/readerSettingContext"
 
 type Props = {
   averageLengthText: number
+  fontSize: TFontSize
   hemistichs: [HemistichResponse, HemistichResponse]
 }
 
@@ -19,9 +19,9 @@ function VerseLayout2_1({ hemistichs, averageLengthText, fontSize }: Props & { f
   }[fontSize]
 
   const marginClass = {
-    large: "mb-6",
-    medium: "mb-2",
-    small: "mb-0",
+    large: "pb-6",
+    medium: "pb-2",
+    small: "pb-0",
   }[fontSize]
 
   const widthClass =
@@ -59,9 +59,9 @@ function VerseLayout2_2({ hemistichs, averageLengthText, fontSize }: Props & { f
   }[fontSize]
 
   const marginClass1 = {
-    large: "mb-6",
-    medium: "mb-4",
-    small: "mb-2",
+    large: "pb-6",
+    medium: "pb-4",
+    small: "pb-2",
   }[fontSize]
 
   const widthClass =
@@ -93,16 +93,8 @@ function VerseLayout2_2({ hemistichs, averageLengthText, fontSize }: Props & { f
 }
 
 
-export default async function VerseLayout2({ hemistichs, averageLengthText }: Props) {
+export default function VerseLayout2({ hemistichs, fontSize, averageLengthText }: Props) {
 
-  const cookieStore = await cookies();
-  const cookieValue = cookieStore.get("font-size")?.value;
-
-  const fontSize: TFontSize = (["small", "medium", "large"] as const).includes(
-    cookieValue as any
-  )
-    ? (cookieValue as TFontSize)
-    : "large";
 
 
   return (
