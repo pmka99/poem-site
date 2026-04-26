@@ -80,6 +80,7 @@
 ---
 
 ## 📁 ساختار پروژه (معماری Feature-Based)
+```text
 src/
 ├── 📂 app/ # لایه روتینگ Next.js
 │ ├── 📂 (public)/ # صفحات عمومی (بدون نیاز به لاگین)
@@ -244,27 +245,10 @@ src/
 ├── role.ts | نقش‌های کاربری
 ├── permission.ts | مجوزها
 └── poem.ts | وضعیت‌های شعر
+```
 ---
 
-## 🛠️ تکنولوژی‌های استفاده شده
 
-### فرانت‌اند
-- **[Next.js 16](https://nextjs.org/)** - فریمورک React با قابلیت SSR و SSG
-- **[React 19](https://react.dev/)** - کتابخانه اصلی ساخت UI
-- **[Material-UI (MUI) 7.3](https://mui.com/)** - کامپوننت‌های آماده و استایل‌های زیبا
-- **[TailwindCSS 4](https://tailwindcss.com/)** - فریمورک CSS کاربردی
-- **[TanStack React Query](https://tanstack.com/query/latest)** - مدیریت وضعیت سمت سرور و کش کردن
-- **[React Hook Form](https://react-hook-form.com/)** + **[Zod](https://zod.dev/)** - مدیریت فرم‌ها و اعتبارسنجی
-- **[React Virtual](https://tanstack.com/virtual/latest)** - رندر بهینه لیست‌های بلند
-
-### بک‌اند (API Routes)
-- **[MongoDB](https://www.mongodb.com/) + [Mongoose 9.2](https://mongoosejs.com/)** - دیتابیس NoSQL و ODM
-- **[mongoose-paginate-v2](https://www.npmjs.com/package/mongoose-paginate-v2)** - صفحه‌بندی پیشرفته و بهینه
-- **[bcrypt](https://www.npmjs.com/package/bcrypt)** - هش کردن رمز عبور
-- **[jsonwebtoken (JWT)](https://jwt.io/)** - ایجاد و اعتبارسنجی توکن‌های احراز هویت
-- **[Stylis](https://github.com/thysultan/stylis) + [RTL Plugin](https://github.com/styled-components/stylis-plugin-rtl)** - پشتیبانی از زبان فارسی و راست‌به‌چپ
-
----
 
 ## 📋 پیش‌نیازها
 
@@ -299,7 +283,7 @@ pnpm install
 ### 3️⃣ تنظیم متغیرهای محیطی
 فایل .env را در روت پروژه ایجاد کرده و مقادیر زیر را تنظیم کنید:
 
-bash```
+```.env
 # ==========================================
 # تنظیمات دیتابیس
 # ==========================================
@@ -335,7 +319,7 @@ NEXT_PUBLIC_API_URL=http://localhost:3000/api
 ### 4️⃣ اجرای سیدرها (Seeders)
 برای ایجاد نقش‌های سیستمی و کاربر ادمین در دیتابیس:
 
-bash```
+```bash
 npm run seed
 ```
 این دستور به ترتیب زیر اجرا می‌شود:
@@ -345,14 +329,14 @@ npm run seed
 
 خروجی موفقیت‌آمیز:
 
-text```
+```text
 ✅ Roles seeded successfully
 ✅ Admin user seeded successfully
 ```
 
 ### 5️⃣ اجرای پروژه در حالت توسعه
 
-bash```
+```bash
 npm run dev
 ```
 
@@ -360,7 +344,7 @@ npm run dev
 
 ### 6️⃣ ساخت نسخه تولید (Production)
 
-bash```
+```bash
 npm run build    # ساخت پروژه
 npm start        # اجرای پروژه در حالت production
 ```
@@ -389,14 +373,14 @@ PUT	        /api/poem/[poemId]/hemistichs/range/visibility	تغییر وضعیت
 ## 🧪 راهنمای توسعه
 افزودن Feature جدید
 1. ایجاد پوشه Feature:
-bash```
+```bash
 mkdir src/features/my-feature
 mkdir src/features/my-feature/public
 mkdir src/features/my-feature/protected
 ```
 2.ساختار هر Feature:
 
-text```
+```text
 my-feature/
 ├── public/           # بخش عمومی (بدون لاگین)
 │   ├── api/          # API calls
@@ -411,7 +395,7 @@ my-feature/
 ```
 3.افزودن مدل در سرور:
 
-typescript```
+```typescript
 // src/server/models/myModel.ts
 import mongoose from 'mongoose';
 
@@ -423,7 +407,7 @@ export default mongoose.models.MyModel || mongoose.model('MyModel', MyModelSchem
 ```
 
 4.افزودن Policy دسترسی:
-typescript```
+```typescript
 // src/server/guard/access/policies/myModel.policy.ts
 import { IPolicy } from './IPolicy';
 
@@ -437,7 +421,7 @@ export class MyModelPolicy implements IPolicy {
 5.ثبت Policy در PolicyRegistry
 
 6.ایجاد API Routes:
-typescript```
+```typescript
 // src/app/api/my-feature/route.ts
 import { withValidation } from '@/src/server/validators/withValidation';
 import { protectedRoute } from '@/src/server/guard/protectedRoute';
@@ -463,17 +447,17 @@ Comment	    کامنت‌ها
 1.Fork مخزن
 
 2.Branch جدید ایجاد کنید:
-bash```
+```bash
 git checkout -b feature/amazing-feature
 ```
 3.Commit کنید (از قرارداد Conventional Commits استفاده کنید):
 
-bash```
+```bash
 git commit -m 'feat: add amazing feature'
 ```
 
 4.Push کنید:
-bash```
+```bash
 git push origin feature/amazing-feature
 ```
 5.Pull Request باز کنید
