@@ -29,7 +29,7 @@
 - **نمایش شعر** - مشاهده شعر با دو حالت:
   - 📄 **صفحه‌بندی معمولی**
   - ♾️ **اسکرول نامحدود (Infinite Scroll)**
-- **تنظیمات خواننده** - تغییر فونت، اندازه متن، حالت شب/روز
+- **تنظیمات خواننده** - تغییر فونت، اندازه متن 
 - **حفظ تنظیمات** - ذخیره تنظیمات در localStorage
 
 ### 🔐 بخش احراز هویت (`src/app/auth`)
@@ -352,6 +352,7 @@ npm start        # اجرای پروژه در حالت production
 
 
 ##🔌 API Endpoints مهم
+```text
 ### احراز هویت
 POST	    /api/auth/signIn	ورود کاربر
 POST	    /api/auth/signUp	ثبت‌نام
@@ -368,7 +369,7 @@ PUT	        /api/poem/[poemId]/hemistichs/[hemistichId] 	ویرایش بیت
 DELETE	    /api/poem/[poemId]/hemistichs/[hemistichId] 	حذف بیت
 PUT	        /api/poem/[poemId]/hemistichs/range/movement	جابجایی ترتیب ابیات
 PUT	        /api/poem/[poemId]/hemistichs/range/visibility	تغییر وضعیت نمایش گروهی
-
+```
 
 ## 🧪 راهنمای توسعه
 افزودن Feature جدید
