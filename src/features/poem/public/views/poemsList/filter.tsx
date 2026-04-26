@@ -9,8 +9,8 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const FilterInput = ({ label, children }: { label: string, children: React.ReactNode }) => (
-    <div className="flex gap-1 items-center">
-        <label className="w-fit min-w-fit text-nowrap">{label} : </label>
+    <div className="flex gap-1 items-center h-full">
+        <label className="w-fit h-full min-w-fit items-center text-nowrap">{label} : </label>
         {children}
 
     </div>
@@ -51,7 +51,7 @@ export default function ListFilter() {
             } else {
                 // Optional: if search is cleared, reset page too.
                 // If you want to keep the page when search is cleared, remove this else block.
-                params.set("page", "1");
+                // params.set("page", "1");
             }
             router.replace(`?${params.toString()}`);
 
@@ -92,17 +92,18 @@ export default function ListFilter() {
 
     return (
         <MuiProvider>
-            <div className="grid grid-cols-1 lg:grid-cols-3 rounded-sm gap-2 p-3 lg:mx-80">
+            <div className="grid grid-cols-1 rounded-sm gap-2 p-3 lg:mx-80">
+                
                 <FilterInput label="جستجو">
                     <TextField
-                        className="*:bg-white"
+                        className="*:bg-white w-full"
                         size="small"
                         value={searchInput}
                         onChange={(e) => setSearchInput(e.target.value)}
                     />
                 </FilterInput>
 
-                <FilterInput label="انواع شعر">
+                {/* <FilterInput label="انواع شعر">
                     <MultiSelect
                         value={poemTypesValues}
                         items={poemTypesItems}
@@ -116,11 +117,11 @@ export default function ListFilter() {
                         items={categoriesItems}
                         onChange={categoriesMultiSelectHandler}
                     />
-                </FilterInput>
+                </FilterInput> */}
 
 
 
-            
+
             </div>
         </MuiProvider>
     );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { HemistichResponse } from "@/shared/types/hemistich.type";
 import HemistichItem from "./hemistichItem";
@@ -191,10 +191,19 @@ function calculateHeight(windowWidth: number, layout: number, fontSize: TFontSiz
 export default function HemistichVirtualList({ hemistichs, averageLengthText, layout }: Props) {
 
     const { fontSize } = useReaderSetting();
-
-    const heightOfItem = calculateHeight(window.innerWidth, layout, fontSize)
-
     const parentRef = useRef<HTMLDivElement>(null);
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    // مقدار پیش‌فرض برای SSR
+    let heightOfItem = 200;
+
+    if (isClient) {
+        heightOfItem = calculateHeight(window.innerWidth, layout, fontSize);
+    }
 
     const rowVirtualizer = useVirtualizer({
         count: hemistichs.length,

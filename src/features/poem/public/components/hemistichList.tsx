@@ -87,9 +87,9 @@ export default async function HemistichList({ hemistichs, poemId }: {
                 {
                     formattedHemistich?.map(item => (
                         layout === 2
-                            ? <VerseLayout2 fontSize={fontSize} hemistichs={item as any} averageLengthText={averageLengthText} />
-                            : layout === 4 ? <VerseLayout4 fontSize={fontSize} hemistichs={item as any} averageLengthText={averageLengthText} />
-                                : layout === 5 ? <VerseLayout5 fontSize={fontSize} hemistichs={item as any} averageLengthText={averageLengthText} />
+                            ? <VerseLayout2 key={item[0]._id} fontSize={fontSize} hemistichs={item as any} averageLengthText={averageLengthText} />
+                            : layout === 4 ? <VerseLayout4 key={item[0]._id} fontSize={fontSize} hemistichs={item as any} averageLengthText={averageLengthText} />
+                                : layout === 5 ? <VerseLayout5 key={item[0]._id} fontSize={fontSize} hemistichs={item as any} averageLengthText={averageLengthText} />
                                     : <></>
                     ))
 

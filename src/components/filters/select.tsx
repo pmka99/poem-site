@@ -46,6 +46,7 @@ export function SingleSelect({
             <InputLabel id="single-select-label">{label}</InputLabel>
 
             <Select
+                size="small"
                 labelId="single-select-label"
                 value={selected}
                 label={label}

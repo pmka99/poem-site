@@ -45,15 +45,17 @@ export function MultiSelect({
     };
 
     return (
-        <FormControl size="small" fullWidth className="min-w-55">
-            <InputLabel id="multi-select-label">{label}</InputLabel>
+        <FormControl size="small" fullWidth className="min-w-55 overflow-hidden">
+            <InputLabel size="small" id="multi-select-label">{label}</InputLabel>
 
             <Select
+                name=""
+                size="small"
                 multiple
                 value={selected}
                 label={label}
                 onChange={handleChange}
-                className="bg-white rounded-lg"
+                className="bg-white rounded-lg h-10"
                 renderValue={(selectedIds) =>
                     items
                         .filter((item) => selectedIds.includes(item.id))
