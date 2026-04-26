@@ -1,7 +1,7 @@
 import { HemistichResponse } from "@/shared/types/hemistich.type"
 import HemistichItem from "../hemistichItem"
 import { TFontSize } from "@/contexts/readerSettingContext"
-import { calculatefontSize, calculateWidth } from "./utils"
+import { calculatefontSize, calculateWidth1, calculateWidth2 } from "./utils"
 
 type Props = {
   averageLengthText: number
@@ -21,7 +21,7 @@ function VerseLayout2_1({ hemistichs, averageLengthText, fontSize }: Props & { f
     small: "pb-0",
   }[fontSize]
 
-  const widthClass = calculateWidth(averageLengthText, fontSize)
+  const widthClass = calculateWidth1(averageLengthText, fontSize)
 
   return (
     <div className={`hidden lg:flex ${fsClass} ${marginClass} ${widthClass} justify-center gap-30`}
@@ -45,7 +45,7 @@ function VerseLayout2_2({ hemistichs, averageLengthText, fontSize }: Props & { f
     small: "pb-2",
   }[fontSize]
 
-  const widthClass = calculateWidth(averageLengthText, fontSize)
+  const widthClass = calculateWidth2(averageLengthText, fontSize)
 
 
   return (

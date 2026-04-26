@@ -26,9 +26,9 @@ export default async function PoemView({ params, searchParams }: Props) {
         <div className="flex w-full lg:my-32 mb-16 flex-col py-5 bg-background/0">
 
             <div className="flex lg:w-1/3 mx-auto text-2xl rounded-xl h-16 p-6 text-primary-foreground items-center justify-center">
-                <span>
+                <h1>
                     {poem.data?.title}
-                </span>
+                </h1>
             </div>
 
             {readTypeMode === "pagination" ? (

@@ -22,9 +22,9 @@ export default async function PoemListView({ searchParams }: Props) {
         <div className="flex w-full p-4 flex-col">
 
             <div className="flex lg:w-1/3 mx-auto text-2xl rounded-xl h-16 p-6 text-primary-foreground items-center justify-center">
-                <span>
+                <h1>
                     فهرست
-                </span>
+                </h1>
             </div>
             <br></br>
 
