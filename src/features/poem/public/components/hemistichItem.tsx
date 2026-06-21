@@ -1,20 +1,14 @@
 import { HemistichResponse } from "@/shared/types/hemistich.type";
+import ShowHemistich from "./showHemistich";
 
 function Hemistich({ children }: { children: React.ReactNode }) {
 
     const hemistich = children?.toLocaleString() || "";
 
-    const parts = hemistich.split(" ").filter(part => part.trim().length > 0);
 
     return (
         <div className="w-full select-none">
-            <p aria-hidden="true" className="w-full flex justify-between text-justify">
-                {parts.map((part, index) => (
-                    <span key={index} className="inline-block">
-                        {part}
-                    </span>
-                ))}
-            </p>
+            <ShowHemistich hemistich={hemistich} />
             <p className="sr-only">
                 {hemistich}
             </p>
